@@ -1,0 +1,43 @@
+.form-field {
+    font-size: 25px;
+}
+
+.add-item-form {
+    width: 38%;
+    border: 3px solid orange;
+    border-radius: 12px;
+    margin-bottom: 40px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 25px 20px;
+
+    background-color: white;
+}
+
+.form-items {
+    display: flex;
+    flex-direction: column;
+    color: orange;
+
+    margin-right: 20px;
+}
+
+.form-answers {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    gap: 40px;
+}
+
+.submit-item {
+    margin-left: 35px;
+    height: 50px;
+    width: 70px
+}
+
+.shifted {
+    margin-left: 40px;
+}

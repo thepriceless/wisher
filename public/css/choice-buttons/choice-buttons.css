@@ -1,0 +1,65 @@
+.choice-buttons {
+    display: flex;
+    justify-content: space-between;
+
+    grid-area: buttons;
+    align-items: flex-end;
+}
+
+.choice-buttons__add{
+    box-sizing: border-box;
+    width: 160px;
+    height: 40px;
+    align-items: center;
+    text-align: center;
+
+    padding: 5px;
+    border: 2px solid #fff;
+    border-radius: 24px;
+
+    text-transform: uppercase;
+    color: #696b6c;
+    font-family: 'Bold';
+    font-size: 15px;
+
+    background: rgba(255, 255, 255, 1);
+}
+
+.choice-buttons__add_leftmost{
+    margin-left: 0;
+}
+
+@media (max-width: 1300px) {
+    .choice-buttons__add {
+        width: 140px;
+        font-size: 15px;
+        padding: 5px 3px;
+    }
+}
+
+@media (max-width: 800px) {
+    .choice-buttons {
+        justify-content: space-evenly;
+    }
+}
+
+@media (max-width: 500px) {
+    .choice-buttons__add {
+        width: 40%;
+        font-size: 10px;
+        padding: 4px 3px;
+    }
+
+    .choice-buttons {
+        justify-content: space-evenly;
+    }
+}
+
+/* 
+@media (max-width: 800px) {
+    .choice-buttons {
+        flex-direction: row;
+        position: absolute;
+        margin-top: 40vh;
+    }
+} */

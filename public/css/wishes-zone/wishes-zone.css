@@ -1,0 +1,44 @@
+.wish__zone {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 17% 17% 17% 17% 17%;
+}
+
+.wish__item {
+    border: 3px solid #fff;
+    border-radius: 24px;
+    height: 200px;
+}
+
+.wish__back-photo {
+    padding: 6px 20px;
+    height: 188px; /*200 - 6 - 6 */
+    border: 3px transparent;
+    border-radius: 24px;
+    background-image: url(/Media/logo.png);
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.wish__item-title {
+    font-size: 32px;
+    margin: 20px 0 0 0;
+
+    line-height: 1.4em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+.wish__item-date {
+    margin: auto 0 15px;
+    text-align: right;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
