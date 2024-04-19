@@ -1,0 +1,123 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Wishitem {
+  id String @id @default(uuid())
+
+  wishlists Wishlist[]
+
+  imageLinks WishitemLink[]
+
+  title String
+  importance String
+  description String?
+}
+
+model WishitemLink {
+  id String @id @default(uuid())
+
+  wishitems Wishitem[]
+  
+  link String
+}
+
+model Wishlist {
+  id String @id @default(uuid())
+
+  owner User @relation(fields: [ownerNickname], references: [nickname])
+  ownerNickname String
+  
+  wishitems Wishitem[]
+
+  updateSubscribers UpdateSubscriptions[]
+
+  updateNotifications WishlistUpdateNotification[]
+
+  usersAcl PrivateWishlistAcl[]
+
+  privacy PrivacyType
+
+  title String
+}
+
+model User {
+  nickname String @unique
+
+  ownedWishlists Wishlist[]
+
+  accessedPrivateWishlists PrivateWishlistAcl[]
+
+  updateSubscriptions UpdateSubscriptions[]
+
+  updateNotifications WishlistUpdateNotification[]
+
+  sender FriendRequest[] @relation("sender")
+  receiver FriendRequest[] @relation("receiver")
+
+  name String
+  surname String
+  photoLink String?
+}
+
+model PrivateWishlistAcl {
+  @@id([wishlistId, userNickname])
+
+  privateWishlist Wishlist @relation(fields: [wishlistId], references: [id])
+  wishlistId String
+  accessedUser User @relation(fields: [userNickname], references: [nickname])
+  userNickname String
+}
+
+model UpdateSubscriptions {
+  wishlist Wishlist @relation(fields: [wishlistId], references: [id])
+  wishlistId String
+  user User @relation(fields: [userNickname], references: [nickname])
+  userNickname String
+
+  @@id([wishlistId, userNickname])
+}
+
+model FriendRequest {
+  @@id([senderId, receiverId])
+
+  sender User @relation("sender", fields: [senderId], references: [nickname])
+  receiver User @relation("receiver", fields: [receiverId], references: [nickname])
+  senderId String
+  receiverId String
+
+  sent DateTime @default(now())
+}
+
+model WishlistUpdateNotification {
+  @@id([receiverNickname, wishlistId])
+
+  receiver User @relation(fields: [receiverNickname], references: [nickname])
+  receiverNickname String
+  wishlist Wishlist @relation(fields: [wishlistId], references: [id])
+  wishlistId String
+
+  type WishlistUpdateNotificationType
+}
+
+enum PrivacyType {
+  Public
+  Friendly
+  Private
+}
+
+enum WishlistUpdateNotificationType {
+  ItemAdded
+  ItemDeleted
+}
