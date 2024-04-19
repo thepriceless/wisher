@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link href="css/stylesheet.css" rel="stylesheet">
+  <link href="css/logo/logo.css" rel="stylesheet">
+  <link href="css/nav-bar/nav-bar.css" rel="stylesheet">
+  <link href="css/log-out/log-out.css" rel="stylesheet">
+  <link href="css/suggestion-zone/suggestion-zone.css" rel="stylesheet">
+  <link href="css/choice-buttons/choice-buttons.css" rel="stylesheet">
+  <link href="css/credentials/credentials.css" rel="stylesheet">
+  <script src="js/highlight-current-menu-item.js"></script>
+  <script src="js/fetch-page.js"></script>
+  <script src="js/find-name.js"></script>
+  <title>Wisher</title>
+</head>
+<body>
+<div class="body__main">
+  {{> navbar}}
+  <main class="suggestion-zone-with-buttons">
+    <button class="suggestion-zone__button"  type="button">
+        <img class="suggestion-zone__button_left" src="objects/arrow-button.svg" alt="next"/>
+    </button>
+    <div class="suggestion-zone">
+        <h1 class="suggestion-zone__title">
+            Glamourous super-visiting card
+        </h1>
+        <h3 class="suggestion-zone__description">
+            Это гламурная супер-визитка, которую сбацал дизайнер Никитка.
+        </h3>
+        <div class="choice-buttons">
+            <button class="choice-buttons__add choice-buttons__add_leftmost" type="button">Add to private</button>
+            <button class="choice-buttons__add" type="button">Add to public</button>
+        </div>
+        <img class="suggestion-zone__photo" src="objects/question-white.png" alt="wisherexample">
+    </div>
+    <button class="suggestion-zone__button" type="button">
+        <img class="suggestion-zone__button_right" src="objects/arrow-button.svg" alt="next"/>
+    </button>
+  </main>
+  {{> footerAd}}
+</div>
+</body>
+</html>

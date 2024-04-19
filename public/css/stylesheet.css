@@ -21,6 +21,12 @@ body {
     margin: 0px;
 }
 
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .body__main {
     margin-top: 3vh;
     padding-top: 1.5vh;
