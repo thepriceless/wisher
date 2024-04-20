@@ -6,6 +6,15 @@
 
 Web application for storing, sharing and updating your wishlist of items or presents
 
+### Generated ERD
+
+![ERD](https://github.com/is-web-y25/urlapov-m33001/blob/master/prisma/erd/erd-generated.jpg?raw=true)
+---
+
+### ERD made beforehand
+
+![beforehand ERD](https://github.com/is-web-y25/urlapov-m33001/blob/master/prisma/erd/erd-beforehand.jpg?raw=true)
+
 ## Credits
 
 Urlapov Fyodor, ITMO University
