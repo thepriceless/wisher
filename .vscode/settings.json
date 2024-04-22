@@ -7,5 +7,11 @@
             "name": "Wisher",
             "connectString": "postgres://wisher_postgres_db_user:CkIbQYosdEMf03YVGyJxXJKgoc94PTLU@dpg-coh2tq6v3ddc73ffu7fg-a.frankfurt-postgres.render.com/wisher_postgres_db"
         }
+    ],
+
+    "editor.codeActionsOnSave": [
+        {
+            "source.fixAll.eslint": true
+        }
     ]
 }

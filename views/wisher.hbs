@@ -13,6 +13,7 @@
   <script src="js/highlight-current-menu-item.js"></script>
   <script src="js/fetch-page.js"></script>
   <script src="js/find-name.js"></script>
+  <script src="js/wisher-page.js"></script>
   <title>Wisher</title>
 </head>
 <body>
@@ -23,19 +24,19 @@
         <img class="suggestion-zone__button_left" src="objects/arrow-button.svg" alt="next"/>
     </button>
     <div class="suggestion-zone">
-        <h1 class="suggestion-zone__title">
-            Glamourous super-visiting card
+        <h1 class="suggestion-zone__title" id="wisher-item-title">
+            {{ title }}
         </h1>
-        <h3 class="suggestion-zone__description">
-            Это гламурная супер-визитка, которую сбацал дизайнер Никитка.
+        <h3 class="suggestion-zone__description" id="wisher-item-description">
+            {{ description }}
         </h3>
         <div class="choice-buttons">
             <button class="choice-buttons__add choice-buttons__add_leftmost" type="button">Add to private</button>
             <button class="choice-buttons__add" type="button">Add to public</button>
         </div>
-        <img class="suggestion-zone__photo" src="objects/question-white.png" alt="wisherexample">
+        <img class="suggestion-zone__photo" id="wisher-item-image" src={{ imageLink }} alt="wisherexample">
     </div>
-    <button class="suggestion-zone__button" type="button">
+    <button class="suggestion-zone__button" type="button" onclick="wisherGetNextItem()">
         <img class="suggestion-zone__button_right" src="objects/arrow-button.svg" alt="next"/>
     </button>
   </main>
