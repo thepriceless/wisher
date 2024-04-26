@@ -1,8 +1,11 @@
+const SECONDS_IN_A_DAY = 86400;
+
 async function login(event) {
   event.preventDefault();
 
   const form = event.target;
   const formData = new FormData(form);
+  console.log('wewer');
   const response = await fetch('/auth/login', {
     method: 'POST',
     headers: {
@@ -12,17 +15,20 @@ async function login(event) {
   });
   if (response.ok) {
     const data = await response.json();
-    console.log('Response OK');
-    document.cookie = `AccessToken=${data.access_token}; path=/`;
+    document.cookie = `AccessToken=${data.access_token}; path=/; expires=${calculateExpirationTimeForJwt()}`;
     window.location.href = '/';
-  } else {
-    console.log('Response not OK');
-    console.log('Status:', response.status);
-    if (response.status === 401) {
-      const mainElement = document.querySelector('main');
-      const messageElement = document.createElement('p');
-      messageElement.textContent = 'Unauthorized: Invalid username or password';
-      mainElement.appendChild(messageElement);
-    }
+  } else if (response.status === 401) {
+    const mainElement = document.querySelector('main');
+    const messageElement = document.createElement('p');
+    messageElement.textContent = 'Unauthorized: Invalid username or password';
+    mainElement.appendChild(messageElement);
   }
+}
+
+function calculateExpirationTimeForJwt() {
+  let now = new Date();
+  let time = now.getTime();
+  let expireTime = time + SECONDS_IN_A_DAY * 1000;
+  now.setTime(expireTime);
+  return now.toUTCString();
 }

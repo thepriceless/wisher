@@ -1,3 +1,5 @@
+const SECONDS_IN_A_DAY = 86400;
+
 async function signup(event) {
   event.preventDefault();
 
@@ -10,8 +12,23 @@ async function signup(event) {
     },
     body: new URLSearchParams(formData),
   });
-  const data = await response.json();
-  console.log(data.access_token);
-  localStorage.setItem('accessToken', data.access_token);
-  window.location.href = '/';
+  if (response.ok) {
+    const data = await response.json();
+    const expirationTime = calculateExpirationTimeForJwt();
+    document.cookie = `AccessToken=${data.access_token}; path=/; expires=${expirationTime}`;
+    window.location.href = '/';
+  } else if (response.status === 400) {
+    const mainElement = document.querySelector('main');
+    const messageElement = document.createElement('p');
+    messageElement.textContent = 'Account with this nickname already exists';
+    mainElement.appendChild(messageElement);
+  }
+}
+
+function calculateExpirationTimeForJwt() {
+  let now = new Date();
+  let time = now.getTime();
+  let expireTime = time + SECONDS_IN_A_DAY * 1000;
+  now.setTime(expireTime);
+  return now.toUTCString();
 }

@@ -14,9 +14,9 @@ export class AuthService {
   ) {}
 
   async validateUser(nickname: string, password: string): Promise<UserEntity> {
-    console.log('service ', nickname);
+    // console.log('service ', nickname);
     const user: UserEntity = await this.userService.findOneByNickname(nickname);
-    console.log('service user ', user);
+    // console.log('service user ', user);
     if (!user) {
       console.log('user not found');
       return null;
@@ -35,10 +35,11 @@ export class AuthService {
   }
 
   async register(user: RegisterRequestDto): Promise<AccessToken> {
-    // console.log('service dto ', user);
+    console.log('service dto ', user);
     const existingUser = await this.userService.findOneByNickname(
       user.nickname,
     );
+    console.log('service existingUser ', existingUser);
     if (existingUser) {
       throw new BadRequestException('Nickname already reserved');
     }

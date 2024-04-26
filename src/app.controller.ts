@@ -21,7 +21,7 @@ export class AppController {
   @Get('/friends')
   @Render('friends')
   friends() {
-    console.log('friends');
+    return;
   }
 
   @Get()

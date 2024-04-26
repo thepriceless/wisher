@@ -6,20 +6,19 @@ import { AuthController } from './auth.controller';
 import { UserModule } from 'src/user/user.module';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { SECONDS_IN_A_DAY } from 'src/constants';
 
 @Module({
   imports: [
     UserModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET'),
+      useFactory: async () => ({
+        secret: process.env.JWT_SECRET,
         signOptions: {
-          expiresIn: parseInt(
-            configService.getOrThrow<string>(
-              'ACCESS_TOKEN_VALIDITY_DURATION_IN_SEC',
-            ),
-          ),
+          expiresIn:
+            parseInt(process.env.ACCESS_TOKEN_VALIDITY_DURATION_DAYS) *
+            SECONDS_IN_A_DAY,
         },
       }),
       inject: [ConfigService],
