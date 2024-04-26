@@ -1,4 +1,3 @@
-// Create a function to fetch data using Fetch API
 function fetchData(url) {
     return new Promise((resolve, reject) => {
         fetch(url)

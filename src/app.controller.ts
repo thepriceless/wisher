@@ -3,6 +3,7 @@ import { AppService } from './app.service';
 import { TimeInterceptor } from './interceptors/time.interceptor';
 import { WishitemEntity } from './wishes/wishitem.entity';
 import { WisherService } from './wishes/wisher.service';
+import { Public } from './auth/decorators/public.decorator';
 
 @Controller()
 @UseInterceptors(TimeInterceptor)
@@ -20,11 +21,12 @@ export class AppController {
   @Get('/friends')
   @Render('friends')
   friends() {
-    return;
+    console.log('friends');
   }
 
   @Get()
   @Render('wisher')
+  @Public()
   async wisher(): Promise<WishitemEntity> {
     const item = await this.wisherService.getRandomWishitem();
     return {
@@ -34,5 +36,19 @@ export class AppController {
       id: item.id,
       imageLink: item.imageLink,
     };
+  }
+
+  @Get('/auth/login')
+  @Render('login')
+  @Public()
+  async login() {
+    return;
+  }
+
+  @Get('/auth/register')
+  @Render('register')
+  @Public()
+  async register() {
+    return;
   }
 }

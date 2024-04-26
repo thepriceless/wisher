@@ -1,6 +1,5 @@
 (function () {
   document.addEventListener('DOMContentLoaded', function (event) {
-
     const currentPage = document.location.pathname;
     const menuItems = document.getElementsByClassName('nav-bar__box');
 

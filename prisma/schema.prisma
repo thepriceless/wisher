@@ -37,6 +37,7 @@ model Wishlist {
 
 model User {
   nickname                   String                       @unique
+  password                   String
   ownedWishlists             Wishlist[]
   accessedPrivateWishlists   PrivateWishlistAcl[]
   updateSubscriptions        UpdateSubscriptions[]
