@@ -1,0 +1,37 @@
+.login-form {
+
+}
+
+.login-form-wrap {
+    padding: 20px 30px;
+    width: 350px;
+    border-radius: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ed8f2c;
+}
+
+.form-input {
+    background-color: #ffffff;
+    border: none;
+    font-size: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-family: "Regular", "Bold", sans-serif;
+}
+
+.body__main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@font-face {
+    font-family: "Regular";
+    src: url("/fonts/SpaceMono-Regular.ttf");
+}
+@font-face {
+    font-family: "Bold";
+    src: url("/fonts/SpaceMono-Bold.ttf");
+}

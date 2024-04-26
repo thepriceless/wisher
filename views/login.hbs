@@ -7,6 +7,7 @@
     <meta name="description" content="Login page">
     <link href="/css/stylesheet.css" rel="stylesheet">
     <link href="/css/logo/logo.css" rel="stylesheet">
+    <link href="/css/forms/login-form.css" rel="stylesheet">
     <link href="/css/nav-bar/nav-bar.css" rel="stylesheet">
     <link href="/css/log-out/log-out.css" rel="stylesheet">
     <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
@@ -18,20 +19,18 @@
     <title>Login</title>
 </head>
 <body>
-    <div class="body__main">
-        <main>
+    <main class="body__main">
+        <div class="login-form-wrap">
             <form onsubmit="login(event)" class="login-form">
                 <div class="form-items">
-                    <label for="nickname" class="form-field">Nickname</label>
-                    <input type="text" id="nickname" name="nickname" required><br>
-                    <label for="password" class="form-field">Password</label>
-                    <input type="password" id="password" name="password" required>
+                    <input class="form-input" type="text" id="nickname" name="nickname" placeholder="Nickname" required><br>
+                    <input class="form-input" type="password" id="password" name="password" placeholder="Password" required>
                     <input type="submit" value="Sign in">
                 </div>
                 <p>Don't have an account? <a href="/auth/register">Register here</a></p>
             </form>
-        </main>
-        {{> footerAd}}
-    </div>
+        </div>
+    </main>
+    {{> footerAd}}
 </body>
 </html>
