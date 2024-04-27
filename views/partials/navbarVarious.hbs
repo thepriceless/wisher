@@ -1,0 +1,8 @@
+{{> navbarStart}}
+        {{#if user}}
+            {{> navbarLoggedInUserImage }}
+            {{> logoutButton}}
+        {{else}}
+            {{> loginButton}}
+        {{/if}}
+{{> navbarEnd}}

@@ -18,7 +18,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     console.log('local strategy user ', user);
     if (!user) {
       // console.log('local strategy user not found');
-      window.location.href = '/auth/login';
       throw new UnauthorizedException();
     }
     return user;

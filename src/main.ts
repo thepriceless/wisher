@@ -12,7 +12,6 @@ async function bootstrap() {
 
   app.setViewEngine('hbs');
   hbs.registerPartials(join(__dirname, '..', 'views', 'partials'));
-
   const configService = app.get(ConfigService);
   const port = configService.get('PORT') || 2024;
   await app.listen(port);

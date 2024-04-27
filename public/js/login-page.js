@@ -1,5 +1,3 @@
-const SECONDS_IN_A_DAY = 86400;
-
 async function login(event) {
   event.preventDefault();
 
@@ -23,12 +21,4 @@ async function login(event) {
     messageElement.textContent = 'Unauthorized: Invalid username or password';
     mainElement.appendChild(messageElement);
   }
-}
-
-function calculateExpirationTimeForJwt() {
-  let now = new Date();
-  let time = now.getTime();
-  let expireTime = time + SECONDS_IN_A_DAY * 1000;
-  now.setTime(expireTime);
-  return now.toUTCString();
 }

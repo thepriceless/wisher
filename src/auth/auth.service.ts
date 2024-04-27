@@ -15,7 +15,7 @@ export class AuthService {
 
   async validateUser(nickname: string, password: string): Promise<UserEntity> {
     // console.log('service ', nickname);
-    const user: UserEntity = await this.userService.findOneByNickname(nickname);
+    const user = await this.userService.findOneByNickname(nickname);
     // console.log('service user ', user);
     if (!user) {
       console.log('user not found');
