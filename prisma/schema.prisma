@@ -68,12 +68,12 @@ model UpdateSubscriptions {
 }
 
 model FriendRequest {
-  @@id([senderId, receiverId])
+  @@id([senderNickname, receiverNickname])
 
-  sender     User   @relation("sender", fields: [senderId], references: [nickname])
-  receiver   User   @relation("receiver", fields: [receiverId], references: [nickname])
-  senderId   String
-  receiverId String
+  sender           User   @relation("sender", fields: [senderNickname], references: [nickname])
+  receiver         User   @relation("receiver", fields: [receiverNickname], references: [nickname])
+  senderNickname   String
+  receiverNickname String
 
   sent DateTime @default(now())
 }
@@ -90,12 +90,12 @@ model WishlistUpdateNotification {
 }
 
 enum PrivacyType {
-  Public
-  Friendly
-  Private
+  PUBLIC
+  FRIENDS
+  PRIVATE
 }
 
 enum WishlistUpdateNotificationType {
-  ItemAdded
-  ItemDeleted
+  ITEMADDED
+  ITEMDELETED
 }

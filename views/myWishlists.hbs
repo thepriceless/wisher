@@ -17,33 +17,20 @@
     <script src="/js/upload-wish-item.js"></script>
     <script src="/js/fetch-page.js"></script>
     <script src="/js/login-redirections.js"></script>
+    <script src="/js/wishlists-page.js"></script>
     <title>My wishlist</title>
 </head>
 <body>
     <div class="body__main">
         {{> navbarLoggedSure}}
         <main class="shifted">
-            <form onsubmit="addWishItem(event)" class="add-item-form">
-                <div class="form-items">
-                    <label class="form-field">Item name:</label><br>
-                    <label class="form-field">Item image:</label><br>
-                </div>
-                <div class="form-answers">
-                    <input type="text" id="item-name" name="item-name">
-                    <input type="file" name="picture"/>
-                </div>
-                <button class="submit-item" type="submit">Add</button>
-            </form>
-            <div class="wish__zone">
-                <template class="wish__item-template">
-                    <div class="wish__item">
-                        <div class="wish__back-photo">
-                            <h2 class="wish__item-title">Title</h2>
-                            <h5 class="wish__item-date">13.12.2022</h5>
-                        </div>
-                    </div>
-                </template>
+            {{#each wishlists}}
+            <div class="wishlist-item">
+                <button onclick="showWishlistWithId({{this.id}})">
+                    <h2 class="wishlist-item__title">{{this.privacy}}</h2>
+                </button>
             </div>
+            {{/each}}
         </main>
         {{> footerAd}}
     </div>

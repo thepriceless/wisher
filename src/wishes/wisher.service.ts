@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
 import { WishitemEntity } from './wishitem.entity';
+import { PrismaService } from 'src/prismas/prisma.service';
 
 @Injectable()
 export class WisherService {

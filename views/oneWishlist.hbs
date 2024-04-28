@@ -11,30 +11,35 @@
     <link href="/css/log-out/log-out.css" rel="stylesheet">
     <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
     <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
-    <link href="/css/friends/friends-list.css" rel="stylesheet">
+    <link href="/css/forms/forms.css" rel="stylesheet">
     <link href="/css/credentials/credentials.css" rel="stylesheet">
     <script src="/js/highlight-current-menu-item.js"></script>
+    <script src="/js/upload-wish-item.js"></script>
     <script src="/js/fetch-page.js"></script>
-    <script src="/js/friends-page.js"></script>
     <script src="/js/login-redirections.js"></script>
-    <title>Friends</title>
+    <title>My wishlist</title>
 </head>
 <body>
     <div class="body__main">
         {{> navbarLoggedSure}}
-        <main>
-            <div class="friends-zone">
-                <h1 class="friends-list__title">Friends</h1>
-                <div class="friends-list">
-                    {{!-- <img class="preloader" src="media/XHXn.gif"> --}}
-                    {{#each friends}}
-                    <div class="friend-item">
-                        <button onclick="showProfileWithNickname({{this.nickname}})">
-                            <h2 class="friend-nickname">{{this.nickname}}</h2>
-                        </button>
-                    </div>
-                    {{/each}}
+        <main class="shifted">
+            {{!-- <form onsubmit="addWishItem(event)" class="add-item-form">
+                <div class="form-items">
+                    <label class="form-field">Item name:</label><br>
+                    <label class="form-field">Item image:</label><br>
                 </div>
+                <div class="form-answers">
+                    <input type="text" id="item-name" name="item-name">
+                    <input type="file" name="picture"/>
+                </div>
+                <button class="submit-item" type="submit">Add</button>
+            </form> --}}
+            <div class="wish__zone">
+                {{#each wishitems}}
+                <div class="wishitem">
+                    <h2 class="wishitem__title">{{this.title}}</h2>
+                </div>
+                {{/each}}
             </div>
         </main>
         {{> footerAd}}
