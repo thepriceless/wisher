@@ -12,12 +12,22 @@
     flex-direction: column;
 }
 
+.friend-button {
+    border-radius: 20px;
+    padding: 20px 40px;
+    width: 200px;
+}
+
+.friend-card{
+    margin: 20px 0 20px 20px;
+}
+
 .friend-item {
     display: flex;
     flex-direction: row;
-    height: 250px;
-    margin-left: 20px;
+    height: 200px;
     border-bottom: 1px solid white;
+    
 }
 
 .friend-photo {

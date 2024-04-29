@@ -7,7 +7,6 @@
 
 .nav-bar__text {
     margin: 0px;
-
     font-family: 'Bold';
     font-size: 20px;
     text-transform: uppercase;
@@ -25,7 +24,6 @@
 
 .nav-bar__box {
     box-sizing: border-box;
-    padding: 6px 20px;
     border: 3px solid #fff;
     border-radius: 24px;
     display: flex;
@@ -40,8 +38,32 @@
     text-decoration: none;
 }
 
+.nav-bar__padding-box {
+    padding: 6px 20px;
+}
+
+.nav-bar__padding-text {
+    padding: 6px 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.nav-bar__vertical-divider {
+    border-left: 3px solid #fff;
+    height: 30px;
+}
+
 .nav-bar__box:hover {
     background-color: #ef9e46;
+}
+
+.add-item-to-wishlist {
+    height: 25px;
+    margin: 6px;
+}
+
+#mywishlists {
+    padding-right: 7px;
 }
 
 @media (max-width: 500px) {

@@ -29,9 +29,11 @@
                     {{!-- <img class="preloader" src="media/XHXn.gif"> --}}
                     {{#each friends}}
                     <div class="friend-item">
-                        <button onclick="showProfileWithNickname({{this.nickname}})">
-                            <h2 class="friend-nickname">{{this.nickname}}</h2>
-                        </button>
+                        <div class="friend-card">
+                            <button class="friend-button" onclick="showProfileWithNickname({{this.nickname}})">
+                                <h2 class="friend-nickname">{{this.nickname}}</h2>
+                            </button>
+                        </div>
                     </div>
                     {{/each}}
                 </div>
