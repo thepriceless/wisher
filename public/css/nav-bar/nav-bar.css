@@ -50,7 +50,7 @@
 
 .nav-bar__vertical-divider {
     border-left: 3px solid #fff;
-    height: 30px;
+    height: 42px;
 }
 
 .nav-bar__box:hover {
@@ -64,6 +64,10 @@
 
 #mywishlists {
     padding-right: 7px;
+}
+
+#plus-icon-add {
+    height: 100%;
 }
 
 @media (max-width: 500px) {

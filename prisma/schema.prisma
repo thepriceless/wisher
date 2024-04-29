@@ -12,7 +12,7 @@ model Wishitem {
   wishlists      Wishlist[]
   itemshopLinks  WishitemLink[]
   title          String
-  importance     String
+  importance     Int
   description    String?
   imageLink      String?
 }

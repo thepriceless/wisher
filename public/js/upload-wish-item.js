@@ -1,43 +1,75 @@
-function pushData(event) {
+async function uploadItem(event) {
   event.preventDefault();
-  let view = document.getElementById('wishlist-items');
-  let newTd = document.createElement('li');
-  const inputText = document.getElementById('item-name').value;
-  const node = document.createTextNode(inputText);
-  newTd.appendChild(node);
-  view.appendChild(newTd);
-}
 
-function addWishItem(event) {
-  event.preventDefault();
-  const form = event.target;
-  const itemName = form.elements['item-name'].value;
-  const itemImage = form.elements['picture'].files[0];
+  const privacyType = new URLSearchParams();
+  const privacy = document.getElementById('wishlist').value;
+  privacyType.append('privacy', privacy);
+  const wishlistResponse = await fetch('/wishlists/by-privacy-owner', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: privacyType,
+  });
+  if (wishlistResponse.ok) {
+    const wishlistData = await wishlistResponse.json();
+    const form = event.target;
+    const formData = new FormData(form);
+    formData.delete('wishlist');
+    formData.append('wishlistId', wishlistData.id);
 
-  const template = document.getElementsByClassName('wish__item-template')[0];
-  const clone = template.content.cloneNode(true);
-  if (itemImage !== undefined) {
-    clone.querySelector('.wish__back-photo').style.backgroundImage =
-      `url(${URL.createObjectURL(itemImage)})`;
-  }
-  clone.querySelector('.wish__item-title').textContent = itemName;
-  document.getElementsByClassName('wish__zone')[0].appendChild(clone);
-
-  let wishItems = JSON.parse(localStorage.getItem('wishItems')) || [];
-  wishItems.push({ itemName, itemImage: null });
-  localStorage.setItem('wishItems', JSON.stringify(wishItems));
-}
-
-window.onload = function () {
-  let wishItems = JSON.parse(localStorage.getItem('wishItems')) || [];
-  for (let wishItem of wishItems) {
-    const template = document.getElementsByClassName('wish__item-template')[0];
-    const clone = template.content.cloneNode(true);
-    if (wishItem.itemImage !== null) {
-      clone.querySelector('.wish__back-photo').style.backgroundImage =
-        `url(${wishItem.itemImage})`;
+    let itemShopLinks = formData.getAll('itemshopLinks');
+    if (itemShopLinks.length !== 0) {
+      formData.delete('itemshopLinks');
+      itemShopLinks.forEach((link, index) => {
+        formData.append(`itemshopLinks[${index}]`, link);
+      });
     }
-    clone.querySelector('.wish__item-title').textContent = wishItem.itemName;
-    document.getElementsByClassName('wish__zone')[0].appendChild(clone);
+
+    const response = await fetch('/items/new', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(formData),
+    });
+    if (response.ok) {
+      window.location.href = `/wishlists/${wishlistData.id}`;
+      alert('Item successfully added!');
+    } else {
+      console.log('wrong');
+    }
   }
-};
+}
+
+let linkCounter = 1;
+function addLinkField() {
+  if (linkCounter < 3) {
+    linkCounter++;
+
+    let newLinkInput = document.createElement('input');
+    newLinkInput.type = 'url';
+    newLinkInput.id = 'link' + linkCounter;
+    newLinkInput.name = 'itemshopLinks';
+
+    let newLinkLabel = document.createElement('label');
+    newLinkLabel.htmlFor = 'link' + linkCounter;
+    newLinkLabel.textContent = 'Online shop link:';
+
+    let linksContainer = document.getElementById('linksContainer');
+    linksContainer.appendChild(newLinkLabel);
+    linksContainer.appendChild(newLinkInput);
+  }
+}
+
+function removeLinkField() {
+  let linksContainer = document.getElementById('linksContainer');
+  if (linkCounter > 0) {
+    let lastLinkInput = document.getElementById('link' + linkCounter);
+    let lastLinkLabel = lastLinkInput.previousSibling;
+
+    linksContainer.removeChild(lastLinkInput);
+    linksContainer.removeChild(lastLinkLabel);
+    linkCounter--;
+  }
+}

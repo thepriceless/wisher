@@ -83,6 +83,12 @@ export class AppController {
     };
   }
 
+  @Get('/items/new')
+  @Render('uploadItemToWishlist')
+  async uploadItem() {
+    return;
+  }
+
   @Get('/auth/login')
   @Render('login')
   @Public()
