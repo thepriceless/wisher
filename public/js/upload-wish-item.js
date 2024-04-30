@@ -1,37 +1,16 @@
 async function uploadItem(event) {
   event.preventDefault();
-
-  const privacyType = new URLSearchParams();
   const privacy = document.getElementById('wishlist').value;
-  privacyType.append('privacy', privacy);
-  const wishlistResponse = await fetch('/api/wishlists/by-privacy-owner', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: privacyType,
-  });
+  const wishlistResponse = await fetch(`/api/wishlists?privacy=${privacy}`);
   if (wishlistResponse.ok) {
     const wishlistData = await wishlistResponse.json();
-    const form = event.target;
-    const formData = new FormData(form);
-    formData.delete('wishlist');
-    formData.append('wishlistId', wishlistData.id);
-
-    let itemShopLinks = formData.getAll('itemshopLinks');
-    if (itemShopLinks.length !== 0) {
-      formData.delete('itemshopLinks');
-      itemShopLinks.forEach((link, index) => {
-        formData.append(`itemshopLinks[${index}]`, link);
-      });
-    }
-
+    const body = composeDataFromForm(event.target, wishlistData);
     const response = await fetch('/api/items/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: new URLSearchParams(formData),
+      body: body,
     });
     if (response.ok) {
       window.location.href = `/wishlists/${wishlistData.id}`;
@@ -40,6 +19,33 @@ async function uploadItem(event) {
       console.log('wrong');
     }
   }
+}
+
+async function saveExistingItemToWishlist(privacy, wishitemId) {
+  const response = await fetch(`/api/wisher/${wishitemId}?privacy=${privacy}`, {
+    method: 'POST',
+  });
+  if (response.ok) {
+    alert('Item successfully added!');
+  } else {
+    console.log('wrong');
+  }
+}
+
+function composeDataFromForm(form, wishlistData) {
+  const formData = new FormData(form);
+  formData.delete('wishlist');
+  formData.append('wishlistId', wishlistData.id);
+
+  let itemShopLinks = formData.getAll('itemshopLinks');
+  if (itemShopLinks.length !== 0) {
+    formData.delete('itemshopLinks');
+    itemShopLinks.forEach((link, index) => {
+      formData.append(`itemshopLinks[${index}]`, link);
+    });
+  }
+
+  return new URLSearchParams(formData);
 }
 
 let linkCounter = 1;

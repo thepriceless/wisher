@@ -15,6 +15,7 @@
   <script src="/js/find-name.js"></script>
   <script src="/js/wisher-page.js"></script>
   <script src="/js/login-redirections.js"></script>
+  <script src="/js/upload-wish-item.js"></script>
   <title>Wisher</title>
 </head>
 <body>
@@ -32,8 +33,9 @@
             {{ wishitem.description }}
         </h3>
         <div class="choice-buttons">
-            <button class="choice-buttons__add choice-buttons__add_leftmost" type="button">Add to private</button>
-            <button class="choice-buttons__add" type="button">Add to public</button>
+            <button class="choice-buttons__add choice-buttons__add_leftmost" type="button" onclick="saveExistingItemToWishlist('PRIVATE', '{{wishitem.id}}')">Add to private</button>
+            <button class="choice-buttons__add" type="button" onclick="saveExistingItemToWishlist('FRIENDS', '{{wishitem.id}}')">Add to friendly</button>
+            <button class="choice-buttons__add" type="button" onclick="saveExistingItemToWishlist('PUBLIC', '{{wishitem.id}}')">Add to public</button>
         </div>
         <img class="suggestion-zone__photo" id="wisher-item-image" src={{ wishitem.imageLink }} alt="wisherexample">
     </div>

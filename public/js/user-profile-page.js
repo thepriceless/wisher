@@ -9,7 +9,6 @@ async function processFriendRequest(receiverNickname) {
     body: body,
   });
   if (response.ok) {
-    // const data = await response.json();
     const friendshipStateResponse = await getFriendshipState(receiverNickname);
     if (friendshipStateResponse.ok) {
       const data = await friendshipStateResponse.json();

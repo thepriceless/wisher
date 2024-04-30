@@ -15,28 +15,17 @@
     <link href="/css/credentials/credentials.css" rel="stylesheet">
     <script src="/js/highlight-current-menu-item.js"></script>
     <script src="/js/fetch-page.js"></script>
-    <script src="/js/friends-page.js"></script>
     <script src="/js/login-redirections.js"></script>
-    <title>Friends</title>
+    <title>My profile</title>
 </head>
 <body>
     <div class="body__main">
         {{> navbarLoggedSure}}
         <main>
-            <div class="friends-zone">
-                <h1 class="friends-list__title">Friends</h1>
-                <div class="friends-list">
-                    {{!-- <img class="preloader" src="media/XHXn.gif"> --}}
-                    {{#each friends}}
-                    <div class="friend-item">
-                        <div class="friend-card">
-                            <button class="friend-button" onclick="redirectToProfile('{{this.nickname}}')">
-                                <h2 class="friend-nickname">{{this.nickname}}</h2>
-                            </button>
-                        </div>
-                    </div>
-                    {{/each}}
-                </div>
+            <div class="user-profile">
+                <img src="{{user.photoLink}}" alt="User Photo" class="user-profile__photo">
+                <h2 class="user-profile__nickname">{{user.nickname}}</h2>
+                <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
             </div>
         </main>
         {{> footerAd}}

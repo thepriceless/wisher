@@ -15,6 +15,7 @@ import { UserEntity } from './user/user.entity';
 import { UserService } from './user/user.service';
 import { WishlistService } from './wishes/wishlist.service';
 import { FriendRequestState } from './user/friend.request.state.enum';
+import { WishlistEntity } from './wishes/wishlist.entity';
 
 @Controller()
 @UseInterceptors(TimeInterceptor)
@@ -27,7 +28,9 @@ export class AppController {
   ) {}
   @Get('/wishlists')
   @Render('myWishlists')
-  async myWishlist(@Headers('authorization') authorization: string) {
+  async myWishlist(
+    @Headers('authorization') authorization: string,
+  ): Promise<{ wishlists: WishlistEntity[] }> {
     try {
       const user = await this.userService.getUserFromToken(authorization);
       const wishlists = await this.wishlistService.getWishlistsByOwner(user);
@@ -39,7 +42,9 @@ export class AppController {
 
   @Get('/friends')
   @Render('friends')
-  async friends(@Headers('authorization') authorization: string) {
+  async friends(
+    @Headers('authorization') authorization: string,
+  ): Promise<{ friends: UserEntity[] }> {
     try {
       const user = await this.userService.getUserFromToken(authorization);
       const friends = await this.userService.findFriendsByNickname(
@@ -73,30 +78,29 @@ export class AppController {
 
   @Get('/wishlists/:id')
   @Render('oneWishlist')
-  async getWishlist(@Param('id') id: string) {
+  async getWishlist(
+    @Param('id') id: string,
+  ): Promise<{ wishitems: WishitemEntity[] }> {
     const wishitems = await this.wishlistService.getWishitemsByWishlistId(id);
     return {
       wishitems: wishitems,
     };
   }
 
+  @Get('/profile')
+  @Render('myProfile')
+  async getMyProfile(
+    @Headers('authorization') authorization: string,
+  ): Promise<{ user: UserEntity }> {
+    const user = await this.userService.getUserFromToken(authorization);
+    return {
+      user: user,
+    };
+  }
+
   @Get('/items/new')
   @Render('uploadItemToWishlist')
-  async uploadItem() {
-    return;
-  }
-
-  @Get('/auth/login')
-  @Render('login')
-  @Public()
-  async login() {
-    return;
-  }
-
-  @Get('/auth/register')
-  @Render('register')
-  @Public()
-  async register() {
+  async uploadItem(): Promise<void> {
     return;
   }
 
@@ -118,5 +122,19 @@ export class AppController {
       user: host,
       friendshipState: FriendRequestState[friendshipState],
     };
+  }
+
+  @Get('/auth/login')
+  @Render('login')
+  @Public()
+  async login(): Promise<void> {
+    return;
+  }
+
+  @Get('/auth/register')
+  @Render('register')
+  @Public()
+  async register(): Promise<void> {
+    return;
   }
 }

@@ -17,7 +17,7 @@ export class UserService {
     }
   }
 
-  async findOneByNickname(nickname: string): Promise<UserEntity | null> {
+  async findOneByNickname(nickname: string): Promise<UserEntity> {
     return this.prisma.user.findUnique({
       where: {
         nickname: nickname,

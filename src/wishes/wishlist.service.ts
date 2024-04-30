@@ -44,17 +44,13 @@ export class WishlistService {
     const itemshopLinks = Array.isArray(wishitem.itemshopLinks)
       ? wishitem.itemshopLinks
       : [];
+
     const newWishitem = await this.prisma.wishitem.create({
       data: {
         title: wishitem.title,
         importance: wishitem.importance,
         description: wishitem.description,
         imageLink: wishitem.imageLink,
-        wishlists: {
-          connect: {
-            id: wishitem.wishlistId,
-          },
-        },
         itemshopLinks: {
           create: itemshopLinks.map((link) => {
             return {
@@ -65,7 +61,32 @@ export class WishlistService {
       },
     });
 
-    return newWishitem;
+    const wishitemWithWishlist = this.connectExistingWishitemToWishlist(
+      wishitem.wishlistId,
+      newWishitem.id,
+    );
+
+    return wishitemWithWishlist;
+  }
+
+  async connectExistingWishitemToWishlist(
+    wishitemId: string,
+    wishlistId: string,
+  ) {
+    const linkedWishitem = await this.prisma.wishitem.update({
+      where: {
+        id: wishitemId,
+      },
+      data: {
+        wishlists: {
+          connect: {
+            id: wishlistId,
+          },
+        },
+      },
+    });
+
+    return linkedWishitem;
   }
 
   async findWishlistByPrivacyAndOwner(
