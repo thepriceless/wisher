@@ -72,7 +72,7 @@ export class WishlistService {
   async connectExistingWishitemToWishlist(
     wishitemId: string,
     wishlistId: string,
-  ) {
+  ): Promise<WishitemEntity> {
     const linkedWishitem = await this.prisma.wishitem.update({
       where: {
         id: wishitemId,
@@ -101,5 +101,35 @@ export class WishlistService {
     });
 
     return wishlists[0];
+  }
+
+  async getWishitemById(id: string): Promise<WishitemEntity> {
+    const wishitem = await this.prisma.wishitem.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    return wishitem;
+  }
+
+  async deleteItemFromWishlist(
+    wishitemId: string,
+    wishlistId: string,
+  ): Promise<WishitemEntity> {
+    const deletedWishitem = await this.prisma.wishitem.update({
+      where: {
+        id: wishitemId,
+      },
+      data: {
+        wishlists: {
+          disconnect: {
+            id: wishlistId,
+          },
+        },
+      },
+    });
+
+    return deletedWishitem;
   }
 }

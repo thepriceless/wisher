@@ -1,0 +1,20 @@
+.wishitem__delete-button {
+    position: absolute;
+    width: 60px;
+    background-color: #ed8f2c;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.wishitem-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    height: 100%;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    background-color: transparent;
+}

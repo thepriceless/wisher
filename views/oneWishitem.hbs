@@ -12,30 +12,25 @@
     <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
     <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
     <link href="/css/forms/forms.css" rel="stylesheet">
-    <link href="/css/wishlist/wishlist-with-items.css" rel="stylesheet">
     <link href="/css/credentials/credentials.css" rel="stylesheet">
     <script src="/js/highlight-current-menu-item.js"></script>
     <script src="/js/upload-wish-item.js"></script>
     <script src="/js/fetch-page.js"></script>
     <script src="/js/find-user-navbar.js"></script>
     <script src="/js/login-redirections.js"></script>
-    <script src="/js/wishlist-page.js"></script>
     <title>My wishlist</title>
 </head>
 <body>
     <div class="body__main">
         {{> navbarLoggedSure}}
         <main class="shifted">
-            <div class="wish__zone">
-                {{#each wishitems}}
-                <div class="wishitem-card">
-                    <button class="wishitem" onclick="redirectToWishitem('{{this.id}}')">
-                        <h2 class="wishitem__title">{{this.title}}</h2>
-                    </button>
-                    <button class="wishitem__delete-button" onclick="deleteWishitem('{{this.id}}', '{{../wishlistId}}')">Delete</button>
-                </div>
-                {{/each}}
+            <div class="wishitem-zone">
+                <img src="{{wishitem.imageLink}}" alt="User Photo" class="user-profile__photo">
+                <h2 class="wishitem-zone__title">{{wishitem.title}}</h2>
+                <h3 class="wishitem-zone__description">{{wishitem.description}}</h3>
+                <h4 class="wishitem-zone__importance">{{wishitem.importance}}</h4>
             </div>
+            {{!-- <button onclick="deleteWishitem('{{wishitem.id}}')">Delete</button> --}}
         </main>
         {{> footerAd}}
     </div>

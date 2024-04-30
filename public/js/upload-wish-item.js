@@ -5,7 +5,7 @@ async function uploadItem(event) {
   if (wishlistResponse.ok) {
     const wishlistData = await wishlistResponse.json();
     const body = composeDataFromForm(event.target, wishlistData);
-    const response = await fetch('/api/items/new', {
+    const response = await fetch('/api/wishitems/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

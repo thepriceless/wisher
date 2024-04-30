@@ -81,10 +81,11 @@ export class AppController {
   @Render('oneWishlist')
   async getWishlist(
     @Param('id') id: string,
-  ): Promise<{ wishitems: WishitemEntity[] }> {
+  ): Promise<{ wishitems: WishitemEntity[]; wishlistId: string }> {
     const wishitems = await this.wishlistService.getWishitemsByWishlistId(id);
     return {
       wishitems: wishitems,
+      wishlistId: id,
     };
   }
 
@@ -99,7 +100,7 @@ export class AppController {
     };
   }
 
-  @Get('/items/new')
+  @Get('/wishitems/new')
   @Render('uploadItemToWishlist')
   async uploadItem(): Promise<void> {
     return;
@@ -135,6 +136,18 @@ export class AppController {
     return {
       user: host,
       friendshipState: FriendRequestState[friendshipState],
+    };
+  }
+
+  @Get('/wishitems/:id')
+  @Render('oneWishitem')
+  async getWishitemById(
+    @Param('id') id: string,
+  ): Promise<{ wishitem: WishitemEntity }> {
+    const wishitem = await this.wishlistService.getWishitemById(id);
+
+    return {
+      wishitem: wishitem,
     };
   }
 
