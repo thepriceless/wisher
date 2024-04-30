@@ -9,15 +9,15 @@ import {
 } from '@nestjs/common';
 import { WishlistService } from './wishlist.service';
 import { PrivacyType } from './privacy-type.enum';
-import { UtiliesForControllers } from 'src/utility/controllers.common';
 import { NewWishitemDto } from './new.wishitem.dto';
 import { WishlistEntity } from './wishlist.entity';
+import { UserService } from 'src/user/user.service';
 
-@Controller()
+@Controller('/api')
 export class WishlistController {
   constructor(
     private readonly wishlistService: WishlistService,
-    private readonly utilities: UtiliesForControllers,
+    private readonly userService: UserService,
   ) {}
   @Post('/items/new')
   async saveNewItem(@Body() newWishitemDto: NewWishitemDto) {
@@ -31,7 +31,7 @@ export class WishlistController {
     @Headers('authorization') authorization: string,
     @Body() body,
   ): Promise<WishlistEntity> {
-    const owner = await this.utilities.getUserFromToken(authorization);
+    const owner = await this.userService.getUserFromToken(authorization);
 
     const privacy = body.privacy;
     const privacyType = PrivacyType[privacy as keyof typeof PrivacyType];

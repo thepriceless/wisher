@@ -3,7 +3,7 @@ async function signup(event) {
 
   const form = event.target;
   const formData = new FormData(form);
-  const response = await fetch('/auth/register', {
+  const response = await fetch('/api/auth/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',

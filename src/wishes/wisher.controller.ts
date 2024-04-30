@@ -2,10 +2,10 @@ import { Controller, Get } from '@nestjs/common';
 import { WisherService } from './wisher.service';
 import { WishitemEntity } from './wishitem.entity';
 
-@Controller('wisher/random-item')
+@Controller('/api')
 export class WisherController {
   constructor(private readonly wisherService: WisherService) {}
-  @Get()
+  @Get('wisher/random-item')
   async getRandomWishitem(): Promise<WishitemEntity> {
     return await this.wisherService.getRandomWishitem();
   }

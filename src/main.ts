@@ -12,6 +12,9 @@ async function bootstrap() {
 
   app.setViewEngine('hbs');
   hbs.registerPartials(join(__dirname, '..', 'views', 'partials'));
+  hbs.registerHelper('eq', function (a: string, b: string) {
+    return a === b;
+  });
   const configService = app.get(ConfigService);
   const port = configService.get('PORT') || 2024;
   await app.listen(port);

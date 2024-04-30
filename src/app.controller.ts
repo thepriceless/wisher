@@ -13,8 +13,8 @@ import { WisherService } from './wishes/wisher.service';
 import { Public } from './auth/decorators/public.decorator';
 import { UserEntity } from './user/user.entity';
 import { UserService } from './user/user.service';
-import { UtiliesForControllers } from './utility/controllers.common';
 import { WishlistService } from './wishes/wishlist.service';
+import { FriendRequestState } from './user/friend.request.state.enum';
 
 @Controller()
 @UseInterceptors(TimeInterceptor)
@@ -24,16 +24,13 @@ export class AppController {
     private readonly wisherService: WisherService,
     private readonly wishlistService: WishlistService,
     private readonly userService: UserService,
-    private readonly utilities: UtiliesForControllers,
   ) {}
   @Get('/wishlists')
   @Render('myWishlists')
   async myWishlist(@Headers('authorization') authorization: string) {
     try {
-      const user = await this.utilities.getUserFromToken(authorization);
-      // console.log('user ', user);
+      const user = await this.userService.getUserFromToken(authorization);
       const wishlists = await this.wishlistService.getWishlistsByOwner(user);
-      // console.log('wishlists ', wishlists);
       return {
         wishlists: wishlists,
       };
@@ -44,7 +41,7 @@ export class AppController {
   @Render('friends')
   async friends(@Headers('authorization') authorization: string) {
     try {
-      const user = await this.utilities.getUserFromToken(authorization);
+      const user = await this.userService.getUserFromToken(authorization);
       const friends = await this.userService.findFriendsByNickname(
         user.nickname,
       );
@@ -62,7 +59,7 @@ export class AppController {
   ): Promise<{ wishitem: WishitemEntity; user: UserEntity }> {
     let user;
     try {
-      user = await this.utilities.getUserFromToken(authorization);
+      user = await this.userService.getUserFromToken(authorization);
     } catch (err) {
       user = null;
     }
@@ -101,5 +98,25 @@ export class AppController {
   @Public()
   async register() {
     return;
+  }
+
+  @Get('/users/:nickname')
+  @Render('userProfile')
+  async getUserProfile(
+    @Headers('authorization') authorization: string,
+    @Param('nickname') nickname: string,
+  ): Promise<{ user: UserEntity; friendshipState: string }> {
+    const guest = await this.userService.getUserFromToken(authorization);
+    const host = await this.userService.findOneByNickname(nickname);
+
+    const friendshipState = await this.userService.getUserFriendship(
+      guest.nickname,
+      host.nickname,
+    );
+
+    return {
+      user: host,
+      friendshipState: FriendRequestState[friendshipState],
+    };
   }
 }

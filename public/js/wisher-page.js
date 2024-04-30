@@ -1,5 +1,5 @@
 function wisherGetNextItem() {
-  fetch('/wisher/random-item')
+  fetch('/api/wisher/random-item')
     .then((response) => {
       return response.json();
     })

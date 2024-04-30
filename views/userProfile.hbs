@@ -11,26 +11,34 @@
     <link href="/css/log-out/log-out.css" rel="stylesheet">
     <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
     <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
-    <link href="/css/forms/forms.css" rel="stylesheet">
+    <link href="/css/friends/friends-list.css" rel="stylesheet">
     <link href="/css/credentials/credentials.css" rel="stylesheet">
     <script src="/js/highlight-current-menu-item.js"></script>
-    <script src="/js/upload-wish-item.js"></script>
     <script src="/js/fetch-page.js"></script>
     <script src="/js/login-redirections.js"></script>
-    <script src="/js/wishlists-page.js"></script>
-    <title>My wishlists</title>
+    <script src="/js/user-profile-page.js"></script>
+    <title>Profile</title>
 </head>
 <body>
     <div class="body__main">
         {{> navbarLoggedSure}}
-        <main class="shifted">
-            {{#each wishlists}}
-            <div class="wishlist-item">
-                <button onclick="showWishlistWithId({{this.id}})">
-                    <h2 class="wishlist-item__title">{{this.privacy}}</h2>
+        <main>
+            <div class="user-profile">
+                <img src="{{user.photoLink}}" alt="User Photo" class="user-profile__photo">
+                <h2 class="user-profile__nickname">{{user.nickname}}</h2>
+                <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
+                <button id="user-profile__friend-request-btn" onclick="processFriendRequest('{{user.nickname}}')">
+                    {{#if (eq friendshipState "NOTHING")}}
+                        Send Friend Request
+                    {{else if (eq friendshipState "SENT_BY_SENDER")}}
+                        Cancel Friend Request
+                    {{else if (eq friendshipState "SENT_BY_RECEIVER")}}
+                        Accept Friend Request
+                    {{else}}
+                        Unfriend
+                    {{/if}}
                 </button>
             </div>
-            {{/each}}
         </main>
         {{> footerAd}}
     </div>

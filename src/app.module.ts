@@ -9,8 +9,6 @@ import { JwtGuard } from './auth/guards/jwt.guard';
 import { JwtStrategy } from './auth/strategies/jwt.strategy';
 import { AuthModule } from './auth/auth.module';
 import { AuthorizationCookieMiddleware } from './middlewares/authorization.cookie.middleware';
-import { UtiliesForControllers } from './utility/controllers.common';
-import { UtilityModule } from './utility/utility.module';
 
 @Module({
   imports: [
@@ -18,7 +16,6 @@ import { UtilityModule } from './utility/utility.module';
     WishesModule,
     AuthModule,
     UserModule,
-    UtilityModule,
   ],
   controllers: [AppController],
   providers: [
@@ -28,7 +25,6 @@ import { UtilityModule } from './utility/utility.module';
       useClass: JwtGuard,
     },
     JwtStrategy,
-    UtiliesForControllers,
   ],
 })
 export class AppModule {

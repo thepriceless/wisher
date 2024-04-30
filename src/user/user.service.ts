@@ -1,12 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { UserEntity } from './user.entity';
 import { PrismaService } from 'src/prismas/prisma.service';
+import { FriendRequestEntity } from './friend.request.entity';
+import { FriendRequestState } from './friend.request.state.enum';
+import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
+  async getUserFromToken(authorization: string): Promise<UserEntity> {
+    const token = authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    if (typeof decodedToken === 'object' && 'nickname' in decodedToken) {
+      const nickname = JSON.stringify(decodedToken.nickname).slice(1, -1);
+      return await this.findOneByNickname(nickname);
+    }
+  }
 
-  findOneByNickname(nickname: string): Promise<UserEntity | null> {
+  async findOneByNickname(nickname: string): Promise<UserEntity | null> {
     return this.prisma.user.findUnique({
       where: {
         nickname: nickname,
@@ -14,7 +25,7 @@ export class UserService {
     });
   }
 
-  create(user: UserEntity): Promise<UserEntity> {
+  async createUser(user: UserEntity): Promise<UserEntity> {
     return this.prisma.user.create({ data: user });
   }
 
@@ -43,10 +54,97 @@ export class UserService {
       receiverSet.has(sender),
     );
 
-    return this.prisma.user.findMany({
+    return await this.prisma.user.findMany({
       where: {
         nickname: {
           in: intersection,
+        },
+      },
+    });
+  }
+
+  async getUserFriendship(
+    senderNickname: string,
+    receiverNickname: string,
+  ): Promise<FriendRequestState> {
+    const fromSenderToReceiver = await this.prisma.friendRequest.findUnique({
+      where: {
+        senderNickname_receiverNickname: {
+          senderNickname: senderNickname,
+          receiverNickname: receiverNickname,
+        },
+      },
+    });
+
+    const fromReceiverToSender = await this.prisma.friendRequest.findUnique({
+      where: {
+        senderNickname_receiverNickname: {
+          senderNickname: receiverNickname,
+          receiverNickname: senderNickname,
+        },
+      },
+    });
+
+    let friendshipState: FriendRequestState;
+    if (fromSenderToReceiver !== null && fromReceiverToSender !== null) {
+      friendshipState = FriendRequestState.FRIENDS;
+    } else if (fromSenderToReceiver !== null) {
+      friendshipState = FriendRequestState.SENT_BY_SENDER;
+    } else if (fromReceiverToSender !== null) {
+      friendshipState = FriendRequestState.SENT_BY_RECEIVER;
+    } else {
+      friendshipState = FriendRequestState.NOTHING;
+    }
+
+    return friendshipState;
+  }
+
+  async processFriendRequest(
+    senderNickname: string,
+    receiverNickname: string,
+  ): Promise<FriendRequestState> {
+    const friendshipState = await this.getUserFriendship(
+      senderNickname,
+      receiverNickname,
+    );
+
+    switch (friendshipState) {
+      case FriendRequestState.NOTHING:
+        await this.createFriendRequest(senderNickname, receiverNickname);
+        return FriendRequestState.SENT_BY_SENDER;
+      case FriendRequestState.SENT_BY_RECEIVER:
+        await this.createFriendRequest(senderNickname, receiverNickname);
+        return FriendRequestState.FRIENDS;
+      case FriendRequestState.SENT_BY_SENDER:
+        await this.deleteFriendRequest(senderNickname, receiverNickname);
+        return FriendRequestState.NOTHING;
+      case FriendRequestState.FRIENDS:
+        await this.deleteFriendRequest(senderNickname, receiverNickname);
+        return FriendRequestState.SENT_BY_RECEIVER;
+    }
+  }
+
+  private async createFriendRequest(
+    senderNickname: string,
+    receiverNickname: string,
+  ): Promise<FriendRequestEntity> {
+    return await this.prisma.friendRequest.create({
+      data: {
+        senderNickname: senderNickname,
+        receiverNickname: receiverNickname,
+      },
+    });
+  }
+
+  private async deleteFriendRequest(
+    senderNickname: string,
+    receiverNickname: string,
+  ): Promise<FriendRequestEntity> {
+    return await this.prisma.friendRequest.delete({
+      where: {
+        senderNickname_receiverNickname: {
+          senderNickname: senderNickname,
+          receiverNickname: receiverNickname,
         },
       },
     });

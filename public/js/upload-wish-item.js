@@ -4,7 +4,7 @@ async function uploadItem(event) {
   const privacyType = new URLSearchParams();
   const privacy = document.getElementById('wishlist').value;
   privacyType.append('privacy', privacy);
-  const wishlistResponse = await fetch('/wishlists/by-privacy-owner', {
+  const wishlistResponse = await fetch('/api/wishlists/by-privacy-owner', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -26,7 +26,7 @@ async function uploadItem(event) {
       });
     }
 
-    const response = await fetch('/items/new', {
+    const response = await fetch('/api/items/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
