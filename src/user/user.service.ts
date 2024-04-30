@@ -25,6 +25,16 @@ export class UserService {
     });
   }
 
+  async findAllByNicknameStart(nicknameStart: string): Promise<UserEntity[]> {
+    return this.prisma.user.findMany({
+      where: {
+        nickname: {
+          startsWith: nicknameStart,
+        },
+      },
+    });
+  }
+
   async createUser(user: UserEntity): Promise<UserEntity> {
     return this.prisma.user.create({ data: user });
   }

@@ -3,6 +3,7 @@ import {
   Get,
   Headers,
   Param,
+  Query,
   Render,
   UseInterceptors,
 } from '@nestjs/common';
@@ -102,6 +103,19 @@ export class AppController {
   @Render('uploadItemToWishlist')
   async uploadItem(): Promise<void> {
     return;
+  }
+
+  @Get('/users/search')
+  @Render('userSearchResults')
+  async getUsersByNicknameStart(
+    @Headers('authorization') authorization: string,
+    @Query('nickname') nicknameStart: string,
+  ): Promise<{ users: UserEntity[] }> {
+    const users = await this.userService.findAllByNicknameStart(nicknameStart);
+
+    return {
+      users: users,
+    };
   }
 
   @Get('/users/:nickname')

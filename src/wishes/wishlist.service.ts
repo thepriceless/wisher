@@ -62,8 +62,8 @@ export class WishlistService {
     });
 
     const wishitemWithWishlist = this.connectExistingWishitemToWishlist(
-      wishitem.wishlistId,
       newWishitem.id,
+      wishitem.wishlistId,
     );
 
     return wishitemWithWishlist;

@@ -1,3 +1,36 @@
+document.addEventListener('DOMContentLoaded', async function () {
+  const existingButton = document.querySelector('.wishlist-selection__button');
+  const ownerNickname = extractSecondParameter(
+    existingButton.getAttribute('onclick'),
+  );
+
+  const friendshipStateResponse = await getFriendshipState(ownerNickname);
+  if (friendshipStateResponse.ok) {
+    const data = await friendshipStateResponse.json();
+    if (data.friendshipState === 'FRIENDS') {
+      const newButton = existingButton.cloneNode(true);
+
+      newButton.textContent = 'Friendly Wishlist';
+      newButton.onclick = function () {
+        loadWishlist('FRIENDS', ownerNickname);
+      };
+
+      const parent = document.querySelector('.wishlist-selection');
+      parent.appendChild(newButton);
+    }
+  }
+});
+
+async function loadWishlist(privacy, ownerNickname) {
+  const wishlistResponse = await fetch(
+    `/api/wishlists?privacy=${privacy}&owner=${ownerNickname}`,
+  );
+  if (wishlistResponse.ok) {
+    const data = await wishlistResponse.json();
+    window.location.href = `/wishlists/${data.id}`;
+  }
+}
+
 async function processFriendRequest(receiverNickname) {
   const body = new URLSearchParams();
   body.append('receiverNickname', receiverNickname);
@@ -41,4 +74,10 @@ function changeButtonText(friendshipState) {
       button.textContent = 'Unfriend';
       break;
   }
+}
+
+function extractSecondParameter(onclickFunction) {
+  const regex = /loadWishlist\('(.+?)', '(.+?)'\)/;
+  const match = onclickFunction.match(regex);
+  return match[2];
 }

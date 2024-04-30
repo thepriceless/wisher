@@ -11,23 +11,27 @@
     <link href="/css/log-out/log-out.css" rel="stylesheet">
     <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
     <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
-    <link href="/css/friends/friends-list.css" rel="stylesheet">
+    <link href="/css/forms/forms.css" rel="stylesheet">
     <link href="/css/credentials/credentials.css" rel="stylesheet">
     <script src="/js/highlight-current-menu-item.js"></script>
+    <script src="/js/upload-wish-item.js"></script>
     <script src="/js/fetch-page.js"></script>
-    <script src="/js/find-user-navbar.js"></script>
     <script src="/js/login-redirections.js"></script>
-    <title>My profile</title>
+    <script src="/js/find-user-navbar.js"></script>
+    <script src="/js/friends-page.js"></script>
+    <title>My wishlists</title>
 </head>
 <body>
     <div class="body__main">
         {{> navbarLoggedSure}}
-        <main>
-            <div class="user-profile">
-                <img src="{{user.photoLink}}" alt="User Photo" class="user-profile__photo">
-                <h2 class="user-profile__nickname">{{user.nickname}}</h2>
-                <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
+        <main class="shifted">
+            {{#each users}}
+            <div class="user-item">
+                <button onclick="redirectToProfile('{{this.nickname}}')">
+                    <h2 class="user-item__name">{{this.nickname}}</h2>
+                </button>
             </div>
+            {{/each}}
         </main>
         {{> footerAd}}
     </div>

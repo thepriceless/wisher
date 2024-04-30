@@ -30,13 +30,21 @@ export class WishlistController {
   async findWishlistByPrivacyAndOwner(
     @Headers('authorization') authorization: string,
     @Query('privacy') privacy: string,
+    @Query('owner') owner: string,
   ): Promise<WishlistEntity> {
-    const owner = await this.userService.getUserFromToken(authorization);
+    let ownerNickname: string;
+    if (owner) {
+      ownerNickname = owner;
+    } else {
+      const ownerUser = await this.userService.getUserFromToken(authorization);
+      ownerNickname = ownerUser.nickname;
+    }
+
     const privacyType = PrivacyType[privacy as keyof typeof PrivacyType];
 
     return await this.wishlistService.findWishlistByPrivacyAndOwner(
       privacyType,
-      owner.nickname,
+      ownerNickname,
     );
   }
 }

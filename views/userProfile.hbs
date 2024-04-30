@@ -16,6 +16,7 @@
     <script src="/js/highlight-current-menu-item.js"></script>
     <script src="/js/fetch-page.js"></script>
     <script src="/js/login-redirections.js"></script>
+    <script src="/js/find-user-navbar.js"></script>
     <script src="/js/user-profile-page.js"></script>
     <title>Profile</title>
 </head>
@@ -27,6 +28,7 @@
                 <img src="{{user.photoLink}}" alt="User Photo" class="user-profile__photo">
                 <h2 class="user-profile__nickname">{{user.nickname}}</h2>
                 <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
+
                 <button id="user-profile__friend-request-btn" onclick="processFriendRequest('{{user.nickname}}')">
                     {{#if (eq friendshipState "NOTHING")}}
                         Send Friend Request
@@ -38,6 +40,10 @@
                         Unfriend
                     {{/if}}
                 </button>
+
+                <div class="wishlist-selection">
+                    <button class="wishlist-selection__button" onclick="loadWishlist('PUBLIC', '{{user.nickname}}')">Public Wishlist</button>
+                </div>
             </div>
         </main>
         {{> footerAd}}
