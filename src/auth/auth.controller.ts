@@ -16,12 +16,15 @@ import { RegisterResponseDto } from './dto/register.response.dto';
 import { Public } from './decorators/public.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { S3Service } from 'src/s3/s3.service';
+import { WishlistService } from 'src/wishes/wishlist.service';
+import { PrivacyType } from 'src/wishes/privacy-type.enum';
 
 @Public()
 @Controller('/api/auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
+    private readonly wishlistService: WishlistService,
     private readonly s3service: S3Service,
   ) {}
 
@@ -47,6 +50,15 @@ export class AuthController {
 
     registerBody.photoLink = profilePhotoLink;
 
-    return await this.authService.register(registerBody);
+    const userResponse = await this.authService.register(registerBody);
+
+    for (const privacy of Object.values(PrivacyType)) {
+      await this.wishlistService.createDefaultWishlist(
+        registerBody.nickname,
+        privacy,
+      );
+    }
+
+    return userResponse;
   }
 }

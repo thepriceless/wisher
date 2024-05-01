@@ -102,6 +102,8 @@ export class WishlistService {
       },
     });
 
+    
+
     return wishlists[0];
   }
 
@@ -136,5 +138,30 @@ export class WishlistService {
     });
 
     return deletedWishitem;
+  }
+
+  async createDefaultWishlist(
+    ownerNickname: string,
+    privacy: PrivacyType,
+  ): Promise<WishlistEntity> {
+    const user = await this.prisma.user.findUnique({
+      where: { nickname: ownerNickname },
+    });
+
+    if (!user) {
+      throw new Error(`User with nickname ${ownerNickname} not found`);
+    }
+
+    const wishlist = await this.prisma.wishlist.create({
+      data: {
+        title: privacy,
+        owner: {
+          connect: { nickname: ownerNickname },
+        },
+        privacy: privacy,
+      },
+    });
+
+    return wishlist;
   }
 }
