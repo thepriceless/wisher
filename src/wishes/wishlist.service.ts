@@ -108,6 +108,9 @@ export class WishlistService {
       where: {
         id: id,
       },
+      include: {
+        itemshopLinks: true,
+      },
     });
 
     return wishitem;

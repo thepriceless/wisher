@@ -29,8 +29,17 @@
                 <h2 class="wishitem-zone__title">{{wishitem.title}}</h2>
                 <h3 class="wishitem-zone__description">{{wishitem.description}}</h3>
                 <h4 class="wishitem-zone__importance">{{wishitem.importance}}</h4>
+
+                {{#each wishitem.itemshopLinks}}
+                    <a href="{{this.link}}" target="_blank">{{this.link}}</a>
+                {{/each}}
             </div>
-            {{!-- <button onclick="deleteWishitem('{{wishitem.id}}')">Delete</button> --}}
+
+                <script>
+                    document.querySelectorAll('.wishitem-zone a').forEach((link, index) => {
+                        link.textContent = 'Link ' + (index + 1);
+                    });
+                </script>
         </main>
         {{> footerAd}}
     </div>
