@@ -32,7 +32,9 @@
                     <button class="wishitem" onclick="redirectToWishitem('{{this.id}}')">
                         <h2 class="wishitem__title">{{this.title}}</h2>
                     </button>
-                    <button class="wishitem__delete-button" onclick="deleteWishitem('{{this.id}}', '{{../wishlistId}}')">Delete</button>
+                    {{#if ../isOwner}}
+                        <button class="wishitem__delete-button" onclick="deleteWishitem('{{this.id}}', '{{../wishlistId}}')">Delete</button>
+                    {{/if}}
                 </div>
                 {{/each}}
             </div>

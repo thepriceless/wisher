@@ -28,22 +28,23 @@
                 <img src="{{user.photoLink}}" alt="User Photo" class="user-profile__photo">
                 <h2 class="user-profile__nickname">{{user.nickname}}</h2>
                 <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
+                {{#if isGuest}}
+                    <button id="user-profile__friend-request-btn" onclick="processFriendRequest('{{user.nickname}}')">
+                        {{#if (eq friendshipState "NOTHING")}}
+                            Send Friend Request
+                        {{else if (eq friendshipState "SENT_BY_SENDER")}}
+                            Cancel Friend Request
+                        {{else if (eq friendshipState "SENT_BY_RECEIVER")}}
+                            Accept Friend Request
+                        {{else}}
+                            Unfriend
+                        {{/if}}
+                    </button>
 
-                <button id="user-profile__friend-request-btn" onclick="processFriendRequest('{{user.nickname}}')">
-                    {{#if (eq friendshipState "NOTHING")}}
-                        Send Friend Request
-                    {{else if (eq friendshipState "SENT_BY_SENDER")}}
-                        Cancel Friend Request
-                    {{else if (eq friendshipState "SENT_BY_RECEIVER")}}
-                        Accept Friend Request
-                    {{else}}
-                        Unfriend
-                    {{/if}}
-                </button>
-
-                <div class="wishlist-selection">
-                    <button class="wishlist-selection__button" onclick="loadWishlist('PUBLIC', '{{user.nickname}}')">Public Wishlist</button>
-                </div>
+                    <div class="wishlist-selection">
+                        <button class="wishlist-selection__button" onclick="loadWishlist('PUBLIC', '{{user.nickname}}')">Public Wishlist</button>
+                    </div>
+                {{/if}}
             </div>
         </main>
         {{> footerAd}}

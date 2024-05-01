@@ -31,12 +31,15 @@ export class AppController {
   @Render('myWishlists')
   async myWishlist(
     @Headers('authorization') authorization: string,
-  ): Promise<{ wishlists: WishlistEntity[] }> {
+  ): Promise<{ wishlists: WishlistEntity[]; authorizedUser: UserEntity }> {
     try {
-      const user = await this.userService.getUserFromToken(authorization);
-      const wishlists = await this.wishlistService.getWishlistsByOwner(user);
+      const authorizedUser =
+        await this.userService.getUserFromToken(authorization);
+      const wishlists =
+        await this.wishlistService.getWishlistsByOwner(authorizedUser);
       return {
         wishlists: wishlists,
+        authorizedUser: authorizedUser,
       };
     } catch (err) {}
   }
@@ -45,14 +48,16 @@ export class AppController {
   @Render('friends')
   async friends(
     @Headers('authorization') authorization: string,
-  ): Promise<{ friends: UserEntity[] }> {
+  ): Promise<{ friends: UserEntity[]; authorizedUser: UserEntity }> {
     try {
-      const user = await this.userService.getUserFromToken(authorization);
+      const authorizedUser =
+        await this.userService.getUserFromToken(authorization);
       const friends = await this.userService.findFriendsByNickname(
-        user.nickname,
+        authorizedUser.nickname,
       );
       return {
         friends: friends,
+        authorizedUser: authorizedUser,
       };
     } catch (err) {}
   }
@@ -62,48 +67,60 @@ export class AppController {
   @Public()
   async wisher(
     @Headers('authorization') authorization: string,
-  ): Promise<{ wishitem: WishitemEntity; user: UserEntity }> {
-    let user;
+  ): Promise<{ wishitem: WishitemEntity; authorizedUser: UserEntity }> {
+    let authorizedUser;
     try {
-      user = await this.userService.getUserFromToken(authorization);
+      authorizedUser = await this.userService.getUserFromToken(authorization);
     } catch (err) {
-      user = null;
+      authorizedUser = null;
     }
 
     const item = await this.wisherService.getRandomWishitem();
     return {
       wishitem: item,
-      user: user,
+      authorizedUser: authorizedUser,
     };
   }
 
   @Get('/wishlists/:id')
   @Render('oneWishlist')
   async getWishlist(
+    @Headers('authorization') authorization: string,
     @Param('id') id: string,
-  ): Promise<{ wishitems: WishitemEntity[]; wishlistId: string }> {
+  ): Promise<{
+    wishitems: WishitemEntity[];
+    wishlistId: string;
+    isOwner: boolean;
+    authorizedUser: UserEntity;
+  }> {
+    const authorizedUser =
+      await this.userService.getUserFromToken(authorization);
+    const userWithWishlists = await this.userService.findUserWithWishlists(
+      authorizedUser.nickname,
+    );
+    const isOwner = userWithWishlists.ownedWishlists.some(
+      (wishlist) => wishlist.id === id,
+    );
     const wishitems = await this.wishlistService.getWishitemsByWishlistId(id);
+
     return {
       wishitems: wishitems,
       wishlistId: id,
-    };
-  }
-
-  @Get('/profile')
-  @Render('myProfile')
-  async getMyProfile(
-    @Headers('authorization') authorization: string,
-  ): Promise<{ user: UserEntity }> {
-    const user = await this.userService.getUserFromToken(authorization);
-    return {
-      user: user,
+      isOwner: isOwner,
+      authorizedUser: authorizedUser,
     };
   }
 
   @Get('/wishitems/new')
   @Render('uploadItemToWishlist')
-  async uploadItem(): Promise<void> {
-    return;
+  async uploadItem(
+    @Headers('authorization') authorization: string,
+  ): Promise<{ authorizedUser: UserEntity }> {
+    const authorizedUser =
+      await this.userService.getUserFromToken(authorization);
+    return {
+      authorizedUser: authorizedUser,
+    };
   }
 
   @Get('/users/search')
@@ -111,11 +128,17 @@ export class AppController {
   async getUsersByNicknameStart(
     @Headers('authorization') authorization: string,
     @Query('nickname') nicknameStart: string,
-  ): Promise<{ users: UserEntity[] }> {
+  ): Promise<{
+    users: UserEntity[];
+    authorizedUser: UserEntity;
+  }> {
+    const authorizedUser =
+      await this.userService.getUserFromToken(authorization);
     const users = await this.userService.findAllByNicknameStart(nicknameStart);
 
     return {
       users: users,
+      authorizedUser: authorizedUser,
     };
   }
 
@@ -124,7 +147,12 @@ export class AppController {
   async getUserProfile(
     @Headers('authorization') authorization: string,
     @Param('nickname') nickname: string,
-  ): Promise<{ user: UserEntity; friendshipState: string }> {
+  ): Promise<{
+    user: UserEntity;
+    friendshipState: string;
+    isGuest: boolean;
+    authorizedUser: UserEntity;
+  }> {
     const guest = await this.userService.getUserFromToken(authorization);
     const host = await this.userService.findOneByNickname(nickname);
 
@@ -133,21 +161,31 @@ export class AppController {
       host.nickname,
     );
 
+    const isGuest = guest.nickname !== host.nickname;
+    const authorizedUser =
+      await this.userService.getUserFromToken(authorization);
+
     return {
       user: host,
       friendshipState: FriendRequestState[friendshipState],
+      isGuest: isGuest,
+      authorizedUser: authorizedUser,
     };
   }
 
   @Get('/wishitems/:id')
   @Render('oneWishitem')
   async getWishitemById(
+    @Headers('authorization') authorization: string,
     @Param('id') id: string,
-  ): Promise<{ wishitem: WishitemEntity }> {
+  ): Promise<{ wishitem: WishitemEntity; authorizedUser: UserEntity }> {
     const wishitem = await this.wishlistService.getWishitemById(id);
+    const authorizedUser =
+      await this.userService.getUserFromToken(authorization);
 
     return {
       wishitem: wishitem,
+      authorizedUser: authorizedUser,
     };
   }
 

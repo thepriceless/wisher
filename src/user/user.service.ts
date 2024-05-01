@@ -1,19 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { UserEntity } from './user.entity';
+import { UserEntity, UserEntityWithWishlists } from './user.entity';
 import { PrismaService } from 'src/prismas/prisma.service';
 import { FriendRequestEntity } from './friend.request.entity';
 import { FriendRequestState } from './friend.request.state.enum';
 import * as jwt from 'jsonwebtoken';
+import { WishlistEntity } from 'src/wishes/wishlist.entity';
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
+
   async getUserFromToken(authorization: string): Promise<UserEntity> {
     const token = authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     if (typeof decodedToken === 'object' && 'nickname' in decodedToken) {
       const nickname = JSON.stringify(decodedToken.nickname).slice(1, -1);
-      return await this.findOneByNickname(nickname);
+      const user = await this.findOneByNickname(nickname);
+      console.log('user', user);
+      return user;
     }
   }
 
@@ -21,6 +25,19 @@ export class UserService {
     return this.prisma.user.findUnique({
       where: {
         nickname: nickname,
+      },
+    });
+  }
+
+  async findUserWithWishlists(
+    nickname: string,
+  ): Promise<UserEntityWithWishlists> {
+    return await this.prisma.user.findUnique({
+      where: {
+        nickname: nickname,
+      },
+      include: {
+        ownedWishlists: true,
       },
     });
   }

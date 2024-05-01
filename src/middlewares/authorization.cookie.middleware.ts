@@ -1,18 +1,21 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import * as cookie from 'cookie';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthorizationCookieMiddleware implements NestMiddleware {
-  use(req: Request, res: Response, next: NextFunction) {
+  constructor(private readonly userService: UserService) {}
+  async use(req: Request, res: Response, next: NextFunction) {
+    console.log(next);
     try {
       const cookies = cookie.parse(req.headers.cookie || '');
-      const accessToken = cookies['AccessToken'];
+      const accessToken = `Bearer ${cookies['AccessToken']}`;
       if (accessToken) {
-        req.headers.authorization = `Bearer ${accessToken}`;
+        req.headers.authorization = accessToken;
       }
     } catch (error) {
-      // console.error(error);
+      console.error(error);
     }
     next();
   }

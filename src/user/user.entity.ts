@@ -1,4 +1,5 @@
 import { User } from '@prisma/client';
+import { WishlistEntity } from 'src/wishes/wishlist.entity';
 
 export class UserEntity implements User {
   nickname: string;
@@ -6,4 +7,8 @@ export class UserEntity implements User {
   name: string;
   surname: string;
   photoLink: string;
+}
+
+export class UserEntityWithWishlists extends UserEntity {
+  ownedWishlists: WishlistEntity[];
 }
