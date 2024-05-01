@@ -8,6 +8,11 @@ export class WisherService {
 
   async getRandomWishitem(): Promise<WishitemEntity> {
     const allIds = await this.prisma.wishitem.findMany({
+      where: {
+        imageLink: {
+          not: null,
+        },
+      },
       select: {
         id: true,
       },

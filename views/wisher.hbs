@@ -38,7 +38,7 @@
             <button class="choice-buttons__add" type="button" onclick="saveExistingItemToWishlist('FRIENDS', '{{wishitem.id}}')">Add to friendly</button>
             <button class="choice-buttons__add" type="button" onclick="saveExistingItemToWishlist('PUBLIC', '{{wishitem.id}}')">Add to public</button>
         </div>
-        <img class="suggestion-zone__photo" id="wisher-item-image" src={{ wishitem.imageLink }} alt="wisherexample">
+        <img class="suggestion-zone__photo" id="wisher-item-image" src='{{ wishitem.imageLink }}' alt="image">
     </div>
     <button class="suggestion-zone__button" type="button" onclick="wisherGetNextItem()">
         <img class="suggestion-zone__button_right" src="objects/arrow-button.svg" alt="next"/>

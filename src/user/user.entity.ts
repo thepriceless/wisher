@@ -7,6 +7,7 @@ export class UserEntity implements User {
   name: string;
   surname: string;
   photoLink: string;
+  photoLinkAsKey: string;
 }
 
 export class UserEntityWithWishlists extends UserEntity {

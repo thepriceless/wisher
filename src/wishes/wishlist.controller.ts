@@ -32,8 +32,6 @@ export class WishlistController {
     @Body() newWishitemDto: NewWishitemDto,
     @UploadedFile() itemImage,
   ) {
-    console.log('controller file', itemImage);
-    console.log('incoming dto', newWishitemDto);
     let imageLink = null;
     if (itemImage !== undefined) {
       imageLink = await this.s3service.uploadImage(
@@ -41,7 +39,7 @@ export class WishlistController {
         process.env.WISHITEM_IMAGE,
       );
     }
-    console.log('image link from s3', imageLink);
+
     newWishitemDto.importance = parseInt(newWishitemDto.importance as any);
     return await this.wishlistService.saveNewItemToWishlist(
       newWishitemDto,

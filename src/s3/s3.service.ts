@@ -14,7 +14,7 @@ export class S3Service {
         secretAccessKey: process.env.YANDEX_CLOUD_SECRET_KEY,
       },
       Bucket: 'wisher-images-bucket',
-      debug: true,
+      debug: false,
     });
   }
 
@@ -25,7 +25,13 @@ export class S3Service {
       },
       folderName,
     );
-    //console.log(upload);
+
     return upload.Location;
+  }
+
+  async downloadImageBuffer(path: string): Promise<string> {
+    const download = await this.s3.Download(path);
+    // console.log(download);
+    return download.body;
   }
 }

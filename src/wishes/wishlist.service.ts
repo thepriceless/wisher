@@ -41,8 +41,6 @@ export class WishlistService {
   }
 
   async saveNewItemToWishlist(wishitem: NewWishitemDto, imageLink: string) {
-    console.log('service wishitem:', wishitem);
-    console.log('service imageLink:', imageLink);
     const itemshopLinks = Array.isArray(wishitem.itemshopLinks)
       ? wishitem.itemshopLinks
       : [];
@@ -102,7 +100,7 @@ export class WishlistService {
       },
     });
 
-    
+
 
     return wishlists[0];
   }

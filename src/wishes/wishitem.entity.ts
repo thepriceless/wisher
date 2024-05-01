@@ -6,4 +6,5 @@ export class WishitemEntity implements Wishitem {
   description: string;
   importance: number;
   imageLink: string;
+  imageLinkAsKey: string;
 }

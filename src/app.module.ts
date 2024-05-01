@@ -9,6 +9,7 @@ import { JwtGuard } from './auth/guards/jwt.guard';
 import { JwtStrategy } from './auth/strategies/jwt.strategy';
 import { AuthModule } from './auth/auth.module';
 import { AuthorizationCookieMiddleware } from './middlewares/authorization.cookie.middleware';
+import { S3Module } from './s3/s3.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthorizationCookieMiddleware } from './middlewares/authorization.cooki
     WishesModule,
     AuthModule,
     UserModule,
+    S3Module,
   ],
   controllers: [AppController],
   providers: [

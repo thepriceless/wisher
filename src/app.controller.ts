@@ -17,6 +17,7 @@ import { UserService } from './user/user.service';
 import { WishlistService } from './wishes/wishlist.service';
 import { FriendRequestState } from './user/friend.request.state.enum';
 import { WishlistEntity } from './wishes/wishlist.entity';
+import { S3Service } from './s3/s3.service';
 
 @Controller()
 @UseInterceptors(TimeInterceptor)
@@ -26,6 +27,7 @@ export class AppController {
     private readonly wisherService: WisherService,
     private readonly wishlistService: WishlistService,
     private readonly userService: UserService,
+    private readonly s3Service: S3Service,
   ) {}
   @Get('/wishlists')
   @Render('myWishlists')
@@ -76,6 +78,7 @@ export class AppController {
     }
 
     const item = await this.wisherService.getRandomWishitem();
+
     return {
       wishitem: item,
       authorizedUser: authorizedUser,

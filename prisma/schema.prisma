@@ -8,13 +8,14 @@ datasource db {
 }
 
 model Wishitem {
-  id             String         @id @default(uuid())
-  wishlists      Wishlist[]
-  itemshopLinks  WishitemLink[]
-  title          String
-  importance     Int
-  description    String?
-  imageLink      String?
+  id                String         @id @default(uuid())
+  wishlists         Wishlist[]
+  itemshopLinks     WishitemLink[]
+  title             String
+  importance        Int
+  description       String?
+  imageLink         String?
+  imageLinkAsKey    String?
 }
 
 model WishitemLink {
@@ -47,6 +48,7 @@ model User {
   name                       String
   surname                    String
   photoLink                  String?
+  photoLinkAsKey             String?
 }
 
 model PrivateWishlistAcl {
