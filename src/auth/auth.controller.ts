@@ -39,7 +39,10 @@ export class AuthController {
   ): Promise<RegisterResponseDto> {
     let profilePhotoLink = null;
     if (profilePhoto !== undefined) {
-      profilePhotoLink = await this.s3service.uploadImage(profilePhoto);
+      profilePhotoLink = await this.s3service.uploadImage(
+        profilePhoto,
+        process.env.PROFILE_PHOTO,
+      );
     }
 
     registerBody.photoLink = profilePhotoLink;

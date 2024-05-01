@@ -6,8 +6,6 @@ import {
   Headers,
   Post,
   Query,
-  Render,
-  Request,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -38,7 +36,10 @@ export class WishlistController {
     console.log('incoming dto', newWishitemDto);
     let imageLink = null;
     if (itemImage !== undefined) {
-      imageLink = await this.s3service.uploadImage(itemImage);
+      imageLink = await this.s3service.uploadImage(
+        itemImage,
+        process.env.WISHITEM_IMAGE,
+      );
     }
     console.log('image link from s3', imageLink);
     newWishitemDto.importance = parseInt(newWishitemDto.importance as any);

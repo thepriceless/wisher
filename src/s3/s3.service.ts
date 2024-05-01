@@ -18,12 +18,12 @@ export class S3Service {
     });
   }
 
-  async uploadImage(file) {
+  async uploadImage(file, folderName) {
     const upload = await this.s3.Upload(
       {
         buffer: file.buffer,
       },
-      '/test/',
+      folderName,
     );
     //console.log(upload);
     return upload.Location;
