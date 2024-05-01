@@ -40,7 +40,9 @@ export class WishlistService {
     return wishlistWithWishitems.wishitems;
   }
 
-  async saveNewItemToWishlist(wishitem: NewWishitemDto) {
+  async saveNewItemToWishlist(wishitem: NewWishitemDto, imageLink: string) {
+    console.log('service wishitem:', wishitem);
+    console.log('service imageLink:', imageLink);
     const itemshopLinks = Array.isArray(wishitem.itemshopLinks)
       ? wishitem.itemshopLinks
       : [];
@@ -50,7 +52,7 @@ export class WishlistService {
         title: wishitem.title,
         importance: wishitem.importance,
         description: wishitem.description,
-        imageLink: wishitem.imageLink,
+        imageLink: imageLink,
         itemshopLinks: {
           create: itemshopLinks.map((link) => {
             return {

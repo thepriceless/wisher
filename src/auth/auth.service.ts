@@ -35,11 +35,9 @@ export class AuthService {
   }
 
   async register(user: RegisterRequestDto): Promise<AccessToken> {
-    console.log('service dto ', user);
     const existingUser = await this.userService.findOneByNickname(
       user.nickname,
     );
-    console.log('service existingUser ', existingUser);
     if (existingUser) {
       throw new BadRequestException('Nickname already reserved');
     }

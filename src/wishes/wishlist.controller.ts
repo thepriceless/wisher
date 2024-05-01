@@ -8,6 +8,8 @@ import {
   Query,
   Render,
   Request,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { WishlistService } from './wishlist.service';
 import { PrivacyType } from './privacy-type.enum';
@@ -15,17 +17,36 @@ import { NewWishitemDto } from './new.wishitem.dto';
 import { WishlistEntity } from './wishlist.entity';
 import { UserService } from 'src/user/user.service';
 import { WishitemEntity } from './wishitem.entity';
+import { S3Service } from 'src/s3/s3.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { plainToClass } from 'class-transformer';
 
 @Controller('/api')
 export class WishlistController {
   constructor(
     private readonly wishlistService: WishlistService,
     private readonly userService: UserService,
+    private readonly s3service: S3Service,
   ) {}
+
   @Post('/wishitems/new')
-  async saveNewItem(@Body() newWishitemDto: NewWishitemDto) {
+  @UseInterceptors(FileInterceptor('imageLink'))
+  async saveNewItem(
+    @Body() newWishitemDto: NewWishitemDto,
+    @UploadedFile() itemImage,
+  ) {
+    console.log('controller file', itemImage);
+    console.log('incoming dto', newWishitemDto);
+    let imageLink = null;
+    if (itemImage !== undefined) {
+      imageLink = await this.s3service.uploadImage(itemImage);
+    }
+    console.log('image link from s3', imageLink);
     newWishitemDto.importance = parseInt(newWishitemDto.importance as any);
-    return await this.wishlistService.saveNewItemToWishlist(newWishitemDto);
+    return await this.wishlistService.saveNewItemToWishlist(
+      newWishitemDto,
+      imageLink,
+    );
   }
 
   @Get('/wishlists')
@@ -55,7 +76,6 @@ export class WishlistController {
     @Query('wishitem') wishitemId: string,
     @Query('wishlist') wishlistId: string,
   ): Promise<WishitemEntity> {
-    console.log(wishitemId, wishlistId);
     return await this.wishlistService.deleteItemFromWishlist(
       wishitemId,
       wishlistId,

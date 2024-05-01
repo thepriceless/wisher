@@ -7,9 +7,6 @@ async function uploadItem(event) {
     const body = composeDataFromForm(event.target, wishlistData);
     const response = await fetch('/api/wishitems/new', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
       body: body,
     });
     if (response.ok) {
@@ -34,6 +31,7 @@ async function saveExistingItemToWishlist(privacy, wishitemId) {
 
 function composeDataFromForm(form, wishlistData) {
   const formData = new FormData(form);
+
   formData.delete('wishlist');
   formData.append('wishlistId', wishlistData.id);
 
@@ -44,8 +42,11 @@ function composeDataFromForm(form, wishlistData) {
       formData.append(`itemshopLinks[${index}]`, link);
     });
   }
+  // for (let [key, value] of formData.entries()) {
+  //   console.log(key, value);
+  // }
 
-  return new URLSearchParams(formData);
+  return formData;
 }
 
 let linkCounter = 1;

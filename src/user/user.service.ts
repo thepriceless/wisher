@@ -16,7 +16,6 @@ export class UserService {
     if (typeof decodedToken === 'object' && 'nickname' in decodedToken) {
       const nickname = JSON.stringify(decodedToken.nickname).slice(1, -1);
       const user = await this.findOneByNickname(nickname);
-      console.log('user', user);
       return user;
     }
   }

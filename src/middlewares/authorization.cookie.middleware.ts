@@ -7,7 +7,6 @@ import { UserService } from 'src/user/user.service';
 export class AuthorizationCookieMiddleware implements NestMiddleware {
   constructor(private readonly userService: UserService) {}
   async use(req: Request, res: Response, next: NextFunction) {
-    console.log(next);
     try {
       const cookies = cookie.parse(req.headers.cookie || '');
       const accessToken = `Bearer ${cookies['AccessToken']}`;

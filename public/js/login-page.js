@@ -3,7 +3,6 @@ async function login(event) {
 
   const form = event.target;
   const formData = new FormData(form);
-  console.log('wewer');
   const response = await fetch('/api/auth/login', {
     method: 'POST',
     headers: {
