@@ -1,10 +1,17 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Injectable,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from 'src/user/user.entity';
 import { RegisterRequestDto } from 'src/auth/dto/register.request.dto';
 import { UserService } from 'src/user/user.service';
 import { AccessToken } from './types/access.token';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Injectable()
 export class AuthService {
@@ -34,15 +41,18 @@ export class AuthService {
     return { access_token: this.jwtService.sign(payload) };
   }
 
-  async register(user: RegisterRequestDto): Promise<AccessToken> {
+  async register(userDto: RegisterRequestDto): Promise<AccessToken> {
     const existingUser = await this.userService.findOneByNickname(
-      user.nickname,
+      userDto.nickname,
     );
     if (existingUser) {
       throw new BadRequestException('Nickname already reserved');
     }
-    const hashedPassword = await bcrypt.hash(user.password, 10);
-    const newUser: UserEntity = { ...user, password: hashedPassword };
+    const hashedPassword = await bcrypt.hash(userDto.password, 10);
+    const newUser: UserEntity = {
+      ...userDto,
+      password: hashedPassword,
+    };
     await this.userService.createUser(newUser);
     return this.login(newUser);
   }

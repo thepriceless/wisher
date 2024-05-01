@@ -5,10 +5,7 @@ async function signup(event) {
   const formData = new FormData(form);
   const response = await fetch('/api/auth/register', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams(formData),
+    body: formData,
   });
   if (response.ok) {
     const data = await response.json();
@@ -16,9 +13,6 @@ async function signup(event) {
     document.cookie = `AccessToken=${data.access_token}; path=/; expires=${expirationTime}`;
     window.location.href = '/';
   } else if (response.status === 400) {
-    const mainElement = document.querySelector('main');
-    const messageElement = document.createElement('p');
-    messageElement.textContent = 'Account with this nickname already exists';
-    mainElement.appendChild(messageElement);
+    alert('Account with this nickname already exists');
   }
 }

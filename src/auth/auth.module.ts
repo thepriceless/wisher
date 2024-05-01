@@ -7,10 +7,12 @@ import { UserModule } from 'src/user/user.module';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { SECONDS_IN_A_DAY } from 'src/constants';
+import { S3Module } from 'src/s3/s3.module';
 
 @Module({
   imports: [
     UserModule,
+    S3Module,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async () => ({

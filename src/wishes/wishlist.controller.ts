@@ -19,7 +19,6 @@ import { UserService } from 'src/user/user.service';
 import { WishitemEntity } from './wishitem.entity';
 import { S3Service } from 'src/s3/s3.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { plainToClass } from 'class-transformer';
 
 @Controller('/api')
 export class WishlistController {
