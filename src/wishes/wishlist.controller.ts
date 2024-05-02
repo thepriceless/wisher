@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
   Headers,
   Post,
@@ -71,9 +72,21 @@ export class WishlistController {
 
   @Delete('/wishitems')
   async deleteItemFromWishlist(
+    @Headers('authorization') authorization: string,
     @Query('wishitem') wishitemId: string,
     @Query('wishlist') wishlistId: string,
   ): Promise<WishitemEntity> {
+    const ownerUser = await this.userService.getUserFromToken(authorization);
+    const ownedWishlists = await this.wishlistService.getWishlistsByOwner(ownerUser);
+
+    const isOwner = ownedWishlists.some(
+      (wishlist) => wishlist.id === wishlistId,
+    );
+
+    if (!isOwner) {
+      throw new ForbiddenException('Not your wishlist');
+    }
+
     return await this.wishlistService.deleteItemFromWishlist(
       wishitemId,
       wishlistId,
