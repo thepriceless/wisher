@@ -4,6 +4,7 @@ import { join } from 'path';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import * as hbs from 'hbs';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -16,6 +17,16 @@ async function bootstrap() {
     return a === b;
   });
   const configService = app.get(ConfigService);
+
+  const config = new DocumentBuilder()
+    .setTitle('Wisher')
+    .setDescription('Application holding wishlists')
+    .setVersion('1.0')
+    .addTag('wisher')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('/api/docs', app, document);
+
   const port = configService.get('PORT') || 2024;
   await app.listen(port);
 }

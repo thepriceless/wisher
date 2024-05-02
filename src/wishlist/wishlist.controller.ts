@@ -12,14 +12,17 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { WishlistService } from './wishlist.service';
-import { PrivacyType } from './privacy-type.enum';
 import { NewWishitemDto } from '../wishitem/new.wishitem.dto';
-import { WishlistEntity } from './wishlist.entity';
 import { UserService } from 'src/user/user.service';
-import { WishitemEntity } from '../wishitem/wishitem.entity';
 import { S3Service } from 'src/s3/s3.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { WishitemService } from 'src/wishitem/wishitem.service';
+import { ApiBody } from '@nestjs/swagger';
+import { PrivacyType } from '@prisma/client';
+import { WishlistDto } from './wishlist.dto';
+import { WishitemDto } from 'src/wishitem/wishitem.dto';
+import { WishitemEntity } from 'src/wishitem/wishitem.entity';
+import { WishitemMapper } from 'src/wishitem/wishitem.mapper';
 
 @Controller('/api')
 export class WishlistController {
@@ -30,12 +33,14 @@ export class WishlistController {
     private readonly s3service: S3Service,
   ) {}
 
+  //@ApiBody({ type: NewWishitemDto })
   @Post('/wishitems/new')
   @UseInterceptors(FileInterceptor('imageLink'))
   async saveNewItem(
     @Body() newWishitemDto: NewWishitemDto,
     @UploadedFile() itemImage,
-  ) {
+    @Headers('authorization') authorization: string,
+  ): Promise<WishitemEntity> {
     let imageLink = null;
     if (itemImage !== undefined) {
       imageLink = await this.s3service.uploadImage(
@@ -44,11 +49,29 @@ export class WishlistController {
       );
     }
 
-    newWishitemDto.importance = parseInt(newWishitemDto.importance as any);
-    return await this.wishlistService.saveNewItemToWishlist(
-      newWishitemDto,
+    const ownerUser = await this.userService.getUserFromToken(authorization);
+    const privacyType =
+      PrivacyType[
+        newWishitemDto.holderWishlistPrivacy as keyof typeof PrivacyType
+      ];
+
+    const wishlist = await this.wishlistService.findWishlistByPrivacyAndOwner(
+      privacyType,
+      ownerUser.nickname,
+    );
+
+    const newWishitem = WishitemMapper.toEntity(newWishitemDto);
+    newWishitem.importance = parseInt(newWishitemDto.importance as any);
+    newWishitem.wishlistId = wishlist.id;
+
+    const savedWishitem = await this.wishlistService.saveNewItemToWishlist(
+      newWishitem,
       imageLink,
     );
+
+    savedWishitem.wishlistId = wishlist.id;
+
+    return savedWishitem;
   }
 
   @Get('/wishlists')
@@ -56,7 +79,7 @@ export class WishlistController {
     @Headers('authorization') authorization: string,
     @Query('privacy') privacy: string,
     @Query('owner') owner: string,
-  ): Promise<WishlistEntity> {
+  ): Promise<WishlistDto> {
     let ownerNickname: string;
     if (owner) {
       ownerNickname = owner;
@@ -78,7 +101,7 @@ export class WishlistController {
     @Param('id') wishitemId: string,
     @Query('privacy') wishlistPrivacy: string,
     @Headers('authorization') authorization: string,
-  ): Promise<WishitemEntity> {
+  ): Promise<WishitemDto> {
     const user = await this.userService.getUserFromToken(authorization);
     const privacyType =
       PrivacyType[wishlistPrivacy as keyof typeof PrivacyType];
@@ -88,10 +111,15 @@ export class WishlistController {
       user.nickname,
     );
 
-    return await this.wishitemService.connectExistingWishitemToWishlist(
-      wishitemId,
-      wishlist.id,
-    );
+    const connectedItem =
+      await this.wishitemService.connectExistingWishitemToWishlist(
+        wishitemId,
+        wishlist.id,
+      );
+
+    const dto = WishitemMapper.toDto(connectedItem);
+
+    return dto;
   }
 
   @Delete('/wishitems')
@@ -99,7 +127,7 @@ export class WishlistController {
     @Headers('authorization') authorization: string,
     @Query('wishitem') wishitemId: string,
     @Query('wishlist') wishlistId: string,
-  ): Promise<WishitemEntity> {
+  ): Promise<WishitemDto> {
     const ownerUser = await this.userService.getUserFromToken(authorization);
     const ownedWishlists =
       await this.wishlistService.getWishlistsByOwner(ownerUser);
@@ -112,9 +140,14 @@ export class WishlistController {
       throw new ForbiddenException('Not your wishlist');
     }
 
-    return await this.wishitemService.disconnectExistingWishitemFromWishlist(
-      wishitemId,
-      wishlistId,
-    );
+    const disconnectedItem =
+      await this.wishitemService.disconnectExistingWishitemFromWishlist(
+        wishitemId,
+        wishlistId,
+      );
+
+    const dto = WishitemMapper.toDto(disconnectedItem);
+
+    return dto;
   }
 }

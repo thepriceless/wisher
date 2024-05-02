@@ -1,17 +1,8 @@
-import {
-  BadRequestException,
-  Body,
-  Injectable,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from 'src/user/user.entity';
-import { RegisterRequestDto } from 'src/auth/dto/register.request.dto';
 import { UserService } from 'src/user/user.service';
-import { AccessToken } from './types/access.token';
-import { FileInterceptor } from '@nestjs/platform-express';
 
 @Injectable()
 export class AuthService {
@@ -21,9 +12,7 @@ export class AuthService {
   ) {}
 
   async validateUser(nickname: string, password: string): Promise<UserEntity> {
-    // console.log('service ', nickname);
     const user = await this.userService.findOneByNickname(nickname);
-    // console.log('service user ', user);
     if (!user) {
       console.log('user not found');
       return null;
@@ -36,12 +25,12 @@ export class AuthService {
     return user;
   }
 
-  async login(user: UserEntity): Promise<AccessToken> {
+  async login(user: UserEntity): Promise<string> {
     const payload = { nickname: user.nickname };
-    return { access_token: this.jwtService.sign(payload) };
+    return this.jwtService.sign(payload);
   }
 
-  async register(userDto: RegisterRequestDto): Promise<AccessToken> {
+  async register(userDto: UserEntity): Promise<string> {
     const existingUser = await this.userService.findOneByNickname(
       userDto.nickname,
     );

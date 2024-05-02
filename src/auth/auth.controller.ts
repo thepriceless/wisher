@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Post,
@@ -12,12 +11,12 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { RegisterRequestDto } from 'src/auth/dto/register.request.dto';
 import { LoginResponseDto } from './dto/login.response.dto';
-import { RegisterResponseDto } from './dto/register.response.dto';
 import { Public } from './decorators/public.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { S3Service } from 'src/s3/s3.service';
 import { WishlistService } from 'src/wishlist/wishlist.service';
-import { PrivacyType } from 'src/wishlist/privacy-type.enum';
+import { UserEntity } from 'src/user/user.entity';
+import { PrivacyType } from '@prisma/client';
 
 @Public()
 @Controller('/api/auth')
@@ -30,8 +29,9 @@ export class AuthController {
 
   @UseGuards(AuthGuard('local'))
   @Post('login')
-  async login(@Request() req): Promise<LoginResponseDto | BadRequestException> {
-    return this.authService.login(req.user);
+  async login(@Request() req): Promise<LoginResponseDto> {
+    const accessToken = await this.authService.login(req.user);
+    return { accessToken: accessToken };
   }
 
   @Post('register')
@@ -39,18 +39,19 @@ export class AuthController {
   async register(
     @Body() registerBody: RegisterRequestDto,
     @UploadedFile() profilePhoto,
-  ): Promise<RegisterResponseDto> {
-    let profilePhotoLink = null;
+  ): Promise<LoginResponseDto> {
+    const userEntity = new UserEntity(registerBody);
+
     if (profilePhoto !== undefined) {
-      profilePhotoLink = await this.s3service.uploadImage(
+      const imageData = await this.s3service.uploadImage(
         profilePhoto,
         process.env.PROFILE_PHOTO,
       );
+      userEntity.photoLink = imageData.location;
+      userEntity.photoLinkAsKey = imageData.path;
     }
 
-    registerBody.photoLink = profilePhotoLink;
-
-    const userResponse = await this.authService.register(registerBody);
+    const accessToken = await this.authService.register(userEntity);
 
     for (const privacy of Object.values(PrivacyType)) {
       await this.wishlistService.createDefaultWishlist(
@@ -59,6 +60,6 @@ export class AuthController {
       );
     }
 
-    return userResponse;
+    return { accessToken: accessToken };
   }
 }

@@ -3,5 +3,5 @@ export type NewWishitemDto = {
   description: string;
   importance: number;
   itemshopLinks: string[];
-  wishlistId: string;
+  holderWishlistPrivacy: string;
 };

@@ -1,3 +1,6 @@
-import { UserEntity } from 'src/user/user.entity';
-
-export class RegisterRequestDto extends UserEntity {}
+export class RegisterRequestDto {
+  nickname: string;
+  password: string;
+  name: string;
+  surname: string;
+}

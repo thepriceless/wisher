@@ -12,7 +12,7 @@ async function login(event) {
   });
   if (response.ok) {
     const data = await response.json();
-    document.cookie = `AccessToken=${data.access_token}; path=/; expires=${calculateExpirationTimeForJwt()}`;
+    document.cookie = `AccessToken=${data.accessToken}; path=/; expires=${calculateExpirationTimeForJwt()}`;
     window.location.href = '/';
   } else if (response.status === 401) {
     const mainElement = document.querySelector('main');

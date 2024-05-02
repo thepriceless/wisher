@@ -3,9 +3,10 @@ import { PrismaService } from 'src/prismas/prisma.service';
 import { WishlistEntity } from './wishlist.entity';
 import { UserEntity } from 'src/user/user.entity';
 import { WishitemEntity } from '../wishitem/wishitem.entity';
-import { PrivacyType } from './privacy-type.enum';
 import { NewWishitemDto } from '../wishitem/new.wishitem.dto';
 import { WishitemService } from 'src/wishitem/wishitem.service';
+import { PrivacyType } from '@prisma/client';
+import { ObjectStorageImageData } from 'src/s3/image.data';
 
 @Injectable()
 export class WishlistService {
@@ -44,7 +45,10 @@ export class WishlistService {
     return wishlistWithWishitems.wishitems;
   }
 
-  async saveNewItemToWishlist(wishitem: NewWishitemDto, imageLink: string) {
+  async saveNewItemToWishlist(
+    wishitem: WishitemEntity,
+    imageLink: ObjectStorageImageData,
+  ) {
     const newWishitem = await this.wishitemService.createWishitem(
       wishitem,
       imageLink,

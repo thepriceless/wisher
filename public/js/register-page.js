@@ -10,7 +10,7 @@ async function signup(event) {
   if (response.ok) {
     const data = await response.json();
     const expirationTime = calculateExpirationTimeForJwt();
-    document.cookie = `AccessToken=${data.access_token}; path=/; expires=${expirationTime}`;
+    document.cookie = `AccessToken=${data.accessToken}; path=/; expires=${expirationTime}`;
     window.location.href = '/';
   } else if (response.status === 400) {
     alert('Account with this nickname already exists');

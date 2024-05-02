@@ -1,20 +1,19 @@
 async function uploadItem(event) {
   event.preventDefault();
   const privacy = document.getElementById('wishlist').value;
-  const wishlistResponse = await fetch(`/api/wishlists?privacy=${privacy}`);
-  if (wishlistResponse.ok) {
-    const wishlistData = await wishlistResponse.json();
-    const body = composeDataFromForm(event.target, wishlistData);
-    const response = await fetch('/api/wishitems/new', {
-      method: 'POST',
-      body: body,
-    });
-    if (response.ok) {
-      window.location.href = `/wishlists/${wishlistData.id}`;
-      alert('Item successfully added!');
-    } else {
-      console.log('wrong');
-    }
+  const body = composeDataFromForm(event.target);
+  body.append('holderWishlistPrivacy', privacy);
+  const response = await fetch('/api/wishitems/new', {
+    method: 'POST',
+    body: body,
+  });
+  if (response.ok) {
+    const newWishitem = await response.json();
+    console.log(newWishitem);
+    window.location.href = `/wishlists/${newWishitem.wishlistId}`;
+    alert('Item successfully added!');
+  } else {
+    console.log('wrong');
   }
 }
 
@@ -29,11 +28,10 @@ async function saveExistingItemToWishlist(privacy, wishitemId) {
   }
 }
 
-function composeDataFromForm(form, wishlistData) {
+function composeDataFromForm(form) {
   const formData = new FormData(form);
 
   formData.delete('wishlist');
-  formData.append('wishlistId', wishlistData.id);
 
   let itemShopLinks = formData.getAll('itemshopLinks');
   if (itemShopLinks.length !== 0) {

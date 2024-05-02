@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prismas/prisma.service';
+import { ObjectStorageImageData } from './image.data';
 const path = require('path');
 
 @Injectable()
@@ -18,7 +19,7 @@ export class S3Service {
     });
   }
 
-  async uploadImage(file, folderName) {
+  async uploadImage(file, folderName): Promise<ObjectStorageImageData> {
     const upload = await this.s3.Upload(
       {
         buffer: file.buffer,
@@ -26,7 +27,12 @@ export class S3Service {
       folderName,
     );
 
-    return upload.Location;
+    console.log(upload);
+
+    return {
+      location: upload.Location,
+      path: upload.key,
+    };
   }
 
   async downloadImageBuffer(path: string): Promise<string> {

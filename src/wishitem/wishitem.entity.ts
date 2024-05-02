@@ -7,4 +7,6 @@ export class WishitemEntity implements Wishitem {
   importance: number;
   imageLink: string;
   imageLinkAsKey: string;
+  itemshopLinks?: string[];
+  wishlistId?: string;
 }

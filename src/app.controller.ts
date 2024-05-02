@@ -7,6 +7,12 @@ import {
   Render,
   UseInterceptors,
 } from '@nestjs/common';
+import {
+  ApiHeader,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { AppService } from './app.service';
 import { TimeInterceptor } from './interceptors/time.interceptor';
 import { WishitemEntity } from './wishitem/wishitem.entity';
@@ -17,6 +23,10 @@ import { WishlistService } from './wishlist/wishlist.service';
 import { FriendRequestState } from './user/friend.request.state.enum';
 import { WishlistEntity } from './wishlist/wishlist.entity';
 import { WishitemService } from './wishitem/wishitem.service';
+import { WishlistDto } from './wishlist/wishlist.dto';
+import { UserDto } from './user/user.dto';
+import { WishitemDto } from './wishitem/wishitem.dto';
+import { WishitemMapper } from './wishitem/wishitem.mapper';
 
 @Controller()
 @UseInterceptors(TimeInterceptor)
@@ -27,19 +37,41 @@ export class AppController {
     private readonly wishitemService: WishitemService,
     private readonly userService: UserService,
   ) {}
+
+  @ApiOperation({
+    summary: 'Get wishlists that are owned by user specified in authorization',
+  })
+  @ApiHeader({
+    name: 'authorization',
+    description: 'JWT authorization token',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Wishlists are successfully returned',
+  })
+  @ApiResponse({
+    status: 401,
+    description:
+      'Requestor in unable to send this request. Requestor should register / login in the app',
+  })
   @Get('/wishlists')
   @Render('myWishlists')
-  async myWishlist(
+  async myWishlists(
     @Headers('authorization') authorization: string,
-  ): Promise<{ wishlists: WishlistEntity[]; authorizedUser: UserEntity }> {
+  ): Promise<{ wishlists: WishlistDto[]; authorizedUser: UserDto }> {
     try {
       const authorizedUser =
         await this.userService.getUserFromToken(authorization);
       const wishlists =
         await this.wishlistService.getWishlistsByOwner(authorizedUser);
+
+      const wishlistsDto = wishlists.map(
+        (wishlist) => new WishlistDto(wishlist),
+      );
+      const authorizedUserDto = new UserDto(authorizedUser);
       return {
-        wishlists: wishlists,
-        authorizedUser: authorizedUser,
+        wishlists: wishlistsDto,
+        authorizedUser: authorizedUserDto,
       };
     } catch (err) {}
   }
@@ -48,16 +80,19 @@ export class AppController {
   @Render('friends')
   async friends(
     @Headers('authorization') authorization: string,
-  ): Promise<{ friends: UserEntity[]; authorizedUser: UserEntity }> {
+  ): Promise<{ friends: UserDto[]; authorizedUser: UserDto }> {
     try {
       const authorizedUser =
         await this.userService.getUserFromToken(authorization);
       const friends = await this.userService.findFriendsByNickname(
         authorizedUser.nickname,
       );
+
+      const friendsDto = friends.map((friend) => new UserDto(friend));
+      const authorizedUserDto = new UserDto(authorizedUser);
       return {
-        friends: friends,
-        authorizedUser: authorizedUser,
+        friends: friendsDto,
+        authorizedUser: authorizedUserDto,
       };
     } catch (err) {}
   }
@@ -67,7 +102,7 @@ export class AppController {
   @Public()
   async wisher(
     @Headers('authorization') authorization: string,
-  ): Promise<{ wishitem: WishitemEntity; authorizedUser: UserEntity }> {
+  ): Promise<{ wishitem: WishitemDto; authorizedUser: UserDto }> {
     let authorizedUser;
     try {
       authorizedUser = await this.userService.getUserFromToken(authorization);
@@ -77,9 +112,11 @@ export class AppController {
 
     const item = await this.wishitemService.getRandomWishitem();
 
+    const itemDto = WishitemMapper.toDto(item);
+    const authorizedUserDto = new UserDto(authorizedUser);
     return {
-      wishitem: item,
-      authorizedUser: authorizedUser,
+      wishitem: itemDto,
+      authorizedUser: authorizedUserDto,
     };
   }
 
@@ -89,26 +126,32 @@ export class AppController {
     @Headers('authorization') authorization: string,
     @Param('id') id: string,
   ): Promise<{
-    wishitems: WishitemEntity[];
+    wishitems: WishitemDto[];
     wishlistId: string;
     isOwner: boolean;
-    authorizedUser: UserEntity;
+    authorizedUser: UserDto;
   }> {
     const authorizedUser =
       await this.userService.getUserFromToken(authorization);
+
     const userWithWishlists = await this.userService.findUserWithWishlists(
       authorizedUser.nickname,
     );
     const isOwner = userWithWishlists.ownedWishlists.some(
       (wishlist) => wishlist.id === id,
     );
+
     const wishitems = await this.wishlistService.getWishitemsByWishlistId(id);
 
+    const wishitemsDto = wishitems.map((wishitem) =>
+      WishitemMapper.toDto(wishitem),
+    );
+    const authorizedUserDto = new UserDto(authorizedUser);
     return {
-      wishitems: wishitems,
+      wishitems: wishitemsDto,
       wishlistId: id,
       isOwner: isOwner,
-      authorizedUser: authorizedUser,
+      authorizedUser: authorizedUserDto,
     };
   }
 
@@ -116,11 +159,13 @@ export class AppController {
   @Render('uploadItemToWishlist')
   async uploadItem(
     @Headers('authorization') authorization: string,
-  ): Promise<{ authorizedUser: UserEntity }> {
+  ): Promise<{ authorizedUser: UserDto }> {
     const authorizedUser =
       await this.userService.getUserFromToken(authorization);
+
+    const authorizedUserDto = new UserDto(authorizedUser);
     return {
-      authorizedUser: authorizedUser,
+      authorizedUser: authorizedUserDto,
     };
   }
 
@@ -130,16 +175,18 @@ export class AppController {
     @Headers('authorization') authorization: string,
     @Query('nickname') nicknameStart: string,
   ): Promise<{
-    users: UserEntity[];
-    authorizedUser: UserEntity;
+    users: UserDto[];
+    authorizedUser: UserDto;
   }> {
     const authorizedUser =
       await this.userService.getUserFromToken(authorization);
     const users = await this.userService.findAllByNicknameStart(nicknameStart);
 
+    const usersDto = users.map((user) => new UserDto(user));
+    const authorizedUserDto = new UserDto(authorizedUser);
     return {
-      users: users,
-      authorizedUser: authorizedUser,
+      users: usersDto,
+      authorizedUser: authorizedUserDto,
     };
   }
 
@@ -149,10 +196,10 @@ export class AppController {
     @Headers('authorization') authorization: string,
     @Param('nickname') nickname: string,
   ): Promise<{
-    user: UserEntity;
+    user: UserDto;
     friendshipState: string;
     isGuest: boolean;
-    authorizedUser: UserEntity;
+    authorizedUser: UserDto;
   }> {
     const guest = await this.userService.getUserFromToken(authorization);
     const host = await this.userService.findOneByNickname(nickname);
@@ -166,11 +213,13 @@ export class AppController {
     const authorizedUser =
       await this.userService.getUserFromToken(authorization);
 
+    const hostDto = new UserDto(host);
+    const authorizedUserDto = new UserDto(authorizedUser);
     return {
-      user: host,
+      user: hostDto,
       friendshipState: FriendRequestState[friendshipState],
       isGuest: isGuest,
-      authorizedUser: authorizedUser,
+      authorizedUser: authorizedUserDto,
     };
   }
 
@@ -179,14 +228,16 @@ export class AppController {
   async getWishitemById(
     @Headers('authorization') authorization: string,
     @Param('id') id: string,
-  ): Promise<{ wishitem: WishitemEntity; authorizedUser: UserEntity }> {
+  ): Promise<{ wishitem: WishitemDto; authorizedUser: UserDto }> {
     const wishitem = await this.wishitemService.getWishitemById(id);
     const authorizedUser =
       await this.userService.getUserFromToken(authorization);
 
+    const wishitemDto = WishitemMapper.toDto(wishitem);
+    const authorizedUserDto = new UserDto(authorizedUser);
     return {
-      wishitem: wishitem,
-      authorizedUser: authorizedUser,
+      wishitem: wishitemDto,
+      authorizedUser: authorizedUserDto,
     };
   }
 

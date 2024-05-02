@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prismas/prisma.service';
+import { ObjectStorageImageData } from 'src/s3/image.data';
 import { NewWishitemDto } from 'src/wishitem/new.wishitem.dto';
 import { WishitemEntity } from 'src/wishitem/wishitem.entity';
 
@@ -34,8 +35,8 @@ export class WishitemService {
   }
 
   async createWishitem(
-    wishitem: NewWishitemDto,
-    imageLink: string,
+    wishitem: WishitemEntity,
+    imageLink: ObjectStorageImageData,
   ): Promise<WishitemEntity> {
     const itemshopLinks = Array.isArray(wishitem.itemshopLinks)
       ? wishitem.itemshopLinks
@@ -46,7 +47,7 @@ export class WishitemService {
         title: wishitem.title,
         importance: wishitem.importance,
         description: wishitem.description,
-        imageLink: imageLink,
+        imageLink: imageLink.location,
         itemshopLinks: {
           create: itemshopLinks.map((link) => {
             return {
@@ -68,7 +69,19 @@ export class WishitemService {
       },
     });
 
-    return wishitem;
+    const itemshopLinksNoId = wishitem.itemshopLinks.map(
+      (linkObject) => linkObject.link,
+    );
+
+    const wishitemRes: WishitemEntity = new WishitemEntity();
+    wishitemRes.id = wishitem.id;
+    wishitemRes.title = wishitem.title;
+    wishitemRes.description = wishitem.description;
+    wishitemRes.importance = wishitem.importance;
+    wishitemRes.imageLink = wishitem.imageLink;
+    wishitemRes.itemshopLinks = itemshopLinksNoId;
+
+    return wishitemRes;
   }
 
   async connectExistingWishitemToWishlist(

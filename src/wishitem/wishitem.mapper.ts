@@ -1,0 +1,29 @@
+import { WishitemEntity } from './wishitem.entity';
+import { WishitemDto } from './wishitem.dto';
+import { NewWishitemDto } from './new.wishitem.dto';
+
+export class WishitemMapper {
+  static toDto(wishitemEntity: WishitemEntity): WishitemDto {
+    return {
+      id: wishitemEntity.id,
+      title: wishitemEntity.title,
+      description: wishitemEntity.description,
+      importance: wishitemEntity.importance,
+      wishlistId: wishitemEntity.wishlistId,
+      imageLink: wishitemEntity.imageLink,
+      itemshopLinks: wishitemEntity.itemshopLinks,
+    };
+  }
+
+  static toEntity(newWishitemDto: NewWishitemDto): WishitemEntity {
+    return {
+      id: undefined,
+      title: newWishitemDto.title,
+      description: newWishitemDto.description,
+      importance: newWishitemDto.importance,
+      imageLink: undefined,
+      imageLinkAsKey: undefined,
+      itemshopLinks: newWishitemDto.itemshopLinks,
+    };
+  }
+}

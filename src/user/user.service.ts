@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserEntity, UserEntityWithWishlists } from './user.entity';
+import { UserEntity } from './user.entity';
 import { PrismaService } from 'src/prismas/prisma.service';
 import { FriendRequestEntity } from './friend.request.entity';
 import { FriendRequestState } from './friend.request.state.enum';
@@ -27,9 +27,7 @@ export class UserService {
     });
   }
 
-  async findUserWithWishlists(
-    nickname: string,
-  ): Promise<UserEntityWithWishlists> {
+  async findUserWithWishlists(nickname: string): Promise<UserEntity> {
     return await this.prisma.user.findUnique({
       where: {
         nickname: nickname,
@@ -51,7 +49,16 @@ export class UserService {
   }
 
   async createUser(user: UserEntity): Promise<UserEntity> {
-    return this.prisma.user.create({ data: user });
+    return this.prisma.user.create({
+      data: {
+        nickname: user.nickname,
+        password: user.password,
+        name: user.name,
+        surname: user.surname,
+        photoLink: user.photoLink,
+        photoLinkAsKey: user.photoLinkAsKey,
+      },
+    });
   }
 
   async findFriendsByNickname(nickname: string): Promise<UserEntity[]> {
