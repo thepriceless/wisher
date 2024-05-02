@@ -16,8 +16,8 @@ import { RegisterResponseDto } from './dto/register.response.dto';
 import { Public } from './decorators/public.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { S3Service } from 'src/s3/s3.service';
-import { WishlistService } from 'src/wishes/wishlist.service';
-import { PrivacyType } from 'src/wishes/privacy-type.enum';
+import { WishlistService } from 'src/wishlist/wishlist.service';
+import { PrivacyType } from 'src/wishlist/privacy-type.enum';
 
 @Public()
 @Controller('/api/auth')

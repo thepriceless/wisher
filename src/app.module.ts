@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { WishesModule } from './wishes/wishes.module';
+import { WishlistModule } from './wishlist/wishlist.module';
 import { UserModule } from './user/user.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtGuard } from './auth/guards/jwt.guard';
@@ -10,16 +10,19 @@ import { JwtStrategy } from './auth/strategies/jwt.strategy';
 import { AuthModule } from './auth/auth.module';
 import { AuthorizationCookieMiddleware } from './middlewares/authorization.cookie.middleware';
 import { S3Module } from './s3/s3.module';
+import { WishitemController } from './wishitem/wishitem.controller';
+import { WishitemModule } from './wishitem/wishitem.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    WishesModule,
+    WishlistModule,
     AuthModule,
     UserModule,
     S3Module,
+    WishitemModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, WishitemController],
   providers: [
     AppService,
     {

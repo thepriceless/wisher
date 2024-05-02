@@ -2,7 +2,6 @@ import { Body, Controller, Get, Headers, Post, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { FriendRequestResponseDto } from './friend.request.response.dto';
 import { FriendRequestState } from './friend.request.state.enum';
-import { UserEntity } from './user.entity';
 
 @Controller('/api/users')
 export class UserController {

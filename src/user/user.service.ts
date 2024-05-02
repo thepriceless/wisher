@@ -4,7 +4,6 @@ import { PrismaService } from 'src/prismas/prisma.service';
 import { FriendRequestEntity } from './friend.request.entity';
 import { FriendRequestState } from './friend.request.state.enum';
 import * as jwt from 'jsonwebtoken';
-import { WishlistEntity } from 'src/wishes/wishlist.entity';
 
 @Injectable()
 export class UserService {

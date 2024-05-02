@@ -2,13 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prismas/prisma.service';
 import { WishlistEntity } from './wishlist.entity';
 import { UserEntity } from 'src/user/user.entity';
-import { WishitemEntity } from './wishitem.entity';
+import { WishitemEntity } from '../wishitem/wishitem.entity';
 import { PrivacyType } from './privacy-type.enum';
-import { NewWishitemDto } from './new.wishitem.dto';
+import { NewWishitemDto } from '../wishitem/new.wishitem.dto';
+import { WishitemService } from 'src/wishitem/wishitem.service';
 
 @Injectable()
 export class WishlistService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly wishitemService: WishitemService,
+  ) {}
 
   async getWishlistsByOwner(owner: UserEntity): Promise<WishlistEntity[]> {
     const wishlistsByUser = await this.prisma.wishlist.findMany({
@@ -41,52 +45,18 @@ export class WishlistService {
   }
 
   async saveNewItemToWishlist(wishitem: NewWishitemDto, imageLink: string) {
-    const itemshopLinks = Array.isArray(wishitem.itemshopLinks)
-      ? wishitem.itemshopLinks
-      : [];
-
-    const newWishitem = await this.prisma.wishitem.create({
-      data: {
-        title: wishitem.title,
-        importance: wishitem.importance,
-        description: wishitem.description,
-        imageLink: imageLink,
-        itemshopLinks: {
-          create: itemshopLinks.map((link) => {
-            return {
-              link: link,
-            };
-          }),
-        },
-      },
-    });
-
-    const wishitemWithWishlist = this.connectExistingWishitemToWishlist(
-      newWishitem.id,
-      wishitem.wishlistId,
+    const newWishitem = await this.wishitemService.createWishitem(
+      wishitem,
+      imageLink,
     );
 
+    const wishitemWithWishlist =
+      this.wishitemService.connectExistingWishitemToWishlist(
+        newWishitem.id,
+        wishitem.wishlistId,
+      );
+
     return wishitemWithWishlist;
-  }
-
-  async connectExistingWishitemToWishlist(
-    wishitemId: string,
-    wishlistId: string,
-  ): Promise<WishitemEntity> {
-    const linkedWishitem = await this.prisma.wishitem.update({
-      where: {
-        id: wishitemId,
-      },
-      data: {
-        wishlists: {
-          connect: {
-            id: wishlistId,
-          },
-        },
-      },
-    });
-
-    return linkedWishitem;
   }
 
   async findWishlistByPrivacyAndOwner(
@@ -100,42 +70,7 @@ export class WishlistService {
       },
     });
 
-
-
     return wishlists[0];
-  }
-
-  async getWishitemById(id: string): Promise<WishitemEntity> {
-    const wishitem = await this.prisma.wishitem.findUnique({
-      where: {
-        id: id,
-      },
-      include: {
-        itemshopLinks: true,
-      },
-    });
-
-    return wishitem;
-  }
-
-  async deleteItemFromWishlist(
-    wishitemId: string,
-    wishlistId: string,
-  ): Promise<WishitemEntity> {
-    const deletedWishitem = await this.prisma.wishitem.update({
-      where: {
-        id: wishitemId,
-      },
-      data: {
-        wishlists: {
-          disconnect: {
-            id: wishlistId,
-          },
-        },
-      },
-    });
-
-    return deletedWishitem;
   }
 
   async createDefaultWishlist(

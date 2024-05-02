@@ -8,13 +8,13 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { SECONDS_IN_A_DAY } from 'src/constants';
 import { S3Module } from 'src/s3/s3.module';
-import { WishesModule } from 'src/wishes/wishes.module';
+import { WishlistModule } from 'src/wishlist/wishlist.module';
 
 @Module({
   imports: [
     UserModule,
     S3Module,
-    WishesModule,
+    WishlistModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async () => ({

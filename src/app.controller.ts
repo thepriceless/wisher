@@ -9,25 +9,23 @@ import {
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { TimeInterceptor } from './interceptors/time.interceptor';
-import { WishitemEntity } from './wishes/wishitem.entity';
-import { WisherService } from './wishes/wisher.service';
+import { WishitemEntity } from './wishitem/wishitem.entity';
 import { Public } from './auth/decorators/public.decorator';
 import { UserEntity } from './user/user.entity';
 import { UserService } from './user/user.service';
-import { WishlistService } from './wishes/wishlist.service';
+import { WishlistService } from './wishlist/wishlist.service';
 import { FriendRequestState } from './user/friend.request.state.enum';
-import { WishlistEntity } from './wishes/wishlist.entity';
-import { S3Service } from './s3/s3.service';
+import { WishlistEntity } from './wishlist/wishlist.entity';
+import { WishitemService } from './wishitem/wishitem.service';
 
 @Controller()
 @UseInterceptors(TimeInterceptor)
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private readonly wisherService: WisherService,
     private readonly wishlistService: WishlistService,
+    private readonly wishitemService: WishitemService,
     private readonly userService: UserService,
-    private readonly s3Service: S3Service,
   ) {}
   @Get('/wishlists')
   @Render('myWishlists')
@@ -77,7 +75,7 @@ export class AppController {
       authorizedUser = null;
     }
 
-    const item = await this.wisherService.getRandomWishitem();
+    const item = await this.wishitemService.getRandomWishitem();
 
     return {
       wishitem: item,
@@ -182,7 +180,7 @@ export class AppController {
     @Headers('authorization') authorization: string,
     @Param('id') id: string,
   ): Promise<{ wishitem: WishitemEntity; authorizedUser: UserEntity }> {
-    const wishitem = await this.wishlistService.getWishitemById(id);
+    const wishitem = await this.wishitemService.getWishitemById(id);
     const authorizedUser =
       await this.userService.getUserFromToken(authorization);
 
