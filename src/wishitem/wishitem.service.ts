@@ -42,7 +42,7 @@ export class WishitemService {
       ? wishitem.itemshopLinks
       : [];
 
-    const imageLinkUrl = imageLink !== null ? imageLink.location : '';
+    const imageLinkUrl = imageLink !== null ? imageLink.location : null;
 
     return await this.prisma.wishitem.create({
       data: {

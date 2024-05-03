@@ -23,7 +23,6 @@ export class WishlistDto {
   id: string;
 
   @IsString()
-  @IsAscii()
   @MaxLength(40, {
     message: 'Title is too long. Maximum length is 40 characters.',
   })

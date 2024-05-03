@@ -93,7 +93,6 @@ export class WishlistController {
     @UploadedFile() itemImage,
     @Headers('authorization') authorization: string,
   ): Promise<WishitemDto> {
-    console.log('newWishitemDto', newWishitemDto);
     let imageLink = null;
     if (itemImage !== undefined) {
       imageLink = await this.s3service.uploadImage(

@@ -52,7 +52,7 @@ function composeDataFromForm(form) {
   return formData;
 }
 
-let linkCounter = 1;
+let linkCounter = 0;
 function addLinkField() {
   if (linkCounter < 3) {
     linkCounter++;

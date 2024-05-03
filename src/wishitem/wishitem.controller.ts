@@ -27,6 +27,8 @@ export class WishitemController {
   async getRandomWishitem(): Promise<WishitemDto> {
     const randomWishitem = await this.wishitemService.getRandomWishitem();
 
+    console.log(randomWishitem.imageLink);
+
     const dto = WishitemMapper.toDto(randomWishitem);
     return dto;
   }

@@ -27,8 +27,6 @@ export class S3Service {
       folderName,
     );
 
-    console.log(upload);
-
     return {
       location: upload.Location,
       path: upload.key,

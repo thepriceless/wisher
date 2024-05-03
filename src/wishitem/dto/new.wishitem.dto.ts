@@ -15,7 +15,6 @@ import {
 
 export class NewWishitemDto {
   @IsString()
-  @IsAscii()
   @MaxLength(60, {
     message: 'Title is too long. Maximum length is 60 characters.',
   })
@@ -23,7 +22,6 @@ export class NewWishitemDto {
   title: string;
 
   @IsString()
-  @IsAscii()
   @MaxLength(400, {
     message: 'Title is too long. Maximum length is 400 characters.',
   })
@@ -36,7 +34,7 @@ export class NewWishitemDto {
   @ApiProperty({ description: 'The importance of the wish item' })
   importance: number;
 
-  @ArrayMaxSize(3)
+  //@ArrayMaxSize(3)
   //@IsUrl({}, { each: true, message: 'Each item shop link must be a valid URL' })
   @ApiPropertyOptional({ description: 'The item shop links of the wish item' })
   itemshopLinks: string[];
