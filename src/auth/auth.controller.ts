@@ -17,7 +17,17 @@ import { S3Service } from 'src/s3/s3.service';
 import { WishlistService } from 'src/wishlist/wishlist.service';
 import { UserEntity } from 'src/user/user.entity';
 import { PrivacyType } from '@prisma/client';
+import {
+  ApiBadRequestResponse,
+  ApiBody,
+  ApiConsumes,
+  ApiCreatedResponse,
+  ApiOperation,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
+@ApiTags('Auth API')
 @Public()
 @Controller('/api/auth')
 export class AuthController {
@@ -27,6 +37,20 @@ export class AuthController {
     private readonly s3service: S3Service,
   ) {}
 
+  @ApiOperation({
+    summary: `
+    Process login request from user with the provided credentials.
+    All credentials come from Request object.
+  `,
+  })
+  @ApiCreatedResponse({
+    description:
+      'User is successfully logged in. Response contains JWT access token.',
+    type: LoginResponseDto,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'User provided invalid credentials. Login is not successful.',
+  })
   @UseGuards(AuthGuard('local'))
   @Post('login')
   async login(@Request() req): Promise<LoginResponseDto> {
@@ -34,6 +58,42 @@ export class AuthController {
     return { accessToken: accessToken };
   }
 
+  @ApiOperation({
+    summary: `
+    Process registration request from user with the provided credentials.
+  `,
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Data about new user and the profile image file.',
+    type: 'multipart/form-data',
+    schema: {
+      type: 'object',
+      properties: {
+        registerBody: {
+          type: 'object',
+          format: 'json',
+          description: 'JSON of RegisterRequestDto',
+        },
+        profilePhoto: {
+          type: 'string',
+          format: 'binary',
+          description: 'User profile image',
+        },
+      },
+    },
+  })
+  @ApiCreatedResponse({
+    description: `
+      User is successfully registered. Account is created.
+      Wishlists for user automatically created. Response contains JWT access token.
+    `,
+    type: LoginResponseDto,
+  })
+  @ApiBadRequestResponse({
+    description:
+      'User with the same nickname already exists. Registration failed.',
+  })
   @Post('register')
   @UseInterceptors(FileInterceptor('photoLink'))
   async register(

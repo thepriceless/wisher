@@ -13,14 +13,19 @@ async function uploadItem(event) {
     window.location.href = `/wishlists/${newWishitem.wishlistId}`;
     alert('Item successfully added!');
   } else {
+    const r = await response.json();
+    console.log(r);
     console.log('wrong');
   }
 }
 
 async function saveExistingItemToWishlist(privacy, wishitemId) {
-  const response = await fetch(`/api/wisher/${wishitemId}?privacy=${privacy}`, {
-    method: 'POST',
-  });
+  const response = await fetch(
+    `/api/wishitems/${wishitemId}?privacy=${privacy}`,
+    {
+      method: 'POST',
+    },
+  );
   if (response.ok) {
     alert('Item successfully added!');
   } else {

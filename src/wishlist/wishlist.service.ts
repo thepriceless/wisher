@@ -3,7 +3,7 @@ import { PrismaService } from 'src/prismas/prisma.service';
 import { WishlistEntity } from './wishlist.entity';
 import { UserEntity } from 'src/user/user.entity';
 import { WishitemEntity } from '../wishitem/wishitem.entity';
-import { NewWishitemDto } from '../wishitem/new.wishitem.dto';
+import { NewWishitemDto } from '../wishitem/dto/new.wishitem.dto';
 import { WishitemService } from 'src/wishitem/wishitem.service';
 import { PrivacyType } from '@prisma/client';
 import { ObjectStorageImageData } from 'src/s3/image.data';

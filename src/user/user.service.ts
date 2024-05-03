@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { UserEntity } from './user.entity';
 import { PrismaService } from 'src/prismas/prisma.service';
-import { FriendRequestEntity } from './friend.request.entity';
-import { FriendRequestState } from './friend.request.state.enum';
+import { FriendRequestEntity } from './friend-request-types/friend.request.entity';
+import { FriendRequestState } from './friend-request-types/friend.request.state.enum';
 import * as jwt from 'jsonwebtoken';
 
 @Injectable()
@@ -131,7 +131,7 @@ export class UserService {
     return friendshipState;
   }
 
-  async processFriendRequest(
+  async processFriendshipState(
     senderNickname: string,
     receiverNickname: string,
   ): Promise<FriendRequestState> {

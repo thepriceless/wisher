@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prismas/prisma.service';
 import { ObjectStorageImageData } from 'src/s3/image.data';
-import { NewWishitemDto } from 'src/wishitem/new.wishitem.dto';
+import { NewWishitemDto } from 'src/wishitem/dto/new.wishitem.dto';
 import { WishitemEntity } from 'src/wishitem/wishitem.entity';
 
 @Injectable()
@@ -42,12 +42,14 @@ export class WishitemService {
       ? wishitem.itemshopLinks
       : [];
 
+    const imageLinkUrl = imageLink !== null ? imageLink.location : '';
+
     return await this.prisma.wishitem.create({
       data: {
         title: wishitem.title,
         importance: wishitem.importance,
         description: wishitem.description,
-        imageLink: imageLink.location,
+        imageLink: imageLinkUrl,
         itemshopLinks: {
           create: itemshopLinks.map((link) => {
             return {

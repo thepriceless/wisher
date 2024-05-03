@@ -1,6 +1,6 @@
 import { WishitemEntity } from './wishitem.entity';
-import { WishitemDto } from './wishitem.dto';
-import { NewWishitemDto } from './new.wishitem.dto';
+import { WishitemDto } from './dto/wishitem.dto';
+import { NewWishitemDto } from './dto/new.wishitem.dto';
 
 export class WishitemMapper {
   static toDto(wishitemEntity: WishitemEntity): WishitemDto {

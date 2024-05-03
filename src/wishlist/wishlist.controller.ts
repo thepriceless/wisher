@@ -12,18 +12,33 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { WishlistService } from './wishlist.service';
-import { NewWishitemDto } from '../wishitem/new.wishitem.dto';
+import { NewWishitemDto } from '../wishitem/dto/new.wishitem.dto';
 import { UserService } from 'src/user/user.service';
 import { S3Service } from 'src/s3/s3.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { WishitemService } from 'src/wishitem/wishitem.service';
-import { ApiBody } from '@nestjs/swagger';
 import { PrivacyType } from '@prisma/client';
 import { WishlistDto } from './wishlist.dto';
-import { WishitemDto } from 'src/wishitem/wishitem.dto';
+import { WishitemDto } from 'src/wishitem/dto/wishitem.dto';
 import { WishitemEntity } from 'src/wishitem/wishitem.entity';
 import { WishitemMapper } from 'src/wishitem/wishitem.mapper';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiCreatedResponse,
+  ApiHeader,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
+import { GetUserProfileResponse } from 'src/types/get.user.profile.response';
+import { WishitemImageUploadDto } from 'src/wishitem/wishitem.image.upload.dto';
 
+@ApiTags('Wishlist API')
 @Controller('/api')
 export class WishlistController {
   constructor(
@@ -33,14 +48,52 @@ export class WishlistController {
     private readonly s3service: S3Service,
   ) {}
 
-  //@ApiBody({ type: NewWishitemDto })
+  @ApiOperation({
+    summary: `
+    Save new wishitem to wishlist. All required data about wishitem and wishlist, 
+    where the wishitem should appear, is encapsulated in newWishitemDto. 
+    Image of wishitem is optional.
+  `,
+  })
+  @ApiHeader({
+    name: 'authorization',
+    description: 'JWT authorization token',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description:
+      'Data about new wishitem and the image file. Also contains the wishlist privacy type, where the wishitem should appear',
+    type: 'multipart/form-data',
+    schema: {
+      type: 'object',
+      properties: {
+        newWishitemDto: {
+          type: 'object',
+          format: 'json',
+          description: 'JSON of NewWishitemDto',
+        },
+        itemImage: {
+          type: 'string',
+          format: 'binary',
+          description: 'Image file of wishitem',
+        },
+      },
+    },
+  })
+  @ApiCreatedResponse({
+    description:
+      'Wishitem is successfully saved to wishlist and returned as DTO',
+    type: WishitemDto,
+  })
+  @ApiBearerAuth()
   @Post('/wishitems/new')
   @UseInterceptors(FileInterceptor('imageLink'))
   async saveNewItem(
     @Body() newWishitemDto: NewWishitemDto,
     @UploadedFile() itemImage,
     @Headers('authorization') authorization: string,
-  ): Promise<WishitemEntity> {
+  ): Promise<WishitemDto> {
+    console.log('newWishitemDto', newWishitemDto);
     let imageLink = null;
     if (itemImage !== undefined) {
       imageLink = await this.s3service.uploadImage(
@@ -69,11 +122,41 @@ export class WishlistController {
       imageLink,
     );
 
-    savedWishitem.wishlistId = wishlist.id;
+    const savedWishitemDto = WishitemMapper.toDto(savedWishitem);
+    savedWishitemDto.wishlistId = wishlist.id;
 
-    return savedWishitem;
+    return savedWishitemDto;
   }
 
+  @ApiOperation({
+    summary: `
+    Get wishlist with specified privacy of user with specified nickname
+  `,
+  })
+  @ApiHeader({
+    name: 'authorization',
+    description: 'JWT authorization token',
+  })
+  @ApiQuery({
+    name: 'privacy',
+    description: 'Privacy type of wishlist',
+    type: String,
+  })
+  @ApiQuery({
+    name: 'owner',
+    description: 'Nickname of wishlist owner',
+    type: String,
+  })
+  @ApiOkResponse({
+    description:
+      'Wishlist with specified privacy of user with specified nickname is returned',
+    type: WishitemDto,
+  })
+  @ApiNotFoundResponse({
+    description:
+      'Wishlist with specified privacy of user with specified nickname is not found',
+  })
+  @ApiBearerAuth()
   @Get('/wishlists')
   async findWishlistByPrivacyAndOwner(
     @Headers('authorization') authorization: string,
@@ -96,7 +179,37 @@ export class WishlistController {
     );
   }
 
-  @Post('wisher/:id')
+  @ApiOperation({
+    summary: `
+    Create a link between existing wishitem and wishlist.
+    After this operation, wishlist will contain the wishitem.
+  `,
+  })
+  @ApiHeader({
+    name: 'authorization',
+    description: 'JWT authorization token',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Id of existing wishitem',
+    type: String,
+  })
+  @ApiQuery({
+    name: 'privacy',
+    description: 'Privacy type of wishlist',
+    type: String,
+  })
+  @ApiCreatedResponse({
+    description:
+      'Wishitem is successfully connected to wishlist and returned as DTO',
+    type: WishitemDto,
+  })
+  @ApiNotFoundResponse({
+    description:
+      'Wishitem with specified id is not found or wishlist with specified privacy is not found',
+  })
+  @ApiBearerAuth()
+  @Post('wishitems/:id')
   async connectExistingWishitemToWishlist(
     @Param('id') wishitemId: string,
     @Query('privacy') wishlistPrivacy: string,
@@ -122,6 +235,36 @@ export class WishlistController {
     return dto;
   }
 
+  @ApiOperation({
+    summary: `
+    Delete a link between existing wishitem and wishlist.
+    After this operation, wishlist will not contain the wishitem.
+  `,
+  })
+  @ApiHeader({
+    name: 'authorization',
+    description: 'JWT authorization token',
+  })
+  @ApiQuery({
+    name: 'wishitem',
+    description: 'Id of existing wishitem',
+    type: String,
+  })
+  @ApiQuery({
+    name: 'wishlist',
+    description: 'Id of wishlist, where the wishitem is connected to',
+    type: String,
+  })
+  @ApiOkResponse({
+    description:
+      'Wishitem is successfully disconnected from wishlist and returned as DTO',
+    type: WishitemDto,
+  })
+  @ApiNotFoundResponse({
+    description:
+      'Wishitem with specified id is not found or wishlist with specified id is not found',
+  })
+  @ApiBearerAuth()
   @Delete('/wishitems')
   async deleteItemFromWishlist(
     @Headers('authorization') authorization: string,
