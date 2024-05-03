@@ -31,7 +31,7 @@ async function loadWishlist(privacy, ownerNickname) {
   }
 }
 
-async function processFriendRequest(receiverNickname) {
+async function processFriendRequest(receiverNickname, senderNickname) {
   const body = new URLSearchParams();
   body.append('receiverNickname', receiverNickname);
   const response = await fetch('/api/users/friends/request', {
@@ -42,6 +42,7 @@ async function processFriendRequest(receiverNickname) {
     body: body,
   });
   if (response.ok) {
+    friendRequestStateChanged(senderNickname, receiverNickname);
     const friendshipStateResponse = await getFriendshipState(receiverNickname);
     if (friendshipStateResponse.ok) {
       const data = await friendshipStateResponse.json();

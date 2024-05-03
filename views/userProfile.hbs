@@ -19,6 +19,7 @@
     <script src="/js/login-redirections.js"></script>
     <script src="/js/find-user-navbar.js"></script>
     <script src="/js/user-profile-page.js"></script>
+    {{> websocketStatic}}
     <title>Profile</title>
 </head>
 <body>
@@ -30,7 +31,7 @@
                 <h2 class="user-profile__nickname">{{user.nickname}}</h2>
                 <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
                 {{#if isGuest}}
-                    <button id="user-profile__friend-request-btn" onclick="processFriendRequest('{{user.nickname}}')">
+                    <button id="user-profile__friend-request-btn" onclick="processFriendRequest('{{user.nickname}}', '{{authorizedUser.nickname}}')">
                         {{#if (eq friendshipState "NOTHING")}}
                             Send Friend Request
                         {{else if (eq friendshipState "SENT_BY_SENDER")}}
@@ -50,5 +51,26 @@
         </main>
         {{> footerAd}}
     </div>
+    <script type="text/javascript">
+    // Default Configuration
+        $(document).ready(function() {
+            toastr.options = {
+                'closeButton': true,
+                'debug': false,
+                'newestOnTop': false,
+                'progressBar': false,
+                'positionClass': 'toast-top-right',
+                'preventDuplicates': false,
+                'showDuration': '1000',
+                'hideDuration': '1000',
+                'timeOut': '5000',
+                'extendedTimeOut': '1000',
+                'showEasing': 'swing',
+                'hideEasing': 'linear',
+                'showMethod': 'fadeIn',
+                'hideMethod': 'fadeOut',
+            }
+        });
+</script>
 </body>
 </html>

@@ -69,6 +69,8 @@ function addLinkField() {
     let linksContainer = document.getElementById('linksContainer');
     linksContainer.appendChild(newLinkLabel);
     linksContainer.appendChild(newLinkInput);
+
+    friendRequestStateChanged('Added field for online shop link.');
   }
 }
 

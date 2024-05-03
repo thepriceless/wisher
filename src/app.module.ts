@@ -12,6 +12,7 @@ import { AuthorizationCookieMiddleware } from './middlewares/authorization.cooki
 import { S3Module } from './s3/s3.module';
 import { WishitemController } from './wishitem/wishitem.controller';
 import { WishitemModule } from './wishitem/wishitem.module';
+import { WebsocketModule } from './websocket/websocket.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { WishitemModule } from './wishitem/wishitem.module';
     UserModule,
     S3Module,
     WishitemModule,
+    WebsocketModule,
   ],
   controllers: [AppController, WishitemController],
   providers: [
