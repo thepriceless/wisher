@@ -45,9 +45,6 @@ function composeDataFromForm(form) {
       formData.append(`itemshopLinks[${index}]`, link);
     });
   }
-  // for (let [key, value] of formData.entries()) {
-  //   console.log(key, value);
-  // }
 
   return formData;
 }

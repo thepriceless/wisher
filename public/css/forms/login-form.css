@@ -1,5 +1,8 @@
-.login-form {
-
+.form-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-form-wrap {
@@ -21,10 +24,22 @@
     font-family: "Regular", "Bold", sans-serif;
 }
 
+.sign-in-button {
+    background-color: #ffffff;
+    border: none;
+    font-size: 20px;
+    border-radius: 8px;
+}
+
 .body__main {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#dont-have-an-account {
+    margin-top: 25px;
+    margin-block-end: 0;
 }
 
 @font-face {
