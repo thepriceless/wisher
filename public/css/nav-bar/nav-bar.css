@@ -37,6 +37,8 @@
     -webkit-backdrop-filter: blur(8px);
     cursor: pointer;
     text-decoration: none;
+    position: relative;
+    z-index: 1;
 }
 
 .nav-bar__padding-box {
@@ -57,7 +59,29 @@
 }
 
 .nav-bar__box:hover {
+    cursor: pointer;
+    color: white;
+}
+
+.nav-bar__box:before {
+    transition: 0.42s all ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    content: "";
+    border-radius: 24px;
     background-color: #f2a859;
+}
+
+.nav-bar__box:hover:before {
+    transition: 0.42s all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    z-index: -1;
 }
 
 .nav-bar__special-icon-container {
@@ -84,7 +108,29 @@
 }
 
 #page-id__logout:hover {
+    cursor: pointer;
+    color: white;
+}
+
+#page-id__logout:before {
+    transition: 0.42s all ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    content: "";
+    border-radius: 24px;
     background-color: red;
+}
+
+#page-id__logout:hover:before {
+    transition: 0.42s all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    z-index: -1;
 }
 
 #mywishlists {

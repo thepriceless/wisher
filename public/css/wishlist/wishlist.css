@@ -1,5 +1,6 @@
 #wishlists-overall-info {
     font-size: 35px;
+    text-shadow: -2px 0 #ed8f2c, 0 2px #ed8f2c, 2px 0 #ed8f2c, 0 -2px #ed8f2c;
     color: white;
     margin: 0 auto 30px;
     text-align: center;
@@ -16,7 +17,36 @@
     padding: 0;
     
     cursor: pointer;
+    position: relative;
+    z-index: 1;
     background: radial-gradient(circle, #f1f1f1 0%, #ed8f2c 80%);
+}
+
+.wishlist-item:hover {
+    cursor: pointer;
+    color: white;
+}
+
+.wishlist-item:before {
+    transition: 0.42s all ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    content: "";
+    border-radius: 10px;
+    background: radial-gradient(ellipse at top, #ed8f2c, transparent),
+            radial-gradient(ellipse at bottom, #f1f1f1, transparent);
+}
+
+.wishlist-item:hover:before {
+    transition: 0.42s all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    z-index: -1;
 }
 
 .wishlist-item__title {
