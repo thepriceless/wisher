@@ -1,20 +1,98 @@
 .wishitem__delete-button {
     position: absolute;
-    width: 60px;
-    background-color: #ed8f2c;
+    top: 10px;
+    right: 3px;
+    background: transparent;
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: transform 0.2s;
+    transform-origin: center;
+}
+
+.wishitem-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    width: 90vw;
 }
 
 .wishitem-card {
     position: relative;
     display: flex;
-    flex-direction: column;
-    justify-content:flex-start;
-    height: 100%;
-    border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
-    background-color: transparent;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto;
+    border: 3px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: rgba(242, 168, 89, 0.41);
+    background-clip: padding-box, border-box;
+    box-shadow: inset 0 0 0 3px white;
+    transition: box-shadow 0.3s ease-in-out, padding 0.3s ease-in-out;
+    box-sizing: border-box;
 }
+
+.wishitem-card__image {
+    box-sizing: border-box;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 7px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.wishitem-card:hover {
+    box-shadow: inset 0 0 0 6px white;
+    padding: 10px;
+}
+
+.wishitem-card:hover .wishitem-card__image {
+    transform: scale(0.92);
+}
+
+.wishitem__delete-button:hover {
+    transform: scale(0.8);
+}
+
+.wishitem-card__title {
+    max-width: 60ch;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    margin-left: 20px;
+    color: white;
+}
+
+@keyframes wiggle {
+    0%, 7% {
+      transform: rotateZ(0);
+    }
+    15% {
+      transform: rotateZ(-10deg);
+    }
+    20% {
+      transform: rotateZ(8deg);
+    }
+    25% {
+      transform: rotateZ(-8deg);
+    }
+    30% {
+      transform: rotateZ(5deg);
+    }
+    35% {
+      transform: rotateZ(-2deg);
+    }
+    40%, 100% {
+      transform: rotateZ(0);
+    }
+  }
+  
+  button {
+    transform-origin: 50% 5em;
+  }

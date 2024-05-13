@@ -27,14 +27,11 @@
     <div class="body__main">
         {{> navbarLoggedSure}}
         <main>
-            <h2 id="wishlists-overall-info">By default you have 3 wishlists</h2>
+            <h2 class="page-overall-info">By default you have 3 wishlists</h2>
             <div class="wishlist-container">
                 {{#each wishlists}}
                 <button class="wishlist-item" id="{{privacyToId this.privacy}}" onclick="showWishlistWithId({{this.id}})">
                     <h2 class="wishlist-item__title">{{this.privacy}}</h2>
-                    {{!-- <button class="wishlist-item__button" onclick="showWishlistWithId({{this.id}})">
-                        
-                    </button> --}}
                 </button>
                 {{/each}}
             </div>

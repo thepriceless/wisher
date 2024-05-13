@@ -1,4 +1,4 @@
-#wishlists-overall-info {
+.page-overall-info {
     font-size: 35px;
     text-shadow: -2px 0 #ed8f2c, 0 2px #ed8f2c, 2px 0 #ed8f2c, 0 -2px #ed8f2c;
     color: white;
@@ -62,19 +62,6 @@
     margin: 0;
     border-bottom: 6px solid white;
 }
-
-/* .wishlist-item__button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 80px;
-    background-color: transparent;
-    border: 0;
-    
-    padding: 0;
-    cursor: pointer;
-} */
 
 .wishlist-container {
     display: flex;

@@ -185,6 +185,7 @@ export class AppController {
     @Param('id') id: string,
   ): Promise<{
     wishitems: WishitemDto[];
+    wishitemsCount: number;
     wishlistId: string;
     isOwner: boolean;
     authorizedUser: UserDto;
@@ -207,6 +208,7 @@ export class AppController {
     const authorizedUserDto = new UserDto(authorizedUser);
     return {
       wishitems: wishitemsDto,
+      wishitemsCount: wishitemsDto.length,
       wishlistId: id,
       isOwner: isOwner,
       authorizedUser: authorizedUserDto,
