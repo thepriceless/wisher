@@ -1,28 +1,31 @@
 <header>
     <nav class="nav-bar">
-        <div class="nav-bar__box">
+        <div class="nav-bar__box" id="page-id__wishlists">
             <a class="nav-bar__padding-text" id="mywishlists" href="/wishlists">
                 <p class="nav-bar__text">
-                    My wishlists
+                    My wishitems
                 </p>
             </a>
             <div class="nav-bar__vertical-divider"></div>
-            <a class="add-item-to-wishlist" href="/wishitems/new">
-                <img id="plus-icon-add" src="/objects/icons8-plus.svg" alt="next"/>
+            <a class="nav-bar__special-icon-container" href="/wishitems/new">
+                <img class="nav-bar__special-icon" src="/objects/icons8-plus.svg" alt="next"/>
             </a>
         </div>
-        <a class="nav-bar__box nav-bar__padding-box" href="/friends">
+        <a class="nav-bar__box nav-bar__padding-box" id="page-id__friends" href="/friends">
         <p class="nav-bar__text">
             Friends
         </p>
         </a>
-        <a class="nav-bar__box nav-bar__padding-box" href="/">
+        <a class="nav-bar__box nav-bar__padding-box" id="page-id__wisher" href="/wisher">
         <p class="nav-bar__text">
             Wisher
         </p>
         </a>
-        <div class="nav-bar__box">
-            <input type="search" id="search" name="search" placeholder="Find user by nickname...">
-            <button type="submit" id="searchButton" onclick="findUsersByNickname()">Find</button>
+        <div class="nav-bar__box" id="page-id__search-users">
+            <input type="search" id="search-users" name="search" placeholder="Find user...">
+            <div class="nav-bar__vertical-divider"></div>
+            <button class="nav-bar__special-icon-container" type="submit" id="search-button" onclick="findUsersByNickname()">
+                <img class="nav-bar__special-icon" src="/objects/icons8-search.svg" alt="next"/>
+            </button>
         </div>
         

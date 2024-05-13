@@ -133,7 +133,7 @@ export class AppController {
     description: 'Single random item is successfully returned',
     type: WishitemWithUser,
   })
-  @Get()
+  @Get('/wisher')
   @Render('wisher')
   @Public()
   async wisher(
@@ -391,6 +391,13 @@ export class AppController {
   @Render('register')
   @Public()
   async register(): Promise<void> {
+    return;
+  }
+
+  @Get('/')
+  @Render('redirectionToWisher')
+  @Public()
+  async redirectionToWisher(): Promise<void> {
     return;
   }
 }

@@ -7,6 +7,7 @@
 
 .nav-bar__text {
     margin: 0px;
+    padding: 0;
     font-family: 'Bold';
     font-size: 20px;
     text-transform: uppercase;
@@ -34,7 +35,7 @@
     background: rgba(150, 155, 159, 0.35);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-
+    cursor: pointer;
     text-decoration: none;
 }
 
@@ -46,6 +47,8 @@
     padding: 6px 10px;
     text-decoration: none;
     color: white;
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
 }
 
 .nav-bar__vertical-divider {
@@ -54,20 +57,58 @@
 }
 
 .nav-bar__box:hover {
-    background-color: #ef9e46;
+    background-color: #f2a859;
 }
 
-.add-item-to-wishlist {
+.nav-bar__special-icon-container {
     height: 25px;
     margin: 6px;
+    background: transparent;
+    border-width: 0;
+    cursor: pointer;
+}
+
+.nav-bar__box.active {
+    background-color: #ed8f2c;
+}
+
+.nav-bar__special-icon {
+    height: 100%;
+}
+
+#nav-bar__logout-button {
+    background: transparent;
+    border-width: 0;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#page-id__logout:hover {
+    background-color: red;
 }
 
 #mywishlists {
     padding-right: 7px;
 }
 
-#plus-icon-add {
-    height: 100%;
+#search-users {
+    box-sizing: border-box;
+    width: 220px;
+    padding-block: 0;
+    padding-inline-start: 7px;
+    border-width: 0;
+    background-color: transparent;
+    font-family: 'Regular';
+    font-size: 20px;
+    text-overflow: ellipsis;
+}
+
+#search-users:focus {
+    outline: none;
+}
+
+#search-button {
+    padding: 0;
 }
 
 @media (max-width: 500px) {
@@ -96,8 +137,4 @@
     .nav-bar__profile-photo {
         display: none;
     }
-}
-
-.nav-bar__box.active {
-    background-color: #ed8f2c;
 }

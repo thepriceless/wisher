@@ -1,14 +1,14 @@
-(function () {
-  document.addEventListener('DOMContentLoaded', function (event) {
-    const currentPage = document.location.pathname;
-    const menuItems = document.getElementsByClassName('nav-bar__box');
+window.onload = function () {
+  const currentPage = document.location.pathname;
+  const menuItems = document.getElementsByClassName('nav-bar__box');
 
-    for (const currentElement of menuItems) {
-      const href = currentElement.getAttribute('href');
-      if (currentPage.endsWith(href?.slice(href.lastIndexOf('/') + 1))) {
-        currentElement.classList.add('active');
-        break;
-      }
+  for (const currentElement of menuItems) {
+    const id = currentElement.getAttribute('id');
+    console.log('current element id: ', id);
+    console.log('current page: ', currentPage);
+    if (currentPage.endsWith(id?.slice(id.lastIndexOf('__') + 2))) {
+      currentElement.classList.add('active');
+      break;
     }
-  });
-})();
+  }
+};
