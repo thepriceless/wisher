@@ -17,6 +17,18 @@ async function bootstrap() {
   hbs.registerHelper('eq', function (a: string, b: string) {
     return a === b;
   });
+  hbs.registerHelper('privacyToId', function (privacy) {
+    switch (privacy) {
+      case 'PUBLIC':
+        return 'public-wishlist__as-id';
+      case 'FRIENDS':
+        return 'friends-wishlist__as-id';
+      case 'PRIVATE':
+        return 'private-wishlist__as-id';
+      default:
+        return '';
+    }
+  });
   const configService = app.get(ConfigService);
 
   const config = new DocumentBuilder()

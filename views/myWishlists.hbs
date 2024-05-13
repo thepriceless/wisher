@@ -12,6 +12,7 @@
     <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
     <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
     <link href="/css/forms/forms.css" rel="stylesheet">
+    <link href="/css/wishlist/wishlist.css" rel="stylesheet">
     <link href="/css/credentials/credentials.css" rel="stylesheet">
     <script src="/js/highlight-current-menu-item.js"></script>
     <script src="/js/upload-wish-item.js"></script>
@@ -25,14 +26,18 @@
 <body>
     <div class="body__main">
         {{> navbarLoggedSure}}
-        <main class="shifted">
-            {{#each wishlists}}
-            <div class="wishlist-item">
-                <button onclick="showWishlistWithId({{this.id}})">
+        <main>
+            <h2 id="wishlists-overall-info">By default you have 3 wishlists</h2>
+            <div class="wishlist-container">
+                {{#each wishlists}}
+                <button class="wishlist-item" id="{{privacyToId this.privacy}}" onclick="showWishlistWithId({{this.id}})">
                     <h2 class="wishlist-item__title">{{this.privacy}}</h2>
+                    {{!-- <button class="wishlist-item__button" onclick="showWishlistWithId({{this.id}})">
+                        
+                    </button> --}}
                 </button>
+                {{/each}}
             </div>
-            {{/each}}
         </main>
         {{> footerAd}}
     </div>

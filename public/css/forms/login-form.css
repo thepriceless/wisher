@@ -40,12 +40,6 @@
     border-radius: 8px;
 }
 
-.body__main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #dont-have-an-account {
     margin-top: 45px;
     margin-block-end: 0;
