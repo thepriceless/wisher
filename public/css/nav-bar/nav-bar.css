@@ -19,13 +19,13 @@
     width: 45px;
 
     margin-left: auto;
-    border: solid #fff 4px;
+    border: solid white 4px;
     border-radius: 50%;
 }
 
 .nav-bar__box {
     box-sizing: border-box;
-    border: 3px solid #fff;
+    border: 3px solid white;
     border-radius: 24px;
     display: flex;
     align-items: center;
@@ -52,7 +52,7 @@
 }
 
 .nav-bar__vertical-divider {
-    border-left: 3px solid #fff;
+    border-left: 3px solid white;
     height: 44px;
 }
 
@@ -101,6 +101,7 @@
     font-family: 'Regular';
     font-size: 20px;
     text-overflow: ellipsis;
+    caret-color: white;
 }
 
 #search-users:focus {
