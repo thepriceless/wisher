@@ -32,8 +32,8 @@ footer {
     padding-top: 1.5vh;
     display: flex;
     flex-direction: column;
-    /* justify-content: center;
-    align-items: center; */
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-height: 450px) {
