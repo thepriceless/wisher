@@ -15,6 +15,12 @@ window.onload = function () {
     'private-wishlist__as-id',
   ];
 
+  let infoContents = [
+    'Content of this wishlist is visible for everyone',
+    "Content of this wishlist is visible only for owner's friends",
+    'Content of this wishlist is visible only for owner',
+  ];
+
   for (let i = 0; i < 3; i++) {
     let button = document.getElementById(ids[i]);
     let h2 = button.querySelector('h2');
@@ -22,6 +28,9 @@ window.onload = function () {
     img.src = images[i];
     img.classList.add('wishlist-item__privacy-icon');
     h2.insertAdjacentElement('afterend', img);
+
+    let textElement = button.querySelector('.tooltiptext');
+    textElement.textContent = infoContents[i];
   }
 
   let button = document.getElementById('friends-wishlist__as-id');

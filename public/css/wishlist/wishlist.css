@@ -76,3 +76,46 @@
     height: 170px;
     margin: 30px 0;
 }
+
+.wishlist-item .wishlist-item__info {
+    position: absolute;
+    top: 93px;
+    right: 7px;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.wishlist-item .tooltip {
+    position: absolute;
+    top: 189px;
+    right: 1px;
+}
+
+.wishlist-item .tooltip .wishlist-item__info {
+    cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 250px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 0.9em;
+    font-family: 'Regular';
+
+    position: absolute;
+    z-index: 1;
+    right: 26px;
+    top: 136px;
+
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
