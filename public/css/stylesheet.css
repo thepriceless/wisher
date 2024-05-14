@@ -36,6 +36,14 @@ footer {
     align-items: center;
 }
 
+.page-overall-info {
+    font-size: 35px;
+    text-shadow: -2px 0 #ed8f2c, 0 2px #ed8f2c, 2px 0 #ed8f2c, 0 -2px #ed8f2c;
+    color: white;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
 @media (max-height: 450px) {
     header {
         display: none;

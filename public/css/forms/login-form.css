@@ -12,7 +12,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ed8f2c;
+    background: linear-gradient(to bottom, #ed8f2c, #ffdbb6 75%)
 }
 
 .form-input {
