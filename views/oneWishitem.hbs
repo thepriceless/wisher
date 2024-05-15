@@ -9,9 +9,11 @@
     <link href="/css/logo/logo.css" rel="stylesheet">
     <link href="/css/nav-bar/nav-bar.css" rel="stylesheet">
     <link href="/css/log-out/log-out.css" rel="stylesheet">
+    <link href="/css/suggestion-zone/suggestion-zone.css" rel="stylesheet">
     <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
     <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
     <link href="/css/forms/forms.css" rel="stylesheet">
+    <link href="/css/wishlist/wishlist.css" rel="stylesheet">
     <link href="/css/credentials/credentials.css" rel="stylesheet">
     <script src="/js/highlight-current-menu-item.js"></script>
     <script src="/js/upload-wish-item.js"></script>
@@ -24,8 +26,44 @@
 <body>
     <div class="body__main">
         {{> navbarLoggedSure}}
-        <main class="shifted">
-            <div class="wishitem-zone">
+        <main>
+            <div class="suggestion-zone-with-buttons">
+                <div class="suggestion-zone">
+                    <h1 class="suggestion-zone__title" id="wisher-item-title">
+                        {{ wishitem.title }}
+                    </h1>
+                    <h3 class="suggestion-zone__description" id="wisher-item-description">
+                        {{ wishitem.description }}
+                    </h3>
+                    <div class="suggestion-zone__importance" id="suggestion-zone__importance">
+                        <h4 class="helper-text">Importance</h4>
+                        <div class="suggestion-zone__importance-stars">
+                            {{#each (range 1 6)}}
+                                {{#if (lte this ../wishitem.importance)}}
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACoklEQVR4nO3aT4hVVRzA8TOW1kYzhSxzI4Tin1xoRBBMmyDBTTFMEGoI/lloYG6McCEUQbhIZlEQBFrQLpRoKEhdKOLkILQoo4JxkWiBi0acRrFpPnHhSNfXvDf3jffcuRf8woO3eed3vpf7fud3fueEcJ/pwcMYwin0hKaC1/xHb2gq+DYnciQ0ESzDRE5kDAtC08BB/2dHaBLowcgUIudCk8CL2rM6NAV83kHkUGgCeAR/dRD5A3ND3cEe0/NyqDu4UEDky1Bn8LRi/I0nQl3BgOLsD3UE83CtC5FfallI4lXd83yoG/hmBiKfVD3JhbEIXIVn48rdh214AwdaCsSi3MBb2I3X8Uoc+xmsxJOFC03sxGc4hhMxff6MK7iuPoziMn7CcJzrFziK/hDL66YzkolsjLZNZRQv3Xm9nsJFzePX7H/b+l+Zj+Oaw9dZEuq0IcqyyD/qyyTex5wimay/pkngJrYUSsc5mXW4pD78hg1dSeRkFuPkbBvgDB6bkURO5sH4Ts4WH5e6o8RmjFcocAvbSxNokVkf39XUXMVzSSRyMktjrZOK4SxGUomczOGEIh9UIhFFfkwo8kNVEo/H1TUVk5U0JuIGKDVbqxDJNmGp+TS1RE9Mjan5PWmHBWtVx5qUIm9WKLI3pchgl5O5jffiJ/veDYMpO4lZ+6Yo3+fL7tgXPt/F78fwUAqRFwpOYDzuMh+YYow52NXFA+lNIfJugcCnsaLAWMtbjq7b8U4Kke86BPwzPumuUmbcUndqfA+laJm2a4l+lbU272HsJR0W2Qk8WqZI1pOdatHqKzHGpjZ7nfKO6fBRS1GXPcFFpQW4+yB1oKUd9WGZAc7mDmeSX45Bb4xV7iWDOPDb2bWl0gYtdkVqX5b2q4pZC/4F/OV9zvvXBksAAAAASUVORK5CYII=">
+                                {{else}}
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAENUlEQVR4nO2aW4hWVRTH96hjF00tMzGbECEdRulhMBkbzB6EdB6UboIPXpOe0kQZ5kUZ3xzKBrrIUAlWBgMmgkkzlKUpKOmDlqBjSSThLQfNErw1408W3/842+HM953BfT7PB/3hg8Pe6/z/a5/L2mut8zn3PwoDGAD8COy1Y1eqAGbSg5muVAG0egtpdaUI4DHgGtCl33VgpCs1ACt0J9qAdh2vcKUG4IicfxV4TcdHXSkBmCLHO4EHgMHAXxqb4koFQIuc3uCNvaexFlcKAB4C/pbTVd54JXALuAw87LIOYKEWsT9m7oDmFrqsg9wublgaM/eG5va6LAOYoMfnCvBIzPxQ4F8tptJlFUCTnPw0j80m2ax3WQQwCDgjJ2vy2E2TzXmg3GUNwFw52JHA9phs57isAfhazq1KYLtatjuK451gcR8YBYwHqoEXgDrgdeBNoB74D7hhdq4AxHVD59SLw7jqxF0trVGJ9xxgAfAZsA3YBRzUrT8FXAK6SY6tiURzul/1g7dbvpySbwfl6zb5vsAILyQguqa86XfgMLBPWe1W4BOgGWgExvRjIU/qnGZxGFebuA9Lq1PahXDBCGcpbUAxfh4wGRgHPAoMdPcZwED5Mk6+zfP2I/N9VmT4DHBcE3YVXnQZBfA8cE6+nvTzuchgmBd57CV8y2UMwDIFCcO3dpfy3cJodzZ8nIVNi9xm29uvQUlOnA9c1Un28j1RFI/7rv2/ly9W9y9x/YFi+Z8isAgy2RUZwETghHw4my/1SRIifxKRZbQvB/e2b+06L5paOH76Xgmt5t4swlt6VlPrGgJlQIO3EbcGrSiVRlg0Q5vXkGDkPRoPAlukYb2whtAakdBsrx63dk9FQO4Kr4VkGrNDcSd5ATcH5LWcCXFPDMVbSPRDiTYG5LS8y/BBKM4koh0SrQ3IWSvO46E4k4TkKMEsD7x7/yPup0Lx5hNcJLGdKXDvLFrfC/hCYitT4F4p7s9Dc8eJnZZY8JSFXK2BujFlofl9oSoJnUsipFDdrl9lwl39rDTurjNS+nizJcGL29CrTL2p9GZwgXO/lP3y4AvwRHZIpM9UGpgK/OLlZpv0s2PDUbPJc/7iVFtFuspRNlrRx+eEJuVIUep/50suMN3bf7pVHA2N4RmbRniPa3WeiJmbAfymeUss349LKrXYdV65+gfwUozdr5qvSWMha0X+kTc2Qlc2emx+Bp5LwPUscMh7fyybftyb36jxNWksxP7BQFRcqTMYfRe8qitd3s9H9W0VbIaLVipo7hWN7UmjZXpdz/8kYLt3NffdS7aq1uh3Ht83umNdegTD1T1q4kVXPmqMWQtzaYiNS/uHcV3yXvSo+ZFrvoUA8C53w3KiscEEenRGeylQhHdCCuwWqaUnc4MR5//WclqaP4QktvC6BhgejLSw5nBpziiWZiZwG0qHnMb6SkmwAAAAAElFTkSuQmCC">
+                                {{/if}}
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="suggestion-zone__importance" id="suggestion-zone__marketplace-links">
+                        <h4 class="helper-text">Marketplace<br>links</h4>
+                        <div class="links-container">
+                            {{#each wishitem.itemshopLinks}}
+                                <a class="suggestion-zone__marketplace-single-link" href="{{this}}" target="_blank">Link №{{addOne @index}}</a>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <img class="suggestion-zone__photo" id="wisher-item-image" src='{{ wishitem.imageLink }}' alt="image">
+                </div>
+                <div class="suggestion-zone__add-item-wrapper" id="wishitem-in-wishlist__add-item-wrapper">
+                    <a class="suggestion-zone__add-this-wishitem-redirect" href="/wishitems/new?id={{ wishitem.id }}">
+                        <img class="nav-bar__special-icon" src="/objects/icons8-plus.svg" alt="next"/>
+                    </a>
+                </div>
+            </div>
+            {{!-- <div class="wishitem-zone">
                 <img src="{{wishitem.imageLink}}" alt="User Photo" class="user-profile__photo">
                 <h2 class="wishitem-zone__title">{{wishitem.title}}</h2>
                 <h3 class="wishitem-zone__description">{{wishitem.description}}</h3>
@@ -34,7 +72,7 @@
                 {{#each wishitem.itemshopLinks}}
                     <a href="{{this}}" target="_blank">{{this}}</a>
                 {{/each}}
-            </div>
+            </div> --}}
 
                 <script>
                     document.querySelectorAll('.wishitem-zone a').forEach((link, index) => {

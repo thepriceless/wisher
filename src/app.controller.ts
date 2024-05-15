@@ -232,13 +232,24 @@ export class AppController {
   @Render('uploadItemToWishlist')
   async uploadItem(
     @Headers('authorization') authorization: string,
-  ): Promise<{ authorizedUser: UserDto }> {
+    @Query('id') wishitemId: string,
+  ): Promise<{ authorizedUser: UserDto; wishitem: WishitemDto }> {
+    console.log(wishitemId);
     const authorizedUser =
       await this.userService.getUserFromToken(authorization);
 
     const authorizedUserDto = new UserDto(authorizedUser);
+
+    let wishitemDto = null;
+    if (wishitemId !== undefined) {
+      const wishitem = await this.wishitemService.getWishitemById(wishitemId);
+      wishitemDto = WishitemMapper.toDto(wishitem);
+      console.log(wishitemDto);
+    }
+
     return {
       authorizedUser: authorizedUserDto,
+      wishitem: wishitemDto,
     };
   }
 

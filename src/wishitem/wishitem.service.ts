@@ -27,11 +27,28 @@ export class WishitemService {
     const randomIndex = Math.floor(Math.random() * allIds.length);
     const randomId = allIds[randomIndex].id;
 
-    return this.prisma.wishitem.findUnique({
+    const randomWishitem = await this.prisma.wishitem.findUnique({
       where: {
         id: randomId,
       },
+      include: {
+        itemshopLinks: true,
+      },
     });
+
+    const itemshopLinksNoId = randomWishitem.itemshopLinks.map(
+      (linkObject) => linkObject.link,
+    );
+
+    const wishitemRes: WishitemEntity = new WishitemEntity();
+    wishitemRes.id = randomWishitem.id;
+    wishitemRes.title = randomWishitem.title;
+    wishitemRes.description = randomWishitem.description;
+    wishitemRes.importance = randomWishitem.importance;
+    wishitemRes.imageLink = randomWishitem.imageLink;
+    wishitemRes.itemshopLinks = itemshopLinksNoId;
+
+    return wishitemRes;
   }
 
   async createWishitem(
@@ -124,5 +141,16 @@ export class WishitemService {
     });
 
     return deletedWishitem;
+  }
+
+  async getWishitemImageLinkByWishitemId(
+    wishitemId: string,
+  ): Promise<ObjectStorageImageData> {
+    const wishitem = await this.getWishitemById(wishitemId);
+
+    return {
+      location: wishitem.imageLink,
+      path: wishitem.imageLinkAsKey,
+    };
   }
 }

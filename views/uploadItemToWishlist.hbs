@@ -25,15 +25,15 @@
     <title>Create item</title>
 </head>
 <body>
-    <div class="body__main">
+    <div class="body__main" data-id="{{#if wishitem}}{{wishitem.id}}{{/if}}">
         {{> navbarLoggedSure}}
         <main>
             <h2 class="page-overall-info">Here you can add new wishitem</h2>
             <div class="form-wrap">
                 <form id="upload-item-form" onsubmit="uploadItem(event)">
                     <div class="form-items">
-                        <textarea class="form-input" id="title" name="title" placeholder="Title (60 characters max)" required rows="2"></textarea>
-                        <textarea class="form-input" id="description" name="description" placeholder="Description (400 characters max)"></textarea>
+                        <textarea class="form-input" id="title" name="title" placeholder="Title (60 characters max)" maxlength="60" required rows="2">{{#if wishitem}}{{wishitem.title}}{{/if}}</textarea>
+                        <textarea class="form-input" id="description" name="description" placeholder="Description (400 characters max)" maxlength="400">{{#if wishitem}}{{wishitem.description}}{{/if}}</textarea>
                         <p id="item-importance__helper" class="helper">How important is this item to you?</p>
                         <div class="importance">
                             <input type="radio" id="star5" name="importance" value="5" />
@@ -47,12 +47,11 @@
                             <input type="radio" id="star1" name="importance" value="1" />
                             <label for="star1" title="text"></label>
                         </div>
-                        <input type="file" class="image-input" id="imageLink" name="imageLink" style="display: none;">
-                        <button type="button" class="upload-photo-button" id="new-wishitem__image">Attach wishitem image</button>
+                        <input type="file" class="image-input" id="imageLink" name="imageLink" data-id="{{#if wishitem}}{{wishitem.imageLink}}{{/if}}" style="display: none;">
+                        <button type="button" class="upload-photo-button {{#if wishitem}}image-attached{{/if}}" id="new-wishitem__image">Attach wishitem image</button>
                         <p id="item-shop-links__helper" class="helper">You may specify up to 3 links to marketplaces<br>to simplify the process<br>of finding this item for your friends</p>
 
                         <button class="upload-photo-button" type="button" id="addLink" onclick="addLinkField()">Add link</button>
-                        {{!-- <button type="button" id="removeLink" onclick="removeLinkField()">Remove link</button> --}}
                         <div id="linksContainer">
                         </div>
 

@@ -29,6 +29,19 @@ async function bootstrap() {
         return '';
     }
   });
+  hbs.registerHelper('range', function (start, end) {
+    const array = [];
+    for (let i = start; i < end; i++) {
+      array.push(i);
+    }
+    return array;
+  });
+  hbs.registerHelper('lte', function (a, b) {
+    return a <= b;
+  });
+  hbs.registerHelper('addOne', function (number) {
+    return number + 1;
+  });
   const configService = app.get(ConfigService);
 
   const config = new DocumentBuilder()

@@ -92,15 +92,24 @@ export class WishlistController {
     @Body() newWishitemDto: NewWishitemDto,
     @UploadedFile() itemImage,
     @Headers('authorization') authorization: string,
+    @Query('existingimage') existingImage: string,
   ): Promise<WishitemDto> {
     let imageLink = null;
-    if (itemImage !== undefined) {
+    if (existingImage === 'true') {
+      console.log('true??');
+      const existingWishitemId = newWishitemDto.existingWishitemId;
+      imageLink =
+        await this.wishitemService.getWishitemImageLinkByWishitemId(
+          existingWishitemId,
+        );
+    } else if (itemImage !== undefined) {
       imageLink = await this.s3service.uploadImage(
         itemImage,
         process.env.WISHITEM_IMAGE,
       );
     }
 
+    console.log(imageLink);
     const ownerUser = await this.userService.getUserFromToken(authorization);
     const privacyType =
       PrivacyType[

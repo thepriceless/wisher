@@ -111,3 +111,8 @@
     visibility: visible;
     opacity: 1;
 }
+
+#wishitem-in-wishlist__add-item-wrapper {
+    bottom: -41px;
+    right: -41px;
+}

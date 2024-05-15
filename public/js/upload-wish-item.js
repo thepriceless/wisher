@@ -1,11 +1,25 @@
+const { collapseTextChangeRangesAcrossMultipleVersions } = require("typescript");
+
 async function uploadItem(event) {
   event.preventDefault();
   const form = document.getElementById('upload-item-form');
+  const wishitemId = document.querySelector('.body__main').dataset.id;
   const body = composeDataFromForm(form);
-  const response = await fetch('/api/wishitems/new', {
-    method: 'POST',
-    body: body,
-  });
+  let response;
+  if (wishitemId) {
+    body.append('existingWishitemId', wishitemId);
+    console.log(body);
+    response = await fetch(`/api/wishitems/new?existingimage=true`, {
+      method: 'POST',
+      body: body,
+    });
+  } else {
+    response = await fetch('/api/wishitems/new', {
+      method: 'POST',
+      body: body,
+    });
+  }
+
   if (response.ok) {
     const newWishitem = await response.json();
     console.log(newWishitem);
@@ -46,6 +60,27 @@ function composeDataFromForm(form) {
 }
 
 let linkCounter = 0;
+
+window.addEventListener('load', async () => {
+  const wishitemId = document.querySelector('.body__main').dataset.id;
+  if (wishitemId) {
+    console.log(wishitemId);
+    const response = await fetch(`/api/wishitems/${wishitemId}`);
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+
+      if (data !== null) {
+        for (let i = 0; i < data.wishitem.itemshopLinks.length; i++) {
+          addLinkField();
+          document.getElementById('link' + (i + 1)).value =
+            data.wishitem.itemshopLinks[i];
+        }
+      }
+    }
+  }
+});
+
 function addLinkField() {
   if (linkCounter < 3) {
     linkCounter++;

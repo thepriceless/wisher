@@ -13,7 +13,7 @@
 
 .wishitem-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 50%));
     grid-gap: 20px;
     width: 90vw;
 }

@@ -1,10 +1,8 @@
 .suggestion-zone-with-buttons {
     box-sizing: border-box;
     position: relative;
-    height: 74%;
     width: 88vw;
-    margin: 0 6vw;
-    
+    margin: 0 auto;
     display: flex;
     gap: 15px;
     align-items: center;
@@ -24,7 +22,8 @@
     display: grid;
     grid-template-areas: "header image"
                          "description image"
-                         "buttons image";
+                         "importance image"
+                         "links image";
     grid-template-columns: minmax(300px, 47%) 1fr;
 }
 
@@ -96,18 +95,39 @@
     margin-left: auto;
 }
 
+.suggestion-zone__importance {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 50px;
+    width: auto;
+}
+
+.suggestion-zone__marketplace-single-link {
+    border-radius: 8px;
+    background-color: #fff;
+    text-decoration: none;
+    color: #696b6c;
+    padding: 5px;
+}
+
+.suggestion-zone__importance-stars {
+    display: flex;
+    gap: 15px;
+    width: auto;
+}
 
 .suggestion-zone__description {
     line-height: 1.2em;
-    height: 8.4em;
-    margin: 0 0 110px;
+    height: 9.6em;
+    margin: 0 0 20px;
 
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 7;
-            line-clamp: 7;
+    -webkit-line-clamp: 8;
+            line-clamp: 8;
 
     font-family: 'Myriad Regular', sans-serif;
 
@@ -132,4 +152,63 @@
 
 .suggestion-zone__button_left {
     width: 15px;
+}
+
+.helper-text {
+    font-size: 18px;
+    margin: 0 20px 0 0;
+    width: 130px;
+}
+
+.links-container {
+    display: flex;
+    flex-direction: row;
+    width: 310px;
+    justify-content: space-between;
+    margin-top: 3px;
+}
+
+#suggestion-zone__importance {
+    grid-area: importance;
+    margin-bottom: 30px;
+}
+
+#suggestion-zone__marketplace-links {
+    grid-area: links;
+}
+
+.suggestion-zone__add-item-wrapper {
+    position: absolute;
+    border-radius: 50%;
+    border: solid #b3aeae;
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+    background-color: rgba(171, 175, 178, 0.6);
+}
+
+.suggestion-zone__add-item-wrapper::after {
+    content: '';
+    background-image: url(/objects/back-glass.png);
+    background-size: cover;
+    border-radius: 50%;
+    position: absolute;
+    opacity: 0.7;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: -1;
+}
+
+.suggestion-zone__add-this-wishitem-redirect {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#wishitem-in-wisher__add-item-wrapper {
+    bottom: -41px;
+    right: -11px;
 }
