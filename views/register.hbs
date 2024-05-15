@@ -9,7 +9,6 @@
     <link href="/css/logo/logo.css" rel="stylesheet">
     <link href="/css/nav-bar/nav-bar.css" rel="stylesheet">
     <link href="/css/log-out/log-out.css" rel="stylesheet">
-    <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
     <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
     <link href="/css/friends/friends-list.css" rel="stylesheet">
     <link href="/css/credentials/credentials.css" rel="stylesheet">
@@ -18,19 +17,20 @@
     <script src="/js/register-page.js"></script>
     <script src="/js/jwt-expiration-calculation.js"></script>
     <script src="/js/login-redirections.js"></script>
+    <script src="/js/common.js"></script>
     <title>Login</title>
 </head>
 <body>
     <main class="body__main">
-        <div class="login-form-wrap">
-            <form onsubmit="signup(event)" class="login-form">
+        <div class="form-wrap">
+            <form onsubmit="signup(event)">
                 <div class="form-items">
-                    <input class="form-input" type="text" id="nickname" name="nickname" placeholder=" Nickname" required>
-                    <input class="form-input" type="text" id="name" name="name" placeholder=" Name" required>
-                    <input class="form-input" type="text" id="surname" name="surname" placeholder=" Surname" required>
-                    <input class="form-input" type="password" id="password" name="password" placeholder=" Password" required>
-                    <input type="file" id="photoInput" style="display: none;">
-                    <button id="uploadButton" class="upload-photo-button">Upload profile photo</button>
+                    <input class="form-input" type="text" id="nickname" name="nickname" placeholder="Nickname" required>
+                    <input class="form-input" type="text" id="name" name="name" placeholder="Name" required>
+                    <input class="form-input" type="text" id="surname" name="surname" placeholder="Surname" required>
+                    <input class="form-input" type="password" id="password" name="password" placeholder="Password" required>
+                    <input type="file" class="image-input" id="photoLink" name="photoLink" style="display: none;">
+                    <button type="button" class="upload-photo-button">Upload profile photo</button>
                     <input class="sign-in-button" type="submit" value="Sign up">
                 </div>
                 <p id="dont-have-an-account">Already have an account?<br>

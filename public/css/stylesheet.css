@@ -1,5 +1,9 @@
 html {
-    font-family: "Regular", "Bold", "BoldItalic", "Italic", "Myriad Regular", sans-serif;
+    font-family: "Regular", "Bold";
+}
+
+select {
+    font-family: "Regular", "Bold";
 }
 
 header{
@@ -42,6 +46,49 @@ footer {
     color: white;
     margin: 0 auto 30px;
     text-align: center;
+}
+
+.form-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-wrap {
+    padding: 30px 40px;
+    border-radius: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #ed8f2c, #ffdbb6 75%);
+}
+
+.form-input {
+    background-color: #ffffff;
+    border: none;
+    font-size: 14px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    font-family: "Regular", "Bold";
+    padding-inline: 9px;
+    padding-block: 10px;
+    width: 350px;
+    letter-spacing: 0.01em;
+}
+
+.upload-photo-button {
+    background-color: #f4f4f4;
+    font-family: 'Regular';
+    border: none;
+    font-size: 20px;
+    border-radius: 8px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.upload-photo-button:hover {
+    transform: scale(0.98);
 }
 
 @media (max-height: 450px) {
