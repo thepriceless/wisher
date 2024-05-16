@@ -1,4 +1,4 @@
-window.onload = function () {
+window.addEventListener('load', function () {
   const defaultImage = '../objects/default-avatar-2-shifted.png';
   const friendsAvatarImages = document.querySelectorAll('img.avatar');
   friendsAvatarImages.forEach((image) => {
@@ -14,4 +14,4 @@ window.onload = function () {
       image.style.backgroundColor = 'rgba(242, 168, 90, 1)';
     }
   });
-};
+});
