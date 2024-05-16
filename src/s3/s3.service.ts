@@ -35,7 +35,6 @@ export class S3Service {
 
   async downloadImageBuffer(path: string): Promise<string> {
     const download = await this.s3.Download(path);
-    // console.log(download);
     return download.body;
   }
 }

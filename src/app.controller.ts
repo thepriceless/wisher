@@ -101,9 +101,11 @@ export class AppController {
   @ApiBearerAuth()
   @Get('/friends')
   @Render('friends')
-  async friends(
-    @Headers('authorization') authorization: string,
-  ): Promise<{ friends: UserDto[]; authorizedUser: UserDto }> {
+  async friends(@Headers('authorization') authorization: string): Promise<{
+    friends: UserDto[];
+    friendsCount: number;
+    authorizedUser: UserDto;
+  }> {
     try {
       const authorizedUser =
         await this.userService.getUserFromToken(authorization);
@@ -115,6 +117,7 @@ export class AppController {
       const authorizedUserDto = new UserDto(authorizedUser);
       return {
         friends: friendsDto,
+        friendsCount: friendsDto.length,
         authorizedUser: authorizedUserDto,
       };
     } catch (err) {}

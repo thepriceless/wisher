@@ -1,5 +1,3 @@
-const { collapseTextChangeRangesAcrossMultipleVersions } = require("typescript");
-
 async function uploadItem(event) {
   event.preventDefault();
   const form = document.getElementById('upload-item-form');

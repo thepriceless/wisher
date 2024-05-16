@@ -1,5 +1,5 @@
 html {
-    font-family: "Regular", "Bold", sans-serif;
+    font-family: "Regular", "Bold", "BoldItalic", sans-serif;
 }
 
 select {
@@ -89,6 +89,15 @@ footer {
 
 .upload-photo-button:hover {
     transform: scale(0.98);
+}
+
+
+.capitalized-text-input {
+    text-transform: capitalize;
+}
+
+.lowercased-text-input {
+    text-transform: lowercase;
 }
 
 @media (max-height: 450px) {
