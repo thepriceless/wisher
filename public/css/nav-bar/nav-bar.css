@@ -15,11 +15,10 @@
 }
 
 .nav-bar__profile-photo {
-    height: 45px;
-    width: 45px;
-
+    height: 42px;
+    width: 42px;
     margin-left: auto;
-    border: solid white 4px;
+    border: solid white 3px;
     border-radius: 50%;
 }
 
@@ -157,6 +156,12 @@
 
 #search-button {
     padding: 0;
+}
+
+#link-to-user-profile-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 500px) {

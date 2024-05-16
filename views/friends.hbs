@@ -15,6 +15,7 @@
     <script src="/js/highlight-current-menu-item.js"></script>
     <script src="/js/fetch-page.js"></script>
     <script src="/js/friends-page.js"></script>
+    <script src="/js/set-default-avatar-placeholder.js"></script>
     <script src="/js/find-user-navbar.js"></script>
     <script src="/js/login-redirections.js"></script>
     {{> websocketStatic}}
@@ -25,20 +26,22 @@
         {{> navbarLoggedSure}}
         <main>
             <h2 class="page-overall-info">You have {{ friendsCount }} friends</h2>
-            <div class="friends-zone-wrapper">
-                <div class="friends-zone">
-                    {{#each friends}}
-                        <div class="friend-item">
-                            <img class="avatar" id="friend-avatar" src="{{this.photoLink}}" alt="avatar">
-                            <div class="friend-names-wrapper">
-                                <h2 class="friend-nickname capitalized-text-input">{{this.name}}</h2>
-                                <h2 class="friend-nickname lowercased-text-input" id="friend-nickname">{{this.nickname}}</h2>
-                                <h2 class="friend-nickname capitalized-text-input">{{this.surname}}</h2>
+            {{#if friendsCount}}
+                <div class="friends-zone-wrapper">
+                    <div class="friends-zone">
+                        {{#each friends}}
+                            <div class="friend-item" onclick="redirectToProfile('{{this.nickname}}')">
+                                <img class="avatar" id="friend-avatar" src="{{this.photoLink}}" alt="avatar">
+                                <div class="friend-names-wrapper">
+                                    <h2 class="friend-nickname capitalized-text-input">{{this.name}}</h2>
+                                    <h2 class="friend-nickname lowercased-text-input" id="friend-nickname">{{this.nickname}}</h2>
+                                    <h2 class="friend-nickname capitalized-text-input">{{this.surname}}</h2>
+                                </div>
                             </div>
-                        </div>
-                    {{/each}}
+                        {{/each}}
+                    </div>
                 </div>
-            </div>
+            {{/if}}
         </main>
         {{> footerAd}}
     </div>
