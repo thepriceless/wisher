@@ -84,8 +84,8 @@
 
 .suggestion-zone__photo {
     box-sizing: border-box;
-    width: 33vw;
-    height: 33vw;
+    width: 30vw;
+    height: 30vw;
     object-fit: cover;
 
     border: solid #fff 4px;
@@ -211,4 +211,9 @@
 #wishitem-in-wisher__add-item-wrapper {
     bottom: -41px;
     right: -11px;
+}
+
+#wishitem-in-wishlist__add-item-wrapper {
+    bottom: -41px;
+    right: -41px;
 }

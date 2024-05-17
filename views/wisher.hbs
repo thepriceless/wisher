@@ -13,34 +13,36 @@
 <body>
     <div class="body__main">
         {{> navbarVarious}}
-        <main class="suggestion-zone-with-buttons">
-            <button class="suggestion-zone__button" type="button" onclick="wisherGetNextItem()">
-                <img class="suggestion-zone__button_left" src="objects/arrow-button.svg" alt="next"/>
-            </button>
-            <div class="suggestion-zone">
-                <h1 class="suggestion-zone__title" id="wisher-item-title">
-                    {{ wishitem.title }}
-                </h1>
-                <h3 class="suggestion-zone__description" id="wisher-item-description">
-                    {{ wishitem.description }}
-                </h3>
-                <div class="suggestion-zone__importance" id="suggestion-zone__marketplace-links">
-                    <h4 class="helper-text">Marketplace<br>links</h4>
-                    <div class="links-container">
-                        {{#each wishitem.itemshopLinks}}
-                            <a class="suggestion-zone__marketplace-single-link" href="{{this}}" target="_blank">Link №{{addOne @index}}</a>
-                        {{/each}}
+        <main>
+            <div class="suggestion-zone-with-buttons">
+                <button class="suggestion-zone__button" type="button" onclick="wisherGetNextItem()">
+                    <img class="suggestion-zone__button_left" src="objects/arrow-button.svg" alt="next"/>
+                </button>
+                <div class="suggestion-zone">
+                    <h1 class="suggestion-zone__title" id="wisher-item-title">
+                        {{ wishitem.title }}
+                    </h1>
+                    <h3 class="suggestion-zone__description" id="wisher-item-description">
+                        {{ wishitem.description }}
+                    </h3>
+                    <div class="suggestion-zone__importance" id="suggestion-zone__marketplace-links">
+                        <h4 class="helper-text">Marketplace<br>links</h4>
+                        <div class="links-container">
+                            {{#each wishitem.itemshopLinks}}
+                                <a class="suggestion-zone__marketplace-single-link" href="{{this}}" target="_blank">Link №{{addOne @index}}</a>
+                            {{/each}}
+                        </div>
                     </div>
+                    <img class="suggestion-zone__photo" id="wisher-item-image" src='{{ wishitem.imageLink }}' alt="image">
                 </div>
-                <img class="suggestion-zone__photo" id="wisher-item-image" src='{{ wishitem.imageLink }}' alt="image">
-            </div>
-            <button class="suggestion-zone__button" type="button" onclick="wisherGetNextItem()">
-                <img class="suggestion-zone__button_right" src="objects/arrow-button.svg" alt="next"/>
-            </button>
-            <div class="suggestion-zone__add-item-wrapper" id="wishitem-in-wisher__add-item-wrapper">
-                <a class="suggestion-zone__add-this-wishitem-redirect" href="/wishitems/new?id={{ wishitem.id }}">
-                    <img class="nav-bar__special-icon" src="/objects/icons8-plus.svg" alt="next"/>
-                </a>
+                <button class="suggestion-zone__button" type="button" onclick="wisherGetNextItem()">
+                    <img class="suggestion-zone__button_right" src="objects/arrow-button.svg" alt="next"/>
+                </button>
+                <div class="suggestion-zone__add-item-wrapper" id="wishitem-in-wisher__add-item-wrapper">
+                    <a class="suggestion-zone__add-this-wishitem-redirect" href="/wishitems/new?id={{ wishitem.id }}">
+                        <img class="nav-bar__special-icon" src="/objects/icons8-plus.svg" alt="next"/>
+                    </a>
+                </div>  
             </div>
         </main>
         {{> footerAd}}
