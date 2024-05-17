@@ -11,7 +11,7 @@
     cursor: pointer;
     position: relative;
     z-index: 1;
-    background: radial-gradient(circle, #f1f1f1 0%, #ed8f2c 80%);
+    background: radial-gradient(circle, #f1f1f1 0%, var(--basic-orange); 80%);
 }
 
 .wishlist-item:hover {
@@ -29,7 +29,7 @@
     opacity: 0;
     content: "";
     border-radius: 10px;
-    background: radial-gradient(ellipse at top, #ed8f2c, transparent),
+    background: radial-gradient(ellipse at top, var(--basic-orange);, transparent),
             radial-gradient(ellipse at bottom, #f1f1f1, transparent);
 }
 

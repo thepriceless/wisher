@@ -1,3 +1,8 @@
+:root {
+    --basic-orange: #ed8f2c;
+    --light-orange: #f2a859;
+}
+
 html {
     font-family: "Regular", "Bold", "BoldItalic", sans-serif;
 }
@@ -42,7 +47,7 @@ footer {
 
 .page-overall-info {
     font-size: 35px;
-    text-shadow: -2px 0 #ed8f2c, 0 2px #ed8f2c, 2px 0 #ed8f2c, 0 -2px #ed8f2c;
+    text-shadow: -2px 0 var(--basic-orange);, 0 2px var(--basic-orange);, 2px 0 var(--basic-orange);, 0 -2px var(--basic-orange);;
     color: white;
     margin: 0 auto 30px;
     text-align: center;
@@ -61,7 +66,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, #ed8f2c, #ffdbb6 75%);
+    background: linear-gradient(to bottom, var(--basic-orange);, #ffdbb6 75%);
 }
 
 .form-input {

@@ -25,12 +25,15 @@
 </head>
 <body>
     <div class="body__main">
-        {{> navbarLoggedSure}}
-        <main>
+    {{> navbarLoggedSure}}
+    <main>
+        <div class="default-zone-wrapper" id="user-profile-custom-wrapper">
             <div class="user-profile">
                 <img src="{{user.photoLink}}" alt="User Photo" class="user-profile__photo">
+                <div class="user-profile__name-wrapper">
+                    <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
+                </div>
                 <h2 class="user-profile__nickname">{{user.nickname}}</h2>
-                <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
                 {{#if isGuest}}
                     <button id="user-profile__friend-request-btn" onclick="processFriendRequest('{{user.nickname}}', '{{authorizedUser.nickname}}')">
                         {{#if (eq friendshipState "NOTHING")}}
@@ -49,8 +52,9 @@
                     </div>
                 {{/if}}
             </div>
-        </main>
-        {{> footerAd}}
+        </div>
+    </main>
+    {{> footerAd}}
     </div>
     <script type="text/javascript">
     // Default Configuration

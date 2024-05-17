@@ -27,7 +27,7 @@
         <main>
             <h2 class="page-overall-info">You have {{ friendsCount }} friends</h2>
             {{#if friendsCount}}
-                <div class="friends-zone-wrapper">
+                <div class="default-zone-wrapper">
                     <div class="friends-zone">
                         {{#each friends}}
                             <div class="friend-item" onclick="redirectToProfile('{{this.nickname}}')">

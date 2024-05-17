@@ -54,7 +54,7 @@
 
 .nav-bar__vertical-divider {
     border-left: 3px solid white;
-    height: 44px;
+    height: 41.6px;
 }
 
 .nav-bar__box:hover {
@@ -72,7 +72,7 @@
     opacity: 0;
     content: "";
     border-radius: 24px;
-    background-color: #f2a859;
+    background-color: var(--light-orange);;
 }
 
 .nav-bar__box:hover:before {
@@ -92,7 +92,7 @@
 }
 
 .nav-bar__box.active {
-    background-color: #ed8f2c;
+    background-color: var(--basic-orange);;
 }
 
 .nav-bar__special-icon {

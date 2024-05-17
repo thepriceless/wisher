@@ -1,4 +1,93 @@
+.user-profile {
+    display: grid;
+    grid-template-areas: 'profile-photo names'
+                         'profile-photo nickname'
+                         'friend-action-button accessible-wishlists';
+    grid-template-columns: 310px 2fr;
+    width: 73vw;
+    column-gap: 80px;
+}
+
 .user-profile__photo {
     height: 300px;
     width: 300px;
+    grid-area: profile-photo;
+    border-radius: 20px;
+    border: 5px solid white;
+}
+
+.user-profile__name {
+    font-size: 30px;
+    font-family: 'Bold';
+    color: white;
+}
+
+.user-profile__name-wrapper {
+    border-bottom: 4px solid white;
+    grid-area: names;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+}
+
+.user-profile__nickname {
+    grid-area: nickname;
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+    letter-spacing: 2px;
+}
+
+.wishlist-selection {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    justify-content: center;
+    gap: 30px;
+}
+
+.wishlist-selection__button {
+    appearance: none;
+    border: none;
+    border-radius: 20px;
+    background-color: white;
+    color: var(--basic-orange);
+    box-shadow: 0px 0px 10px white;
+    padding: 7px 13px;
+    font-size: 18px;
+    font-family: 'Bold';
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.wishlist-selection__button:hover {
+    transform: scale(0.95);
+}
+
+#user-profile__friend-request-btn {
+    appearance: none;
+    grid-area: friend-action-button;
+    margin: 20px auto 0 auto;
+    max-width: 300px;
+    border: 3px solid white;
+    border-radius: 20px;
+    background-color: var(--basic-orange);
+    color: white;
+    padding: 7px 10px;
+    font-size: 18px;
+    font-family: 'Regular';
+    cursor: pointer;
+}
+
+#user-profile__friend-request-btn:hover {
+    transform: scale(0.95);
+}
+
+#user-profile-custom-wrapper {
+    margin-top: 30px;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }

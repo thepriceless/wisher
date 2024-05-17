@@ -28,7 +28,7 @@
     border-bottom: none;
 }
 
-.friends-zone-wrapper {
+.default-zone-wrapper {
     width: auto;
     border: 6px solid white;
     border-radius: 20px;
@@ -50,6 +50,6 @@
 }
 
 .friend-names-wrapper:hover {
-    text-shadow: -2px 0 #ed8f2c, 0 2px #ed8f2c, 2px 0 #ed8f2c, 0 -2px #ed8f2c;
+    text-shadow: -2px 0 var(--basic-orange);, 0 2px var(--basic-orange);, 2px 0 var(--basic-orange);, 0 -2px var(--basic-orange);;
     cursor: pointer;
 }
