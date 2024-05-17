@@ -237,7 +237,6 @@ export class AppController {
     @Headers('authorization') authorization: string,
     @Query('id') wishitemId: string,
   ): Promise<{ authorizedUser: UserDto; wishitem: WishitemDto }> {
-    console.log(wishitemId);
     const authorizedUser =
       await this.userService.getUserFromToken(authorization);
 
@@ -247,7 +246,6 @@ export class AppController {
     if (wishitemId !== undefined) {
       const wishitem = await this.wishitemService.getWishitemById(wishitemId);
       wishitemDto = WishitemMapper.toDto(wishitem);
-      console.log(wishitemDto);
     }
 
     return {

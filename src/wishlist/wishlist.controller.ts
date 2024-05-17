@@ -96,7 +96,6 @@ export class WishlistController {
   ): Promise<WishitemDto> {
     let imageLink = null;
     if (existingImage === 'true') {
-      console.log('true??');
       const existingWishitemId = newWishitemDto.existingWishitemId;
       imageLink =
         await this.wishitemService.getWishitemImageLinkByWishitemId(
@@ -109,7 +108,6 @@ export class WishlistController {
       );
     }
 
-    console.log(imageLink);
     const ownerUser = await this.userService.getUserFromToken(authorization);
     const privacyType =
       PrivacyType[

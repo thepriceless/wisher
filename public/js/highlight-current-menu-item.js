@@ -1,4 +1,4 @@
-window.onload = function () {
+window.addEventListener('load', () => {
   const currentPage = document.location.pathname;
   const menuItems = document.getElementsByClassName('nav-bar__box');
 
@@ -9,4 +9,4 @@ window.onload = function () {
       break;
     }
   }
-};
+});

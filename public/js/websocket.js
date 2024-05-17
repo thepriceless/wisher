@@ -13,7 +13,6 @@ socket.on('friend request result', (changerNickname, changeeNickname) => {
   if (pageNickname === changeeNickname || pageNickname === changerNickname) {
     const message = `User ${changerNickname} has changed the state 
       of friend request with user ${changeeNickname}!`;
-    console.log(message);
 
     toastr.success(message);
   }

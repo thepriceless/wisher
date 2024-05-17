@@ -6,7 +6,6 @@ async function uploadItem(event) {
   let response;
   if (wishitemId) {
     body.append('existingWishitemId', wishitemId);
-    console.log(body);
     response = await fetch(`/api/wishitems/new?existingimage=true`, {
       method: 'POST',
       body: body,
@@ -20,13 +19,10 @@ async function uploadItem(event) {
 
   if (response.ok) {
     const newWishitem = await response.json();
-    console.log(newWishitem);
     window.location.href = `/wishlists/${newWishitem.wishlistId}`;
     alert('Item successfully added!');
   } else {
     const r = await response.json();
-    console.log(r);
-    console.log('wrong');
   }
 }
 
@@ -40,7 +36,6 @@ async function saveExistingItemToWishlist(privacy, wishitemId) {
   if (response.ok) {
     alert('Item successfully added!');
   } else {
-    console.log('wrong');
   }
 }
 
@@ -62,11 +57,9 @@ let linkCounter = 0;
 window.addEventListener('load', async () => {
   const wishitemId = document.querySelector('.body__main').dataset.id;
   if (wishitemId) {
-    console.log(wishitemId);
     const response = await fetch(`/api/wishitems/${wishitemId}`);
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
 
       if (data !== null) {
         for (let i = 0; i < data.wishitem.itemshopLinks.length; i++) {
