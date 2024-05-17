@@ -13,6 +13,17 @@ async function deleteWishitem(wishitemId, wishlistId) {
     data = await response.json();
     window.location.reload();
   } else {
-    console.log('wrong');
   }
 }
+
+window.addEventListener('load', () => {
+  const defaultImage = '../objects/default-present-image.png';
+  const images = document.querySelectorAll(
+    '.wishitem-container img.wishitem-card__image',
+  );
+  images.forEach((img) => {
+    if (img.getAttribute('src') === '') {
+      img.src = defaultImage;
+    }
+  });
+});

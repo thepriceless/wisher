@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <link href="/css/stylesheet.css" rel="stylesheet">
-  <link href="/css/logo/logo.css" rel="stylesheet">
-  <link href="/css/nav-bar/nav-bar.css" rel="stylesheet">
-  <link href="/css/log-out/log-out.css" rel="stylesheet">
-  <link href="/css/suggestion-zone/suggestion-zone.css" rel="stylesheet">
-  <link href="/css/choice-buttons/choice-buttons.css" rel="stylesheet">
-  <link href="/css/credentials/credentials.css" rel="stylesheet">
-  <script src="/js/highlight-current-menu-item.js"></script>
-  <script src="/js/fetch-page.js"></script>
-  <script src="/js/find-name.js"></script>
-  <script src="/js/wisher-page.js"></script>
-  <script src="/js/login-redirections.js"></script>
-  <script src="/js/find-user-navbar.js"></script>
-  <script src="/js/upload-wish-item.js"></script>
-  {{> websocketStatic}}
-  <title>Wisher</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    {{> linkCommonCss}}
+    <link href="/css/suggestion-zone/suggestion-zone.css" rel="stylesheet">
+    <script src="/js/wisher-page.js"></script>
+    {{> linkCommonJs}}
+    {{> websocketStatic}}
+    <title>Wisher</title>
 </head>
 <body>
-<div class="body__main">
-  {{> navbarVarious}}
-  <main class="suggestion-zone-with-buttons">
-    <button class="suggestion-zone__button" type="button" onclick="wisherGetNextItem()">
-        <img class="suggestion-zone__button_left" src="objects/arrow-button.svg" alt="next"/>
-    </button>
-    <div class="suggestion-zone">
-        <h1 class="suggestion-zone__title" id="wisher-item-title">
-            {{ wishitem.title }}
-        </h1>
-        <h3 class="suggestion-zone__description" id="wisher-item-description">
-            {{ wishitem.description }}
-        </h3>
-        <div class="choice-buttons">
-            <button class="choice-buttons__add choice-buttons__add_leftmost" type="button" onclick="saveExistingItemToWishlist('PRIVATE', '{{wishitem.id}}')">Add to private</button>
-            <button class="choice-buttons__add" type="button" onclick="saveExistingItemToWishlist('FRIENDS', '{{wishitem.id}}')">Add to friendly</button>
-            <button class="choice-buttons__add" type="button" onclick="saveExistingItemToWishlist('PUBLIC', '{{wishitem.id}}')">Add to public</button>
-        </div>
-        <img class="suggestion-zone__photo" id="wisher-item-image" src='{{ wishitem.imageLink }}' alt="image">
+    <div class="body__main">
+        {{> navbarVarious}}
+        <main>
+            <div class="suggestion-zone-with-buttons">
+                <button class="suggestion-zone__button" type="button" onclick="wisherGetNextItem()">
+                    <img class="suggestion-zone__button_left" src="objects/arrow-button.svg" alt="next"/>
+                </button>
+                <div class="suggestion-zone">
+                    <h1 class="suggestion-zone__title" id="wisher-item-title">
+                        {{ wishitem.title }}
+                    </h1>
+                    <h3 class="suggestion-zone__description" id="wisher-item-description">
+                        {{ wishitem.description }}
+                    </h3>
+                    <div class="suggestion-zone__importance" id="suggestion-zone__marketplace-links">
+                        <h4 class="helper-text">Marketplace<br>links</h4>
+                        <div class="links-container">
+                            {{#each wishitem.itemshopLinks}}
+                                <a class="suggestion-zone__marketplace-single-link" href="{{this}}" target="_blank">Link №{{addOne @index}}</a>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <img class="suggestion-zone__photo" id="wisher-item-image" src='{{ wishitem.imageLink }}' alt="image">
+                </div>
+                <button class="suggestion-zone__button" type="button" onclick="wisherGetNextItem()">
+                    <img class="suggestion-zone__button_right" src="objects/arrow-button.svg" alt="next"/>
+                </button>
+                <div class="suggestion-zone__add-item-wrapper" id="wishitem-in-wisher__add-item-wrapper">
+                    <a class="suggestion-zone__add-this-wishitem-redirect" href="/wishitems/new?id={{ wishitem.id }}">
+                        <img class="nav-bar__special-icon" src="/objects/icons8-plus.svg" alt="next"/>
+                    </a>
+                </div>  
+            </div>
+        </main>
+        {{> footerAd}}
     </div>
-    <button class="suggestion-zone__button" type="button" onclick="wisherGetNextItem()">
-        <img class="suggestion-zone__button_right" src="objects/arrow-button.svg" alt="next"/>
-    </button>
-  </main>
-  {{> footerAd}}
-</div>
 </body>
 </html>

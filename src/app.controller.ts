@@ -101,9 +101,11 @@ export class AppController {
   @ApiBearerAuth()
   @Get('/friends')
   @Render('friends')
-  async friends(
-    @Headers('authorization') authorization: string,
-  ): Promise<{ friends: UserDto[]; authorizedUser: UserDto }> {
+  async friends(@Headers('authorization') authorization: string): Promise<{
+    friends: UserDto[];
+    friendsCount: number;
+    authorizedUser: UserDto;
+  }> {
     try {
       const authorizedUser =
         await this.userService.getUserFromToken(authorization);
@@ -115,6 +117,7 @@ export class AppController {
       const authorizedUserDto = new UserDto(authorizedUser);
       return {
         friends: friendsDto,
+        friendsCount: friendsDto.length,
         authorizedUser: authorizedUserDto,
       };
     } catch (err) {}
@@ -133,7 +136,7 @@ export class AppController {
     description: 'Single random item is successfully returned',
     type: WishitemWithUser,
   })
-  @Get()
+  @Get('/wisher')
   @Render('wisher')
   @Public()
   async wisher(
@@ -185,6 +188,7 @@ export class AppController {
     @Param('id') id: string,
   ): Promise<{
     wishitems: WishitemDto[];
+    wishitemsCount: number;
     wishlistId: string;
     isOwner: boolean;
     authorizedUser: UserDto;
@@ -207,6 +211,7 @@ export class AppController {
     const authorizedUserDto = new UserDto(authorizedUser);
     return {
       wishitems: wishitemsDto,
+      wishitemsCount: wishitemsDto.length,
       wishlistId: id,
       isOwner: isOwner,
       authorizedUser: authorizedUserDto,
@@ -230,13 +235,22 @@ export class AppController {
   @Render('uploadItemToWishlist')
   async uploadItem(
     @Headers('authorization') authorization: string,
-  ): Promise<{ authorizedUser: UserDto }> {
+    @Query('id') wishitemId: string,
+  ): Promise<{ authorizedUser: UserDto; wishitem: WishitemDto }> {
     const authorizedUser =
       await this.userService.getUserFromToken(authorization);
 
     const authorizedUserDto = new UserDto(authorizedUser);
+
+    let wishitemDto = null;
+    if (wishitemId !== undefined) {
+      const wishitem = await this.wishitemService.getWishitemById(wishitemId);
+      wishitemDto = WishitemMapper.toDto(wishitem);
+    }
+
     return {
       authorizedUser: authorizedUserDto,
+      wishitem: wishitemDto,
     };
   }
 
@@ -261,6 +275,7 @@ export class AppController {
     @Query('nickname') nicknameStart: string,
   ): Promise<{
     users: UserDto[];
+    usersCount: number;
     authorizedUser: UserDto;
   }> {
     const authorizedUser =
@@ -271,6 +286,7 @@ export class AppController {
     const authorizedUserDto = new UserDto(authorizedUser);
     return {
       users: usersDto,
+      usersCount: usersDto.length,
       authorizedUser: authorizedUserDto,
     };
   }
@@ -391,6 +407,13 @@ export class AppController {
   @Render('register')
   @Public()
   async register(): Promise<void> {
+    return;
+  }
+
+  @Get('/')
+  @Render('redirectionToWisher')
+  @Public()
+  async redirectionToWisher(): Promise<void> {
     return;
   }
 }

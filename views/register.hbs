@@ -5,41 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="wishlist, present, party, wish">
     <meta name="description" content="Login page">
-    <link href="/css/stylesheet.css" rel="stylesheet">
-    <link href="/css/logo/logo.css" rel="stylesheet">
-    <link href="/css/nav-bar/nav-bar.css" rel="stylesheet">
-    <link href="/css/log-out/log-out.css" rel="stylesheet">
-    <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
-    <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
-    <link href="/css/friends/friends-list.css" rel="stylesheet">
-    <link href="/css/credentials/credentials.css" rel="stylesheet">
-    <script src="/js/fetch-page.js"></script>
+    {{> linkCommonCss}}
+    <link href="/css/forms/login-form.css" rel="stylesheet">
     <script src="/js/register-page.js"></script>
     <script src="/js/jwt-expiration-calculation.js"></script>
-    <script src="/js/login-redirections.js"></script>
+    <script src="/js/upload-buttons-decoration.js"></script>
+    {{> linkCommonJs}}
+    {{> websocketStatic}}
     <title>Login</title>
 </head>
 <body>
-    <div class="body__main">
-        <main>
-            <form onsubmit="signup(event)" class="login-form">
+    <main class="body__main">
+        <div class="form-wrap">
+            <form onsubmit="signup(event)">
                 <div class="form-items">
-                    <label for="nickname" class="form-field">Nickname</label>
-                    <input type="text" id="nickname" name="nickname" required><br>
-                    <label for="name" class="form-field">Name</label>
-                    <input type="text" id="name" name="name" required><br>
-                    <label for="surname" class="form-field">Surname</label>
-                    <input type="text" id="surname" name="surname" required><br>
-                    <label for="password" class="form-field">Password</label>
-                    <input type="password" id="password" name="password" required><br>
-                    <label for="photoLink">Profile photo:</label>
-                    <input type="file" id="photoLink" name="photoLink"><br>
-                    
-                    <input type="submit" value="Sign up">
+                    <input class="form-input lowercased-text-input" type="text" id="nickname" name="nickname" placeholder="Nickname" required>
+                    <input class="form-input capitalized-text-input" type="text" id="name" name="name" placeholder="Name" required>
+                    <input class="form-input capitalized-text-input" type="text" id="surname" name="surname" placeholder="Surname" required>
+                    <input class="form-input" type="password" id="password" name="password" placeholder="Password" required>
+                    <input type="file" class="image-input" id="photoLink" name="photoLink" style="display: none;">
+                    <button type="button" class="upload-photo-button">Upload profile photo</button>
+                    <input class="sign-in-button" type="submit" value="Sign up">
                 </div>
+                <p id="dont-have-an-account">Already have an account?<br>
+                    <a href="/auth/login">Login here</a>
+                </p>
             </form>
-        </main>
-        {{> footerAd}}
-    </div>
+        </div>
+    </main>
+    {{> footerAd}}
 </body>
 </html>

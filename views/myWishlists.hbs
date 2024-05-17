@@ -5,34 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="wishlist, present, party, wish">
     <meta name="description" content="Your wishlist">
-    <link href="/css/stylesheet.css" rel="stylesheet">
-    <link href="/css/logo/logo.css" rel="stylesheet">
-    <link href="/css/nav-bar/nav-bar.css" rel="stylesheet">
-    <link href="/css/log-out/log-out.css" rel="stylesheet">
-    <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
-    <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
-    <link href="/css/forms/forms.css" rel="stylesheet">
-    <link href="/css/credentials/credentials.css" rel="stylesheet">
-    <script src="/js/highlight-current-menu-item.js"></script>
-    <script src="/js/upload-wish-item.js"></script>
-    <script src="/js/fetch-page.js"></script>
-    <script src="/js/login-redirections.js"></script>
-    <script src="/js/find-user-navbar.js"></script>
+    {{> linkCommonCss}}
+    <link href="/css/wishlist/wishlist.css" rel="stylesheet">
+    <link href="/css/wishlist/wishlist-with-items.css" rel="stylesheet">
     <script src="/js/wishlists-page.js"></script>
+    {{> linkCommonJs}}
     {{> websocketStatic}}
     <title>My wishlists</title>
 </head>
 <body>
     <div class="body__main">
         {{> navbarLoggedSure}}
-        <main class="shifted">
-            {{#each wishlists}}
-            <div class="wishlist-item">
-                <button onclick="showWishlistWithId({{this.id}})">
+        <main>
+            <h2 class="page-overall-info">By default you have 3 wishlists</h2>
+            <div class="wishlist-container">
+                {{#each wishlists}}
+                <button class="wishlist-item" id="{{privacyToId this.privacy}}" onclick="showWishlistWithId({{this.id}})">
                     <h2 class="wishlist-item__title">{{this.privacy}}</h2>
+                    <div class="tooltip">
+                        <img class="wishlist-item__info" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAABUElEQVR4nN2UTU4CQRCFJxBmI3oQ8A7iBQwY4xUIRAU9BCEew9/ziEYR9RAGF7rxMzW8SXrR0zPMxA0v6WSS97pedU1VRdFGA4iBY+AOmANfOvZ9Ky4uG/wQ+CAf70BvncA14NIJ8ACcAS1gS6cNjICZo5va3SIGafBvoB+6pGQG0iYmRcqSBt9b49Udx6Qb+qFpzfsZmgQZ3HDF8gY0fALriLTm3rIgZHB14FGSI5/gXuRpVBLAWDFufOSryFYFg7ZizH3kUmQzECBBgN9eKVj+l8GOJJ+lSkS+wW6oRLZbDKMKBheSXIXadFahTZ9CbRprcRkGJQxORC+8gyZRTyIb+45X5L+3D/wAv8BBnnjqmAzt6QFtXZlbcMOkSDY1xwSN/1hD1NSxbjl3am6ZTwqta8eoq8WVh0VuWQImDesI2y3Ai4bRzjNwLc7/QzcGf5IpyWw4qVnSAAAAAElFTkSuQmCC">
+                        <span class="tooltiptext">Info about this wishlist</span>
+                    </div>
                 </button>
+                {{/each}}
             </div>
-            {{/each}}
         </main>
         {{> footerAd}}
     </div>

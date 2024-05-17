@@ -5,55 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="wishlist, present, party, wish">
     <meta name="description" content="Your wishlist">
-    <link href="/css/stylesheet.css" rel="stylesheet">
-    <link href="/css/logo/logo.css" rel="stylesheet">
-    <link href="/css/nav-bar/nav-bar.css" rel="stylesheet">
-    <link href="/css/log-out/log-out.css" rel="stylesheet">
-    <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
-    <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
-    <link href="/css/forms/forms.css" rel="stylesheet">
-    <link href="/css/credentials/credentials.css" rel="stylesheet">
-    <script src="/js/highlight-current-menu-item.js"></script>
+    {{> linkCommonCss}}
+    <link href="/css/uploading/stars-rating.css" rel="stylesheet">
+    <link href="/css/uploading/upload-wishitem.css" rel="stylesheet">
     <script src="/js/upload-wish-item.js"></script>
-    <script src="/js/find-user-navbar.js"></script>
-    <script src="/js/fetch-page.js"></script>
-    <script src="/js/login-redirections.js"></script>
+    <script src="/js/upload-buttons-decoration.js"></script>
+    {{> linkCommonJs}}
     {{> websocketStatic}}
     <title>Create item</title>
 </head>
 <body>
-    <div class="body__main">
+    <div class="body__main" data-id="{{#if wishitem}}{{wishitem.id}}{{/if}}">
         {{> navbarLoggedSure}}
-        <main class="shifted">
-            <h1>Add new item</h1>
-            <form id="uploaditemform" onsubmit="uploadItem(event)">
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" required><br>
+        <main>
+            <h2 class="page-overall-info">Here you can add new wishitem</h2>
+            <div class="form-wrap">
+                <form id="upload-item-form" onsubmit="uploadItem(event)">
+                    <div class="form-items">
+                        <textarea class="form-input" id="title" name="title" placeholder="Title (60 characters max)" maxlength="60" required rows="2">{{#if wishitem}}{{wishitem.title}}{{/if}}</textarea>
+                        <textarea class="form-input" id="description" name="description" placeholder="Description (400 characters max)" maxlength="400">{{#if wishitem}}{{wishitem.description}}{{/if}}</textarea>
+                        <p id="item-importance__helper" class="helper">How important is this item to you?</p>
+                        <div class="importance">
+                            <input type="radio" id="star5" name="importance" value="5" />
+                            <label for="star5" title="text"></label>
+                            <input type="radio" id="star4" name="importance" value="4" />
+                            <label for="star4" title="text"></label>
+                            <input type="radio" id="star3" name="importance" value="3" />
+                            <label for="star3" title="text"></label>
+                            <input type="radio" id="star2" name="importance" value="2" />
+                            <label for="star2" title="text"></label>
+                            <input type="radio" id="star1" name="importance" value="1" />
+                            <label for="star1" title="text"></label>
+                        </div>
+                        <input type="file" class="image-input" id="imageLink" name="imageLink" data-id="{{#if wishitem}}{{wishitem.imageLink}}{{/if}}" style="display: none;">
+                        <button type="button" class="upload-photo-button {{#if wishitem}}image-attached{{/if}}" id="new-wishitem__image">Attach wishitem image</button>
+                        <p id="item-shop-links__helper" class="helper">You may specify up to 3 links to marketplaces<br>to simplify the process<br>of finding this item for your friends</p>
 
-                <label for="description">Description:</label>
-                <textarea id="description" name="description" required></textarea><br>
+                        <button class="upload-photo-button" type="button" id="addLink" onclick="addLinkField()">Add link</button>
+                        <div id="linksContainer">
+                        </div>
 
-                <label for="importance">Importance (1-5):</label>
-                <input type="number" id="importance" name="importance" min="1" max="5" required><br>
+                        <label id="choose-wishlist__helper" class="helper" for="wishlist">Now choose the type of wishlist,<br>that will hold the wish item</label>
+                        <select id="wishlist" name="holderWishlistPrivacy" required>
+                            <option id="public-option" value="PUBLIC">Public</option>
+                            <option id="private-option" value="PRIVATE">Private</option>
+                            <option id="friends-option" value="FRIENDS">For friends</option>
+                        </select>
 
-                <label for="imageLink">Image:</label>
-                <input type="file" id="imageLink" name="imageLink"><br>
-
-                <div id="linksContainer">
-                </div>
-
-                <button type="button" id="addLink" onclick="addLinkField()">Add link</button><br>
-                <button type="button" id="removeLink" onclick="removeLinkField()">Remove link</button><br>
-
-                <label for="wishlist">Choose wishlist:</label>
-                <select id="wishlist" name="wishlist" required>
-                    <option id="public-option" value="PUBLIC">Public</option>
-                    <option id="private-option" value="PRIVATE">Private</option>
-                    <option id="friends-option" value="FRIENDS">Friendly</option>
-                </select><br>
-
-                <input type="submit" value="Upload">
-            </form>
+                        <input class="upload-photo-button" type="submit" value="Upload">
+                    </div>
+                </form>
+            </div>
         </main>
         {{> footerAd}}
     </div>

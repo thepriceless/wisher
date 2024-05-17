@@ -1,5 +1,14 @@
+:root {
+    --basic-orange: #ed8f2c;
+    --light-orange: #f2a859;
+}
+
 html {
-    font-family: "Regular", "Bold", "BoldItalic", "Italic", "Myriad Regular", sans-serif;
+    font-family: "Regular", "Bold", "BoldItalic", sans-serif;
+}
+
+select {
+    font-family: "Regular", "Bold";
 }
 
 header{
@@ -18,13 +27,15 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    margin: 0px;
+    margin: 0;
 }
 
 footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-top: auto;
+}
+
+main {
+    margin-bottom: 7vh;
 }
 
 .body__main {
@@ -32,6 +43,77 @@ footer {
     padding-top: 1.5vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 94vh;
+}
+
+.page-overall-info {
+    font-size: 35px;
+    text-shadow: -2px 0 var(--basic-orange), 0 2px var(--basic-orange), 2px 0 var(--basic-orange), 0 -2px var(--basic-orange);
+    color: white;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
+.form-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-wrap {
+    padding: 30px 40px;
+    border-radius: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, var(--basic-orange), #ffdbb6 75%);
+}
+
+.form-input {
+    background-color: #ffffff;
+    border: none;
+    font-size: 14px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    font-family: "Regular", "Bold";
+    padding-inline: 9px;
+    padding-block: 10px;
+    width: 350px;
+    letter-spacing: 0.01em;
+}
+
+.upload-photo-button {
+    background-color: #f4f4f4;
+    font-family: 'Regular';
+    border: none;
+    font-size: 20px;
+    border-radius: 8px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.upload-photo-button:hover {
+    transform: scale(0.98);
+}
+
+
+.capitalized-text-input {
+    text-transform: capitalize;
+}
+
+.lowercased-text-input {
+    text-transform: lowercase;
+}
+
+.default-zone-wrapper {
+    width: auto;
+    border: 6px solid white;
+    border-radius: 20px;
+    background-color: rgba(242, 168, 90, 0.51);
+    padding: 20px 30px;
 }
 
 @media (max-height: 450px) {

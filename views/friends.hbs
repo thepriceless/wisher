@@ -5,19 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="wishlist, present, party, wish">
     <meta name="description" content="Your wishlist">
-    <link href="/css/stylesheet.css" rel="stylesheet">
-    <link href="/css/logo/logo.css" rel="stylesheet">
-    <link href="/css/nav-bar/nav-bar.css" rel="stylesheet">
-    <link href="/css/log-out/log-out.css" rel="stylesheet">
-    <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
-    <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
-    <link href="/css/friends/friends-list.css" rel="stylesheet">
-    <link href="/css/credentials/credentials.css" rel="stylesheet">
-    <script src="/js/highlight-current-menu-item.js"></script>
-    <script src="/js/fetch-page.js"></script>
+    {{> linkCommonCss}}
+    <link href="/css/show-users.css" rel="stylesheet">
     <script src="/js/friends-page.js"></script>
-    <script src="/js/find-user-navbar.js"></script>
-    <script src="/js/login-redirections.js"></script>
+    {{> linkCommonJs}}
     {{> websocketStatic}}
     <title>Friends</title>
 </head>
@@ -25,21 +16,23 @@
     <div class="body__main">
         {{> navbarLoggedSure}}
         <main>
-            <div class="friends-zone">
-                <h1 class="friends-list__title">Friends</h1>
-                <div class="friends-list">
-                    {{!-- <img class="preloader" src="media/XHXn.gif"> --}}
-                    {{#each friends}}
-                    <div class="friend-item">
-                        <div class="friend-card">
-                            <button class="friend-button" onclick="redirectToProfile('{{this.nickname}}')">
-                                <h2 class="friend-nickname">{{this.nickname}}</h2>
-                            </button>
-                        </div>
+            <h2 class="page-overall-info">You have {{ friendsCount }} friends</h2>
+            {{#if friendsCount}}
+                <div class="default-zone-wrapper">
+                    <div class="friends-zone">
+                        {{#each friends}}
+                            <div class="user-item" onclick="redirectToProfile('{{this.nickname}}')">
+                                <img class="avatar" src="{{this.photoLink}}" alt="avatar">
+                                <div class="user-names-wrapper">
+                                    <h2 class="user-nickname capitalized-text-input">{{this.name}}</h2>
+                                    <h2 class="user-nickname lowercased-text-input user-nickname">{{this.nickname}}</h2>
+                                    <h2 class="user-nickname capitalized-text-input">{{this.surname}}</h2>
+                                </div>
+                            </div>
+                        {{/each}}
                     </div>
-                    {{/each}}
                 </div>
-            </div>
+            {{/if}}
         </main>
         {{> footerAd}}
     </div>

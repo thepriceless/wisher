@@ -5,30 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="wishlist, present, party, wish">
     <meta name="description" content="Login page">
-    <link href="/css/stylesheet.css" rel="stylesheet">
-    <link href="/css/logo/logo.css" rel="stylesheet">
+    {{> linkCommonCss}}
     <link href="/css/forms/login-form.css" rel="stylesheet">
-    <link href="/css/nav-bar/nav-bar.css" rel="stylesheet">
-    <link href="/css/log-out/log-out.css" rel="stylesheet">
-    <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
-    <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
-    <link href="/css/friends/friends-list.css" rel="stylesheet">
-    <link href="/css/credentials/credentials.css" rel="stylesheet">
-    <script src="/js/fetch-page.js"></script>
     <script src="/js/login-page.js"></script>
     <script src="/js/jwt-expiration-calculation.js"></script>
+    {{> linkCommonJs}}
+    {{> websocketStatic}}
     <title>Login</title>
 </head>
 <body>
     <main class="body__main">
-        <div class="login-form-wrap">
+        <div class="form-wrap">
             <form onsubmit="login(event)" class="login-form">
                 <div class="form-items">
-                    <input class="form-input" type="text" id="nickname" name="nickname" placeholder="Nickname" required><br>
-                    <input class="form-input" type="password" id="password" name="password" placeholder="Password" required>
-                    <input type="submit" value="Sign in">
+                    <input class="form-input" type="text" id="nickname" name="nickname" placeholder=" Nickname" required>
+                    <input class="form-input" type="password" id="password" name="password" placeholder=" Password" required>
+                    <input class="sign-in-button" type="submit" value="Sign in">
                 </div>
-                <p>Don't have an account? <a href="/auth/register">Register here</a></p>
+                <p id="dont-have-an-account">Don't have an account?<br>
+                    <a href="/auth/register">Register here</a>
+                </p>
             </form>
         </div>
     </main>

@@ -34,12 +34,13 @@ export class NewWishitemDto {
   @ApiProperty({ description: 'The importance of the wish item' })
   importance: number;
 
-  //@ArrayMaxSize(3)
-  //@IsUrl({}, { each: true, message: 'Each item shop link must be a valid URL' })
   @ApiPropertyOptional({ description: 'The item shop links of the wish item' })
   itemshopLinks: string[];
 
   @IsIn(['PUBLIC', 'PRIVATE', 'FRIENDS'])
   @ApiProperty({ description: 'The privacy type of the holder wishlist' })
   holderWishlistPrivacy: string;
+
+  @ApiPropertyOptional()
+  existingWishitemId: string;
 }

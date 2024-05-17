@@ -17,6 +17,31 @@ async function bootstrap() {
   hbs.registerHelper('eq', function (a: string, b: string) {
     return a === b;
   });
+  hbs.registerHelper('privacyToId', function (privacy) {
+    switch (privacy) {
+      case 'PUBLIC':
+        return 'public-wishlist__as-id';
+      case 'FRIENDS':
+        return 'friends-wishlist__as-id';
+      case 'PRIVATE':
+        return 'private-wishlist__as-id';
+      default:
+        return '';
+    }
+  });
+  hbs.registerHelper('range', function (start, end) {
+    const array = [];
+    for (let i = start; i < end; i++) {
+      array.push(i);
+    }
+    return array;
+  });
+  hbs.registerHelper('lte', function (a, b) {
+    return a <= b;
+  });
+  hbs.registerHelper('addOne', function (number) {
+    return number + 1;
+  });
   const configService = app.get(ConfigService);
 
   const config = new DocumentBuilder()
