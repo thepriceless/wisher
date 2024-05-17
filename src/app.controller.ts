@@ -277,6 +277,7 @@ export class AppController {
     @Query('nickname') nicknameStart: string,
   ): Promise<{
     users: UserDto[];
+    usersCount: number;
     authorizedUser: UserDto;
   }> {
     const authorizedUser =
@@ -287,6 +288,7 @@ export class AppController {
     const authorizedUserDto = new UserDto(authorizedUser);
     return {
       users: usersDto,
+      usersCount: usersDto.length,
       authorizedUser: authorizedUserDto,
     };
   }

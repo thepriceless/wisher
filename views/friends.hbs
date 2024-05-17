@@ -6,11 +6,10 @@
     <meta name="keywords" content="wishlist, present, party, wish">
     <meta name="description" content="Your wishlist">
     <link href="/css/stylesheet.css" rel="stylesheet">
-    <link href="/css/logo/logo.css" rel="stylesheet">
     <link href="/css/nav-bar/nav-bar.css" rel="stylesheet">
     <link href="/css/log-out/log-out.css" rel="stylesheet">
     <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
-    <link href="/css/friends/friends-list.css" rel="stylesheet">
+    <link href="/css/show-users.css" rel="stylesheet">
     <link href="/css/credentials/credentials.css" rel="stylesheet">
     <script src="/js/highlight-current-menu-item.js"></script>
     <script src="/js/fetch-page.js"></script>
@@ -30,12 +29,12 @@
                 <div class="default-zone-wrapper">
                     <div class="friends-zone">
                         {{#each friends}}
-                            <div class="friend-item" onclick="redirectToProfile('{{this.nickname}}')">
-                                <img class="avatar" id="friend-avatar" src="{{this.photoLink}}" alt="avatar">
-                                <div class="friend-names-wrapper">
-                                    <h2 class="friend-nickname capitalized-text-input">{{this.name}}</h2>
-                                    <h2 class="friend-nickname lowercased-text-input" id="friend-nickname">{{this.nickname}}</h2>
-                                    <h2 class="friend-nickname capitalized-text-input">{{this.surname}}</h2>
+                            <div class="user-item" onclick="redirectToProfile('{{this.nickname}}')">
+                                <img class="avatar" src="{{this.photoLink}}" alt="avatar">
+                                <div class="user-names-wrapper">
+                                    <h2 class="user-nickname capitalized-text-input">{{this.name}}</h2>
+                                    <h2 class="user-nickname lowercased-text-input user-nickname">{{this.nickname}}</h2>
+                                    <h2 class="user-nickname capitalized-text-input">{{this.surname}}</h2>
                                 </div>
                             </div>
                         {{/each}}

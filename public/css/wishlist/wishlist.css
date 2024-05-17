@@ -29,7 +29,7 @@
     opacity: 0;
     content: "";
     border-radius: 10px;
-    background: radial-gradient(ellipse at top, var(--basic-orange);, transparent),
+    background: radial-gradient(ellipse at top, var(--basic-orange), transparent),
             radial-gradient(ellipse at bottom, #f1f1f1, transparent);
 }
 

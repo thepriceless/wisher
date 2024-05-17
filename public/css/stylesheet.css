@@ -47,7 +47,7 @@ footer {
 
 .page-overall-info {
     font-size: 35px;
-    text-shadow: -2px 0 var(--basic-orange);, 0 2px var(--basic-orange);, 2px 0 var(--basic-orange);, 0 -2px var(--basic-orange);;
+    text-shadow: -2px 0 var(--basic-orange), 0 2px var(--basic-orange), 2px 0 var(--basic-orange), 0 -2px var(--basic-orange);
     color: white;
     margin: 0 auto 30px;
     text-align: center;
@@ -66,7 +66,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, var(--basic-orange);, #ffdbb6 75%);
+    background: linear-gradient(to bottom, var(--basic-orange), #ffdbb6 75%);
 }
 
 .form-input {
@@ -103,6 +103,14 @@ footer {
 
 .lowercased-text-input {
     text-transform: lowercase;
+}
+
+.default-zone-wrapper {
+    width: auto;
+    border: 6px solid white;
+    border-radius: 20px;
+    background-color: rgba(242, 168, 90, 0.51);
+    padding: 20px 30px;
 }
 
 @media (max-height: 450px) {

@@ -14,7 +14,7 @@
     transform: scale(0.96);
 }
 
-.friend-item {
+.user-item {
     display: flex;
     flex-direction: row;
     border-bottom: 2px solid white;
@@ -24,23 +24,15 @@
     cursor: pointer;
 }
 
-.friend-item:last-child {
+.user-item:last-child {
     border-bottom: none;
 }
 
-.default-zone-wrapper {
-    width: auto;
-    border: 6px solid white;
-    border-radius: 20px;
-    background-color: rgba(242, 168, 90, 0.51);
-    padding: 20px 30px;
-}
-
-#friend-nickname {
+.user-nickname {
     font-family: 'BoldItalic';
 }
 
-.friend-names-wrapper {
+.user-names-wrapper {
     margin: auto 0 auto 30px;
     height: 40px;
     display: flex;
@@ -49,7 +41,7 @@
     align-items: center;
 }
 
-.friend-names-wrapper:hover {
-    text-shadow: -2px 0 var(--basic-orange);, 0 2px var(--basic-orange);, 2px 0 var(--basic-orange);, 0 -2px var(--basic-orange);;
+.user-names-wrapper:hover {
+    text-shadow: -2px 0 var(--basic-orange), 0 2px var(--basic-orange), 2px 0 var(--basic-orange), 0 -2px var(--basic-orange);;
     cursor: pointer;
 }

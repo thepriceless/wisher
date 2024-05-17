@@ -6,12 +6,12 @@
     <meta name="keywords" content="wishlist, present, party, wish">
     <meta name="description" content="Your wishlist">
     <link href="/css/stylesheet.css" rel="stylesheet">
-    <link href="/css/logo/logo.css" rel="stylesheet">
     <link href="/css/nav-bar/nav-bar.css" rel="stylesheet">
     <link href="/css/log-out/log-out.css" rel="stylesheet">
     <link href="/css/selection-bar/selection-bar.css" rel="stylesheet">
     <link href="/css/wishes-zone/wishes-zone.css" rel="stylesheet">
     <link href="/css/forms/forms.css" rel="stylesheet">
+    <link href="/css/show-users.css" rel="stylesheet">
     <link href="/css/credentials/credentials.css" rel="stylesheet">
     <script src="/js/highlight-current-menu-item.js"></script>
     <script src="/js/upload-wish-item.js"></script>
@@ -26,14 +26,24 @@
 <body>
     <div class="body__main">
         {{> navbarLoggedSure}}
-        <main class="shifted">
-            {{#each users}}
-            <div class="user-item">
-                <button onclick="redirectToProfile('{{this.nickname}}')">
-                    <h2 class="user-item__name">{{this.nickname}}</h2>
-                </button>
-            </div>
-            {{/each}}
+        <main>
+            <h2 class="page-overall-info">Accounts found: {{usersCount}}</h2>
+            {{#if usersCount}}
+                <div class="default-zone-wrapper">
+                    <div class="friends-zone">
+                        {{#each users}}
+                            <div class="user-item" onclick="redirectToProfile('{{this.nickname}}')">
+                                <img class="avatar" src="{{this.photoLink}}" alt="avatar">
+                                <div class="user-names-wrapper">
+                                    <h2 class="user-nickname capitalized-text-input">{{this.name}}</h2>
+                                    <h2 class="user-nickname lowercased-text-input user-nickname">{{this.nickname}}</h2>
+                                    <h2 class="user-nickname capitalized-text-input">{{this.surname}}</h2>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            {{/if}}
         </main>
         {{> footerAd}}
     </div>
