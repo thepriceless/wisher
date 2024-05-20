@@ -31,8 +31,25 @@ body {
 }
 
 footer {
-    margin-top: auto;
-    margin-bottom: 10px;
+    border: 3px solid #fff;
+    border-bottom: none;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    margin: auto 9vw 0;
+    height: 60px;
+    padding: 10px 8px 8px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    
+    color: white;
+    background: rgba(150, 155, 159, 0.35);
+            backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-family: "Regular";
+    font-size: 14px;
+
 }
 
 main {
@@ -115,6 +132,29 @@ main {
     border-radius: 20px;
     background-color: rgba(242, 168, 90, 0.51);
     padding: 20px 30px;
+}
+
+.footer__credentials-icon-link {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.footer__credentials-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.footer__credentials-flexbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+#footer__copyright-icon {
+    width: 17px;
 }
 
 @font-face {
