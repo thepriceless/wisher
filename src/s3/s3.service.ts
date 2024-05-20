@@ -33,8 +33,10 @@ export class S3Service {
     };
   }
 
-  async downloadImageBuffer(path: string): Promise<string> {
+  async downloadImageBuffer(folderName: string, imageKey: string) {
+    const path = `${folderName}${imageKey}`;
     const download = await this.s3.Download(path);
-    return download.body;
+    //console.log(download);
+    return download.data;
   }
 }

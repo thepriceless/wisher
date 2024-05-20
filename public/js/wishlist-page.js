@@ -17,6 +17,11 @@ async function deleteWishitem(wishitemId, wishlistId) {
 }
 
 window.addEventListener('load', () => {
+  setDefaultWishitemImage();
+});
+
+
+function setDefaultWishitemImage() {
   const defaultImage = '../objects/default-present-image.png';
   const images = document.querySelectorAll(
     '.wishitem-container img.wishitem-card__image',
@@ -26,4 +31,4 @@ window.addEventListener('load', () => {
       img.src = defaultImage;
     }
   });
-});
+}

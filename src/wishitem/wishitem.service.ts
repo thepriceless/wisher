@@ -46,6 +46,7 @@ export class WishitemService {
     wishitemRes.description = randomWishitem.description;
     wishitemRes.importance = randomWishitem.importance;
     wishitemRes.imageLink = randomWishitem.imageLink;
+    wishitemRes.imageLinkAsKey = randomWishitem.imageLinkAsKey;
     wishitemRes.itemshopLinks = itemshopLinksNoId;
 
     return wishitemRes;
@@ -98,7 +99,10 @@ export class WishitemService {
     wishitemRes.description = wishitem.description;
     wishitemRes.importance = wishitem.importance;
     wishitemRes.imageLink = wishitem.imageLink;
+    wishitemRes.imageLinkAsKey = wishitem.imageLinkAsKey;
     wishitemRes.itemshopLinks = itemshopLinksNoId;
+
+    console.log(wishitemRes);
 
     return wishitemRes;
   }

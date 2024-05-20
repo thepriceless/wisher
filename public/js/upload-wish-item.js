@@ -45,6 +45,7 @@ window.addEventListener('load', async () => {
     const response = await fetch(`/api/wishitems/${wishitemId}`);
     if (response.ok) {
       const data = await response.json();
+      console.log(data);
 
       if (data !== null) {
         for (let i = 0; i < data.wishitem.itemshopLinks.length; i++) {

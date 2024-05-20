@@ -11,6 +11,7 @@ export class WishitemMapper {
       importance: wishitemEntity.importance,
       wishlistId: wishitemEntity.wishlistId,
       imageLink: wishitemEntity.imageLink,
+      imageLinkAsKey: wishitemEntity.imageLinkAsKey,
       itemshopLinks: wishitemEntity.itemshopLinks,
     };
   }

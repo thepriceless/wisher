@@ -67,7 +67,6 @@ export class WishitemController {
   @ApiBearerAuth()
   @Get('/wishitems/:id')
   async getWishitemById(
-    @Headers('authorization') authorization: string,
     @Param('id') id: string,
   ): Promise<{ wishitem: WishitemDto }> {
     const wishitem = await this.wishitemService.getWishitemById(id);

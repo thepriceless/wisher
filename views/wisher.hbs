@@ -31,11 +31,13 @@
                         {{/if}}
                             <div class="links-container">
                                 {{#each wishitem.itemshopLinks}}
-                                    <a class="suggestion-zone__marketplace-single-link" href="{{this}}" target="_blank">Link №{{addOne @index}}</a>
+                                    {{#if this}}
+                                        <a class="suggestion-zone__marketplace-single-link" href="{{this}}" target="_blank">Link №{{addOne @index}}</a>
+                                    {{/if}}
                                 {{/each}}
                             </div>
                     </div>
-                    <img class="suggestion-zone__photo" id="wisher-item-image" src='{{ wishitem.imageLink }}' alt="image">
+                    <img class="suggestion-zone__photo" id="wisher-item-image" src='{{#if wishitem.imageLinkAsKey}}/api/images/{{wishitem.imageLinkAsKey}}?imagekind=WISHITEM_IMAGE{{/if}}' alt="image">
                 </div>
                 <button class="suggestion-zone__button" type="button" onclick="wisherGetNextItem()">
                     <img class="suggestion-zone__button_right" src="objects/arrow-button.svg" alt="next"/>

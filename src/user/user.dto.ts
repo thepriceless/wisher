@@ -9,6 +9,7 @@ export class UserDto {
     this.name = userDto.name;
     this.surname = userDto.surname;
     this.photoLink = userDto.photoLink;
+    this.photoLinkAsKey = userDto.photoLinkAsKey;
   }
 
   @ApiProperty({ description: 'Nickname' })
@@ -35,6 +36,9 @@ export class UserDto {
   @IsUrl()
   @ApiProperty({ description: 'Profile photo link' })
   photoLink: string;
+
+  @ApiProperty({ description: 'Profile photo file name' })
+  photoLinkAsKey: string;
 
   @ApiPropertyOptional({ description: 'Wishlists owned by the user' })
   ownedWishlists?: WishlistDto[];

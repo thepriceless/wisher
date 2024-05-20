@@ -38,5 +38,20 @@ function wisherGetNextItem() {
       for (let i = data.itemshopLinks.length; i < existingLinks.length; i++) {
         existingLinks[i].remove();
       }
+
+      setDefaultWishitemImage();
     });
+}
+
+window.addEventListener('load', () => {
+  setDefaultWishitemImage();
+});
+
+const defaultImage = '../objects/default-present-image.png';
+
+function setDefaultWishitemImage() {
+  const image = document.getElementById('wisher-item-image');
+  if (image.getAttribute('src') === '') {
+    image.src = defaultImage;
+  }
 }
