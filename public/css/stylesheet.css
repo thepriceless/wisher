@@ -32,6 +32,7 @@ body {
 
 footer {
     margin-top: auto;
+    margin-bottom: 10px;
 }
 
 main {
@@ -45,7 +46,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 94vh;
+    min-height: 78vh;
 }
 
 .page-overall-info {
@@ -114,12 +115,6 @@ main {
     border-radius: 20px;
     background-color: rgba(242, 168, 90, 0.51);
     padding: 20px 30px;
-}
-
-@media (max-height: 450px) {
-    header {
-        display: none;
-    }
 }
 
 @font-face {
