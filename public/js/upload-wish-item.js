@@ -21,21 +21,6 @@ async function uploadItem(event) {
     const newWishitem = await response.json();
     window.location.href = `/wishlists/${newWishitem.wishlistId}`;
     alert('Item successfully added!');
-  } else {
-    const r = await response.json();
-  }
-}
-
-async function saveExistingItemToWishlist(privacy, wishitemId) {
-  const response = await fetch(
-    `/api/wishitems/${wishitemId}?privacy=${privacy}`,
-    {
-      method: 'POST',
-    },
-  );
-  if (response.ok) {
-    alert('Item successfully added!');
-  } else {
   }
 }
 
