@@ -38,8 +38,10 @@
                         </div>
                     </div>
                     <div class="suggestion-zone__importance" id="suggestion-zone__marketplace-links">
-                        <h4 class="helper-text">Marketplace<br>links</h4>
-                        <div class="links-container">
+                        {{#if wishitem.itemshopLinks}}
+                            <h4 class="helper-text">Marketplace<br>links</h4>
+                        {{/if}}
+                        <div class="links-container" id="links-container-under-stars">
                             {{#each wishitem.itemshopLinks}}
                                 <a class="suggestion-zone__marketplace-single-link" href="{{this}}" target="_blank">Link №{{addOne @index}}</a>
                             {{/each}}
