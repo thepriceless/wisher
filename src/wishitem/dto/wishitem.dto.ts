@@ -36,6 +36,9 @@ export class WishitemDto {
   @ApiProperty({ description: 'The image link of the wish item' })
   imageLink: string;
 
+  @ApiProperty({ description: 'The image link file name of the wish item' })
+  imageLinkAsKey: string;
+
   //@ArrayMaxSize(3)
   @ApiPropertyOptional({ description: 'The item shop links of the wish item' })
   itemshopLinks?: string[];

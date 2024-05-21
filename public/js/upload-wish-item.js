@@ -3,6 +3,11 @@ async function uploadItem(event) {
   const form = document.getElementById('upload-item-form');
   const wishitemId = document.querySelector('.body__main').dataset.id;
   const body = composeDataFromForm(form);
+
+  for (let pair of body.entries()) {
+    console.log(pair[0] + ', ' + pair[1]);
+  }
+
   let response;
   if (wishitemId) {
     body.append('existingWishitemId', wishitemId);
@@ -21,27 +26,14 @@ async function uploadItem(event) {
     const newWishitem = await response.json();
     window.location.href = `/wishlists/${newWishitem.wishlistId}`;
     alert('Item successfully added!');
-  } else {
-    const r = await response.json();
-  }
-}
-
-async function saveExistingItemToWishlist(privacy, wishitemId) {
-  const response = await fetch(
-    `/api/wishitems/${wishitemId}?privacy=${privacy}`,
-    {
-      method: 'POST',
-    },
-  );
-  if (response.ok) {
-    alert('Item successfully added!');
-  } else {
   }
 }
 
 function composeDataFromForm(form) {
   const formData = new FormData(form);
-  let itemShopLinks = formData.getAll('itemshopLinks');
+  let itemShopLinks = formData
+    .getAll('itemshopLinks')
+    .filter((link) => link.trim() !== '');
   if (itemShopLinks.length !== 0) {
     formData.delete('itemshopLinks');
     itemShopLinks.forEach((link, index) => {
@@ -60,6 +52,7 @@ window.addEventListener('load', async () => {
     const response = await fetch(`/api/wishitems/${wishitemId}`);
     if (response.ok) {
       const data = await response.json();
+      console.log(data);
 
       if (data !== null) {
         for (let i = 0; i < data.wishitem.itemshopLinks.length; i++) {

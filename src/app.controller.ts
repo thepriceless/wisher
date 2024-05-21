@@ -70,21 +70,17 @@ export class AppController {
   async myWishlists(
     @Headers('authorization') authorization: string,
   ): Promise<{ wishlists: WishlistDto[]; authorizedUser: UserDto }> {
-    try {
-      const authorizedUser =
-        await this.userService.getUserFromToken(authorization);
-      const wishlists =
-        await this.wishlistService.getWishlistsByOwner(authorizedUser);
+    const authorizedUser =
+      await this.userService.getUserFromToken(authorization);
+    const wishlists =
+      await this.wishlistService.getWishlistsByOwner(authorizedUser);
 
-      const wishlistsDto = wishlists.map(
-        (wishlist) => new WishlistDto(wishlist),
-      );
-      const authorizedUserDto = new UserDto(authorizedUser);
-      return {
-        wishlists: wishlistsDto,
-        authorizedUser: authorizedUserDto,
-      };
-    } catch (err) {}
+    const wishlistsDto = wishlists.map((wishlist) => new WishlistDto(wishlist));
+    const authorizedUserDto = new UserDto(authorizedUser);
+    return {
+      wishlists: wishlistsDto,
+      authorizedUser: authorizedUserDto,
+    };
   }
 
   @ApiOperation({
@@ -106,21 +102,19 @@ export class AppController {
     friendsCount: number;
     authorizedUser: UserDto;
   }> {
-    try {
-      const authorizedUser =
-        await this.userService.getUserFromToken(authorization);
-      const friends = await this.userService.findFriendsByNickname(
-        authorizedUser.nickname,
-      );
+    const authorizedUser =
+      await this.userService.getUserFromToken(authorization);
+    const friends = await this.userService.findFriendsByNickname(
+      authorizedUser.nickname,
+    );
 
-      const friendsDto = friends.map((friend) => new UserDto(friend));
-      const authorizedUserDto = new UserDto(authorizedUser);
-      return {
-        friends: friendsDto,
-        friendsCount: friendsDto.length,
-        authorizedUser: authorizedUserDto,
-      };
-    } catch (err) {}
+    const friendsDto = friends.map((friend) => new UserDto(friend));
+    const authorizedUserDto = new UserDto(authorizedUser);
+    return {
+      friends: friendsDto,
+      friendsCount: friendsDto.length,
+      authorizedUser: authorizedUserDto,
+    };
   }
 
   @ApiOperation({
