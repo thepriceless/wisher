@@ -43,6 +43,29 @@ export class UserService {
       where: {
         nickname: {
           startsWith: nicknameStart,
+          mode: 'insensitive',
+        },
+      },
+    });
+  }
+
+  async findAllByNameStart(nameStart: string): Promise<UserEntity[]> {
+    return this.prisma.user.findMany({
+      where: {
+        name: {
+          startsWith: nameStart,
+          mode: 'insensitive',
+        },
+      },
+    });
+  }
+
+  async findAllBySurnameStart(surnameStart: string): Promise<UserEntity[]> {
+    return this.prisma.user.findMany({
+      where: {
+        surname: {
+          startsWith: surnameStart,
+          mode: 'insensitive',
         },
       },
     });

@@ -8,7 +8,7 @@
     {{> linkCommonCss}}
     <link href="/css/suggestion-zone/suggestion-zone.css" rel="stylesheet">
     <script src="/js/upload-wish-item.js"></script>
-    <script src="/js/one-wishitem.js"></script>
+    <script src="/js/set-default-wishitem-image.js"></script>
     {{> linkCommonJs}}
     {{> websocketStatic}}
     <title>My wishlist</title>
@@ -49,7 +49,7 @@
                             {{/each}}
                         </div>
                     </div>
-                    <img class="suggestion-zone__photo" id="wisher-item-image" src='{{#if wishitem.imageLinkAsKey}}/api/images/{{wishitem.imageLinkAsKey}}?imagekind=WISHITEM_IMAGE{{/if}}' alt="image">
+                    <img class="suggestion-zone__photo wisher-item-image" src='{{#if wishitem.imageLinkAsKey}}/api/images/{{wishitem.imageLinkAsKey}}?imagekind=WISHITEM_IMAGE{{/if}}' alt="image">
                 </div>
                 <div class="suggestion-zone__add-item-wrapper" id="wishitem-in-wishlist__add-item-wrapper">
                     <a class="suggestion-zone__add-this-wishitem-redirect" href="/wishitems/new?id={{ wishitem.id }}">

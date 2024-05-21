@@ -9,6 +9,7 @@
     <link href="/css/wishlist/wishlist-with-items.css" rel="stylesheet">
     <script src="/js/upload-wish-item.js"></script>
     <script src="/js/wishlist-page.js"></script>
+    <script src="/js/set-default-wishitem-image.js"></script>
     {{> linkCommonJs}}
     {{> websocketStatic}}
     <title>My wishlist</title>
@@ -21,7 +22,7 @@
             <div class="wishitem-container">
             {{#each wishitems}}
             <a class="wishitem-card" onclick="redirectToWishitem('{{this.id}}')">
-                <img class="wishitem-card__image" src="{{#if this.imageLinkAsKey}}/api/images/{{this.imageLinkAsKey}}?imagekind=WISHITEM_IMAGE{{/if}}">
+                <img class="wishitem-card__image wisher-item-image" src="{{#if this.imageLinkAsKey}}/api/images/{{this.imageLinkAsKey}}?imagekind=WISHITEM_IMAGE{{/if}}">
                 <h2 class="wishitem-card__title">{{this.title}}</h2>
                 {{#if ../isOwner}}
                 <button class="wishitem__delete-button" onclick="event.stopPropagation(); deleteWishitem('{{this.id}}', '{{../wishlistId}}')">

@@ -266,7 +266,7 @@ export class AppController {
   @Render('userSearchResults')
   async getUsersByNicknameStart(
     @Headers('authorization') authorization: string,
-    @Query('nickname') nicknameStart: string,
+    @Query('name') userInput: string,
   ): Promise<{
     users: UserDto[];
     usersCount: number;
@@ -274,9 +274,12 @@ export class AppController {
   }> {
     const authorizedUser =
       await this.userService.getUserFromToken(authorization);
-    const users = await this.userService.findAllByNicknameStart(nicknameStart);
+    const usersByNickname = await this.userService.findAllByNicknameStart(userInput);
+    const usersByName = await this.userService.findAllByNameStart(userInput);
+    const usersBySurname = await this.userService.findAllBySurnameStart(userInput);
+    const allUsers = usersByNickname.concat(usersByName, usersBySurname);
 
-    const usersDto = users.map((user) => new UserDto(user));
+    const usersDto = allUsers.map((user) => new UserDto(user));
     const authorizedUserDto = new UserDto(authorizedUser);
     return {
       users: usersDto,

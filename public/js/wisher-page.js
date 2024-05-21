@@ -15,7 +15,7 @@ function wisherGetNextItem() {
       redirectElement.href = hrefParts[0] + '=' + data.id;
 
       const wisherItemLink = data.imageLink;
-      const imageElement = document.getElementById('wisher-item-image');
+      const imageElement = document.querySelectorAll('.wisher-item-image')[0];
       imageElement.src = wisherItemLink;
 
       const linksContainer = document.querySelector('.links-container');
@@ -50,14 +50,8 @@ function wisherGetNextItem() {
 }
 
 window.addEventListener('load', () => {
+  const helperText = document.querySelector('.helper-text');
+  const linksContainer = document.querySelector('.links-container');
+  helperText.style.display = linksContainer.children.length > 0 ? 'block' : 'none';
   setDefaultWishitemImage();
 });
-
-const defaultImage = '../objects/default-present-image.png';
-
-function setDefaultWishitemImage() {
-  const image = document.getElementById('wisher-item-image');
-  if (image.getAttribute('src') === '') {
-    image.src = defaultImage;
-  }
-}
