@@ -27,9 +27,12 @@ export class S3Service {
       folderName,
     );
 
+    const lastSlashIndex = upload.key.lastIndexOf('/');
+    const fileName = upload.key.substring(lastSlashIndex + 1);
+
     return {
       location: upload.Location,
-      path: upload.key,
+      fileName: fileName,
     };
   }
 

@@ -49,6 +49,8 @@ export class WishitemService {
     wishitemRes.imageLinkAsKey = randomWishitem.imageLinkAsKey;
     wishitemRes.itemshopLinks = itemshopLinksNoId;
 
+    console.log(wishitemRes);
+
     return wishitemRes;
   }
 
@@ -60,7 +62,12 @@ export class WishitemService {
       ? wishitem.itemshopLinks
       : [];
 
-    const imageLinkUrl = imageLink !== null ? imageLink.location : null;
+    let imageLinkUrl = null,
+      imageLinkFileName = null;
+    if (imageLink !== null) {
+      imageLinkUrl = imageLink.location;
+      imageLinkFileName = imageLink.fileName;
+    }
 
     return await this.prisma.wishitem.create({
       data: {
@@ -68,6 +75,7 @@ export class WishitemService {
         importance: wishitem.importance,
         description: wishitem.description,
         imageLink: imageLinkUrl,
+        imageLinkAsKey: imageLinkFileName,
         itemshopLinks: {
           create: itemshopLinks.map((link) => {
             return {
@@ -89,9 +97,12 @@ export class WishitemService {
       },
     });
 
-    const itemshopLinksNoId = wishitem.itemshopLinks.map(
-      (linkObject) => linkObject.link,
-    );
+    let itemshopLinksNoId = null;
+    if (wishitem.itemshopLinks) {
+      itemshopLinksNoId = wishitem.itemshopLinks.map(
+        (linkObject) => linkObject.link,
+      );
+    }
 
     const wishitemRes: WishitemEntity = new WishitemEntity();
     wishitemRes.id = wishitem.id;
@@ -154,7 +165,7 @@ export class WishitemService {
 
     return {
       location: wishitem.imageLink,
-      path: wishitem.imageLinkAsKey,
+      fileName: wishitem.imageLinkAsKey,
     };
   }
 }
