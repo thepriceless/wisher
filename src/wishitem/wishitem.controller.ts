@@ -16,6 +16,7 @@ import { WishitemMapper } from './wishitem.mapper';
 import { WishitemWithUser } from 'src/types/wishitem.with.user';
 import { UserDto } from 'src/user/user.dto';
 import { UserService } from 'src/user/user.service';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @ApiTags('Wishitem API')
 @Controller('/api')
@@ -34,6 +35,7 @@ export class WishitemController {
     description: 'Random wishitem is successfully found and returned',
     type: WishitemDto,
   })
+  @Public()
   @Get('wisher/random-item')
   async getRandomWishitem(): Promise<WishitemDto> {
     const randomWishitem = await this.wishitemService.getRandomWishitem();
@@ -65,7 +67,6 @@ export class WishitemController {
   @ApiBearerAuth()
   @Get('/wishitems/:id')
   async getWishitemById(
-    @Headers('authorization') authorization: string,
     @Param('id') id: string,
   ): Promise<{ wishitem: WishitemDto }> {
     const wishitem = await this.wishitemService.getWishitemById(id);

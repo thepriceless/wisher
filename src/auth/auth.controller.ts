@@ -108,7 +108,7 @@ export class AuthController {
         process.env.PROFILE_PHOTO,
       );
       userEntity.photoLink = imageData.location;
-      userEntity.photoLinkAsKey = imageData.path;
+      userEntity.photoLinkAsKey = imageData.fileName;
     }
 
     const accessToken = await this.authService.register(userEntity);

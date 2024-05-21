@@ -21,7 +21,7 @@
             <div class="wishitem-container">
             {{#each wishitems}}
             <a class="wishitem-card" onclick="redirectToWishitem('{{this.id}}')">
-                <img class="wishitem-card__image" src="{{this.imageLink}}">
+                <img class="wishitem-card__image" src="{{#if this.imageLinkAsKey}}/api/images/{{this.imageLinkAsKey}}?imagekind=WISHITEM_IMAGE{{/if}}">
                 <h2 class="wishitem-card__title">{{this.title}}</h2>
                 {{#if ../isOwner}}
                 <button class="wishitem__delete-button" onclick="event.stopPropagation(); deleteWishitem('{{this.id}}', '{{../wishlistId}}')">

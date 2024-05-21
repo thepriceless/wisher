@@ -6,13 +6,15 @@ import { ConfigService } from '@nestjs/config';
 import * as hbs from 'hbs';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { JwtExceptionFilter } from './auth/exception-filters/json-web-token.exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
-
   app.setViewEngine('hbs');
+  app.useGlobalFilters(new JwtExceptionFilter());
+
   hbs.registerPartials(join(__dirname, '..', 'views', 'partials'));
   hbs.registerHelper('eq', function (a: string, b: string) {
     return a === b;

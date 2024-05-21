@@ -22,7 +22,7 @@
                     <div class="friends-zone">
                         {{#each users}}
                             <div class="user-item" onclick="redirectToProfile('{{this.nickname}}')">
-                                <img class="avatar" src="{{this.photoLink}}" alt="avatar">
+                                <img class="avatar" src="{{#if this.photoLinkAsKey}}/api/images/{{this.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="avatar">
                                 <div class="user-names-wrapper">
                                     <h2 class="user-nickname capitalized-text-input">{{this.name}}</h2>
                                     <h2 class="user-nickname lowercased-text-input user-nickname">{{this.nickname}}</h2>

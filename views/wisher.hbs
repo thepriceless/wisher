@@ -26,14 +26,18 @@
                         {{ wishitem.description }}
                     </h3>
                     <div class="suggestion-zone__importance" id="suggestion-zone__marketplace-links">
-                        <h4 class="helper-text">Marketplace<br>links</h4>
-                        <div class="links-container">
-                            {{#each wishitem.itemshopLinks}}
-                                <a class="suggestion-zone__marketplace-single-link" href="{{this}}" target="_blank">Link №{{addOne @index}}</a>
-                            {{/each}}
-                        </div>
+                        {{#if wishitem.itemshopLinks}}
+                            <h4 class="helper-text">Marketplace<br>links</h4>
+                        {{/if}}
+                            <div class="links-container">
+                                {{#each wishitem.itemshopLinks}}
+                                    {{#if this}}
+                                        <a class="suggestion-zone__marketplace-single-link" href="{{this}}" target="_blank">Link №{{addOne @index}}</a>
+                                    {{/if}}
+                                {{/each}}
+                            </div>
                     </div>
-                    <img class="suggestion-zone__photo" id="wisher-item-image" src='{{ wishitem.imageLink }}' alt="image">
+                    <img class="suggestion-zone__photo" id="wisher-item-image" src='{{#if wishitem.imageLinkAsKey}}/api/images/{{wishitem.imageLinkAsKey}}?imagekind=WISHITEM_IMAGE{{/if}}' alt="image">
                 </div>
                 <button class="suggestion-zone__button" type="button" onclick="wisherGetNextItem()">
                     <img class="suggestion-zone__button_right" src="objects/arrow-button.svg" alt="next"/>

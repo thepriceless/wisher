@@ -15,39 +15,38 @@
 </head>
 <body>
     <div class="body__main">
-        {{> navbarLoggedSure}}
-        <main>
-            <div class="default-zone-wrapper" id="user-profile-custom-wrapper">
-                <div class="user-profile">
-                    <img src="{{user.photoLink}}" alt="User Photo" class="user-profile__photo">
-                    <div class="user-profile__name-wrapper">
-                        <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
-                    </div>
-                    <h2 class="user-profile__nickname">{{user.nickname}}</h2>
-                    {{#if isGuest}}
-                        <button id="user-profile__friend-request-btn" onclick="processFriendRequest('{{user.nickname}}', '{{authorizedUser.nickname}}')">
-                            {{#if (eq friendshipState "NOTHING")}}
-                                Send Friend Request
-                            {{else if (eq friendshipState "SENT_BY_SENDER")}}
-                                Cancel Friend Request
-                            {{else if (eq friendshipState "SENT_BY_RECEIVER")}}
-                                Accept Friend Request
-                            {{else}}
-                                Unfriend
-                            {{/if}}
-                        </button>
+    {{> navbarLoggedSure}}
+    <main>
+        <div class="default-zone-wrapper" id="user-profile-custom-wrapper">
+            <div class="user-profile">
+                <img src="{{#if user.photoLinkAsKey}}/api/images/{{user.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="User Photo" class="user-profile__photo">
+                <div class="user-profile__name-wrapper">
+                    <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
+                </div>
+                <h2 class="user-profile__nickname">{{user.nickname}}</h2>
+                {{#if isGuest}}
+                    <button id="user-profile__friend-request-btn" onclick="processFriendRequest('{{user.nickname}}', '{{authorizedUser.nickname}}')">
+                        {{#if (eq friendshipState "NOTHING")}}
+                            Send Friend Request
+                        {{else if (eq friendshipState "SENT_BY_SENDER")}}
+                            Cancel Friend Request
+                        {{else if (eq friendshipState "SENT_BY_RECEIVER")}}
+                            Accept Friend Request
+                        {{else}}
+                            Unfriend
+                        {{/if}}
+                    </button>
 
-                        <div class="wishlist-selection">
-                            <button class="wishlist-selection__button" onclick="loadWishlist('PUBLIC', '{{user.nickname}}')">Public Wishlist</button>
-                        </div>
-                    {{/if}}
+                    <div class="wishlist-selection">
+                        <button class="wishlist-selection__button" onclick="loadWishlist('PUBLIC', '{{user.nickname}}')">Public Wishlist</button>
+                    </div>
+                {{/if}}
                 </div>
             </div>
         </main>
     </div>
     {{> footerAd}}
     <script type="text/javascript">
-    // Default Configuration
         $(document).ready(function() {
             toastr.options = {
                 'closeButton': true,

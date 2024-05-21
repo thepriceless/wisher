@@ -27,14 +27,19 @@ export class S3Service {
       folderName,
     );
 
+    const lastSlashIndex = upload.key.lastIndexOf('/');
+    const fileName = upload.key.substring(lastSlashIndex + 1);
+
     return {
       location: upload.Location,
-      path: upload.key,
+      fileName: fileName,
     };
   }
 
-  async downloadImageBuffer(path: string): Promise<string> {
+  async downloadImageBuffer(folderName: string, imageKey: string) {
+    const path = `${folderName}${imageKey}`;
     const download = await this.s3.Download(path);
-    return download.body;
+    //console.log(download);
+    return download.data;
   }
 }
