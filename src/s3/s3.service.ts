@@ -39,7 +39,6 @@ export class S3Service {
   async downloadImageBuffer(folderName: string, imageKey: string) {
     const path = `${folderName}${imageKey}`;
     const download = await this.s3.Download(path);
-    //console.log(download);
     return download.data;
   }
 }

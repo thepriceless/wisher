@@ -49,8 +49,6 @@ export class WishitemService {
     wishitemRes.imageLinkAsKey = randomWishitem.imageLinkAsKey;
     wishitemRes.itemshopLinks = itemshopLinksNoId;
 
-    console.log(wishitemRes);
-
     return wishitemRes;
   }
 
@@ -112,8 +110,6 @@ export class WishitemService {
     wishitemRes.imageLink = wishitem.imageLink;
     wishitemRes.imageLinkAsKey = wishitem.imageLinkAsKey;
     wishitemRes.itemshopLinks = itemshopLinksNoId;
-
-    console.log(wishitemRes);
 
     return wishitemRes;
   }

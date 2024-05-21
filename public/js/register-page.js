@@ -13,7 +13,6 @@ async function signup(event) {
     document.cookie = `AccessToken=${responseData.accessToken}; path=/; expires=${expirationTime}`;
     window.location.href = '/';
   } else if (response.status === 400) {
-    console.log(response);
     if (responseData.message === 'Nickname already reserved') {
       alert('Account with this nickname already exists');
     } else {

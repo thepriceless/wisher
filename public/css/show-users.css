@@ -22,6 +22,7 @@
     margin-top: 20px;
     padding-bottom: 20px;
     cursor: pointer;
+    position: relative;
 }
 
 .user-item:last-child {

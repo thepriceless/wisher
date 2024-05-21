@@ -100,19 +100,33 @@ export class AppController {
   async friends(@Headers('authorization') authorization: string): Promise<{
     friends: UserDto[];
     friendsCount: number;
+    friendRequests: UserDto[];
+    friendRequestsCount: number;
     authorizedUser: UserDto;
   }> {
     const authorizedUser =
       await this.userService.getUserFromToken(authorization);
+
     const friends = await this.userService.findFriendsByNickname(
       authorizedUser.nickname,
     );
 
+    const friendRequests =
+      await this.userService.findIncomingFriendRequestsByNickname(
+        authorizedUser.nickname,
+      );
+
     const friendsDto = friends.map((friend) => new UserDto(friend));
+    const friendsRequestsDto = friendRequests.map(
+      (requestor) => new UserDto(requestor),
+    );
+
     const authorizedUserDto = new UserDto(authorizedUser);
     return {
       friends: friendsDto,
       friendsCount: friendsDto.length,
+      friendRequests: friendsRequestsDto,
+      friendRequestsCount: friendsRequestsDto.length,
       authorizedUser: authorizedUserDto,
     };
   }
@@ -274,9 +288,11 @@ export class AppController {
   }> {
     const authorizedUser =
       await this.userService.getUserFromToken(authorization);
-    const usersByNickname = await this.userService.findAllByNicknameStart(userInput);
+    const usersByNickname =
+      await this.userService.findAllByNicknameStart(userInput);
     const usersByName = await this.userService.findAllByNameStart(userInput);
-    const usersBySurname = await this.userService.findAllBySurnameStart(userInput);
+    const usersBySurname =
+      await this.userService.findAllBySurnameStart(userInput);
     const allUsers = usersByNickname.concat(usersByName, usersBySurname);
 
     const usersDto = allUsers.map((user) => new UserDto(user));

@@ -152,6 +152,55 @@ main {
     gap: 5px;
 }
 
+.toggle-page-state-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
+    width: fit-content;
+    margin: 30px auto 20px;
+}
+
+.toggle-friends-button {
+    appearance: none;
+    border: 3px solid white;
+    border-radius: 20px;
+    color: white;
+    background-color: transparent;
+    padding: 7px 10px;
+    font-size: 18px;
+    font-family: 'Regular';
+    cursor: pointer;
+}
+
+.toggle-friends-button:hover {
+    transform: scale(0.95);
+}
+
+.active-friend-toggle {
+    background-color: var(--light-orange);
+}
+
+.user-accept-friend-request {
+    position: absolute;
+    top: 10px;
+    right: 3px;
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    font-family: "Regular";
+    font-size: 13px;
+    border-radius: 14px;
+    transition: transform 0.2s;
+    transform-origin: right;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.user-accept-friend-request:hover {
+    transform: scale(0.95);
+}
+
 #footer__copyright-icon {
     width: 17px;
 }

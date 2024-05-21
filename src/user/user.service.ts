@@ -118,6 +118,36 @@ export class UserService {
     });
   }
 
+  async findIncomingFriendRequestsByNickname(
+    nickname: string,
+  ): Promise<UserEntity[]> {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        nickname: nickname,
+      },
+      include: {
+        sender: true,
+        receiver: true,
+      },
+    });
+
+    const senderNicknames = user.sender.map(
+      (sender) => sender.receiverNickname,
+    );
+    const receiverNicknames = user.receiver.map(
+      (receiver) => receiver.senderNickname,
+    );
+
+    return await this.prisma.user.findMany({
+      where: {
+        nickname: {
+          in: receiverNicknames,
+          notIn: senderNicknames,
+        },
+      },
+    });
+  }
+
   async getUserFriendship(
     senderNickname: string,
     receiverNickname: string,

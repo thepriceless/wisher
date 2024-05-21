@@ -8,6 +8,7 @@
     {{> linkCommonCss}}
     <link href="/css/show-users.css" rel="stylesheet">
     <script src="/js/friends-page.js"></script>
+    <script src="/js/process-friend-request.js"></script>
     {{> linkCommonJs}}
     {{> websocketStatic}}
     <title>Friends</title>
@@ -16,20 +17,41 @@
     <div class="body__main">
         {{> navbarLoggedSure}}
         <main>
-            <h2 class="page-overall-info">You have {{ friendsCount }} friends</h2>
+            <div class="toggle-page-state-buttons">
+                <button class="toggle-friends-button active-friend-toggle" id="showFriends" onclick="showFriends()">Friends</button>
+                <button class="toggle-friends-button" id="showRequests" onclick="showRequests()">Incoming friend requests</button>
+            </div>
+            <h2 class="page-overall-info" id="info-about-friends">You have {{ friendsCount }} friends</h2>
+            <h2 class="page-overall-info" id="info-about-requests" style="display: none;">You have {{ friendRequestsCount }} incoming friend requests</h2>
             {{#if friendsCount}}
                 <div class="default-zone-wrapper">
                     <div class="friends-zone">
-                        {{#each friends}}
-                            <div class="user-item" onclick="redirectToProfile('{{this.nickname}}')">
-                                <img class="avatar" src="{{#if this.photoLinkAsKey}}/api/images/{{this.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="avatar">
-                                <div class="user-names-wrapper">
-                                    <h2 class="user-nickname capitalized-text-input">{{this.name}}</h2>
-                                    <h2 class="user-nickname lowercased-text-input user-nickname">{{this.nickname}}</h2>
-                                    <h2 class="user-nickname capitalized-text-input">{{this.surname}}</h2>
+                        <div id="friendsZone" class="friends-zone">
+                            {{#each friends}}
+                                <div class="user-item" onclick="redirectToProfile('{{this.nickname}}')">
+                                    <img class="avatar" src="{{#if this.photoLinkAsKey}}/api/images/{{this.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="avatar">
+                                    <div class="user-names-wrapper">
+                                        <h2 class="user-nickname capitalized-text-input">{{this.name}}</h2>
+                                        <h2 class="user-nickname lowercased-text-input user-nickname">{{this.nickname}}</h2>
+                                        <h2 class="user-nickname capitalized-text-input">{{this.surname}}</h2>
+                                    </div>
                                 </div>
-                            </div>
-                        {{/each}}
+                            {{/each}}
+                        </div>
+                        <div id="requestsZone" class="requests-zone" style="display: none;">
+                            {{#each friendRequests}}
+                                <div class="user-item" onclick="redirectToProfile('{{this.nickname}}')">
+                                    <img class="avatar" src="{{#if this.photoLinkAsKey}}/api/images/{{this.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="avatar">
+                                    <div class="user-names-wrapper">
+                                        <h2 class="user-nickname capitalized-text-input">{{this.name}}</h2>
+                                        <h2 class="user-nickname lowercased-text-input user-nickname">{{this.nickname}}</h2>
+                                        <h2 class="user-nickname capitalized-text-input">{{this.surname}}</h2>
+                                    </div>
+                                    <button class="user-accept-friend-request" onclick="event.stopPropagation(); processFriendRequest('{{this.nickname}}', '{{authorizedUser.nickname}}'); location.reload();">Accept</button>
+                                </div>
+                            {{/each}}
+                        </div>
+
                     </div>
                 </div>
             {{/if}}
