@@ -31,7 +31,25 @@ body {
 }
 
 footer {
-    margin-top: auto;
+    border: 3px solid #fff;
+    border-bottom: none;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    margin: auto 9vw 0;
+    height: 60px;
+    padding: 10px 8px 8px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    
+    color: white;
+    background: rgba(150, 155, 159, 0.35);
+            backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-family: "Regular";
+    font-size: 14px;
+
 }
 
 main {
@@ -45,7 +63,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 94vh;
+    min-height: 78vh;
 }
 
 .page-overall-info {
@@ -116,10 +134,27 @@ main {
     padding: 20px 30px;
 }
 
-@media (max-height: 450px) {
-    header {
-        display: none;
-    }
+.footer__credentials-icon-link {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.footer__credentials-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.footer__credentials-flexbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+#footer__copyright-icon {
+    width: 17px;
 }
 
 @font-face {

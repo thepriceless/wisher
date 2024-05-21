@@ -14,6 +14,7 @@ option {
     padding-block: 10px;
     width: 120px;
     font-size: 16px;
+    text-align: center;
 }
 
 select {

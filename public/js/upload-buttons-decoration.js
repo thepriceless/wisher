@@ -4,13 +4,13 @@ window.addEventListener('load', () => {
 
   if (uploadButton.classList.contains('image-attached')) {
     uploadButton.textContent = getButtonSuccessTextByElementId(photoInput.id);
-    uploadButton.style.backgroundColor = 'var(--basic-orange);';
+    uploadButton.style.backgroundColor = 'var(--basic-orange)';
   }
 
   photoInput.addEventListener('change', function () {
     if (photoInput.files.length > 0) {
       uploadButton.textContent = getButtonSuccessTextByElementId(photoInput.id);
-      uploadButton.style.backgroundColor = 'var(--basic-orange);';
+      uploadButton.style.backgroundColor = 'var(--basic-orange)';
     } else {
       uploadButton.classList.remove('image-attached');
       uploadButton.textContent = getButtonDefaultTextByElementId(photoInput.id);
@@ -27,7 +27,7 @@ window.addEventListener('load', () => {
       photoInput.files.length === 0 &&
       !uploadButton.classList.contains('image-attached')
     ) {
-      uploadButton.style.backgroundColor = 'var(--light-orange);';
+      uploadButton.style.backgroundColor = 'var(--light-orange)';
     }
   });
 
