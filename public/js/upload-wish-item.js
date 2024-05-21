@@ -8,6 +8,11 @@ async function uploadItem(event) {
     console.log(pair[0] + ', ' + pair[1]);
   }
 
+  if (!body.has('importance')) {
+    alert("It's required to specify the importance");
+    return;
+  }
+
   let response;
   if (wishitemId) {
     body.append('existingWishitemId', wishitemId);

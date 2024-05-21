@@ -7,12 +7,19 @@ async function signup(event) {
     method: 'POST',
     body: formData,
   });
+  const responseData = await response.json();
   if (response.ok) {
-    const data = await response.json();
     const expirationTime = calculateExpirationTimeForJwt();
-    document.cookie = `AccessToken=${data.accessToken}; path=/; expires=${expirationTime}`;
+    document.cookie = `AccessToken=${responseData.accessToken}; path=/; expires=${expirationTime}`;
     window.location.href = '/';
   } else if (response.status === 400) {
-    alert('Account with this nickname already exists');
+    console.log(response);
+    if (responseData.message === 'Nickname already reserved') {
+      alert('Account with this nickname already exists');
+    } else {
+      alert(
+        'Проверьте правильность введенных данных. Каждое поле может содержать не более 25 символов. Никнейм может содержать только заглавные и прописные буквы английского алфавита, а также цифры. Остальные поля могут еще содержать другие знаки препинания, например тире. Русские буквы использовать нельзя.',
+      );
+    }
   }
 }

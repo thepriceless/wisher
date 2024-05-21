@@ -18,14 +18,14 @@ export class RegisterRequestDto {
   @ApiProperty({ description: 'Password of the user' })
   password: string;
 
-  @IsAlphanumeric()
+  @IsAscii()
   @MaxLength(25, {
     message: 'Name is too long. Maximum length is 25 characters.',
   })
   @ApiProperty({ description: 'Name of the user' })
   name: string;
 
-  @IsAlphanumeric()
+  @IsAscii()
   @MaxLength(25, {
     message: 'Surname is too long. Maximum length is 25 characters.',
   })
