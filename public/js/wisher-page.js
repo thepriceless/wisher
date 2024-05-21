@@ -8,6 +8,12 @@ function wisherGetNextItem() {
       document.getElementById('wisher-item-description').textContent =
         data.description;
 
+      const redirectElement = document.querySelector(
+        '.suggestion-zone__add-this-wishitem-redirect',
+      );
+      let hrefParts = redirectElement.href.split('=');
+      redirectElement.href = hrefParts[0] + '=' + data.id;
+
       const wisherItemLink = data.imageLink;
       const imageElement = document.getElementById('wisher-item-image');
       imageElement.src = wisherItemLink;
