@@ -37,11 +37,13 @@ export class WishitemController {
   })
   @Public()
   @Get('wisher/random-item')
-  async getRandomWishitem(): Promise<WishitemDto> {
+  async getRandomWishitem(): Promise<{ wishitem: WishitemDto }> {
     const randomWishitem = await this.wishitemService.getRandomWishitem();
+    const wishitemDto = WishitemMapper.toDto(randomWishitem);
 
-    const dto = WishitemMapper.toDto(randomWishitem);
-    return dto;
+    return {
+      wishitem: wishitemDto,
+    };
   }
 
   @ApiOperation({
