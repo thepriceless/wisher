@@ -201,6 +201,13 @@ main {
     transform: scale(0.95);
 }
 
+.avatar {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    border: 4px solid white;
+}
+
 #footer__copyright-icon {
     width: 17px;
 }

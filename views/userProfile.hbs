@@ -20,7 +20,7 @@
     <main>
         <div class="default-zone-wrapper" id="user-profile-custom-wrapper">
             <div class="user-profile">
-                <img src="{{#if user.photoLinkAsKey}}/api/images/{{user.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="User Photo" class="user-profile__photo">
+                <img class="user-profile__photo avatar" src="{{#if user.photoLinkAsKey}}/api/images/{{user.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="User Photo">
                 <div class="user-profile__name-wrapper">
                     <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
                 </div>
