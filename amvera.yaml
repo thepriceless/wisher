@@ -1,12 +1,13 @@
+---
 meta:
   environment: node
   toolchain:
     name: npm
     version: 22
-
 build:
   additionalCommands: npm run build && npx prisma generate
-
+  artifacts:
+    '"*"': /usr/src/app
 run:
   command: npm run start
   containerPort: 7834
