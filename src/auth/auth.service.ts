@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
+import * as bcryptjs from 'bcryptjs';
 import { UserEntity } from 'src/user/user.entity';
 import { UserService } from 'src/user/user.service';
 
@@ -17,7 +17,7 @@ export class AuthService {
       console.log('user not found');
       return null;
     }
-    const isMatch: boolean = bcrypt.compareSync(password, user.password);
+    const isMatch: boolean = bcryptjs.compareSync(password, user.password);
     if (!isMatch) {
       console.log('user not found');
       return null;
@@ -37,7 +37,7 @@ export class AuthService {
     if (existingUser) {
       throw new BadRequestException('Nickname already reserved');
     }
-    const hashedPassword = await bcrypt.hash(userDto.password, 10);
+    const hashedPassword = await bcryptjs.hash(userDto.password, 10);
     const newUser: UserEntity = {
       ...userDto,
       password: hashedPassword,
