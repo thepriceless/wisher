@@ -1,5 +1,6 @@
 import {
   Body,
+  ConflictException,
   Controller,
   Delete,
   ForbiddenException,
@@ -96,6 +97,26 @@ export class WishlistController {
     @Headers('authorization') authorization: string,
     @Query('existingimage') existingImage: string,
   ): Promise<WishitemDto> {
+    const ownerUser = await this.userService.getUserFromToken(authorization);
+    const privacyType =
+      PrivacyType[
+        newWishitemDto.holderWishlistPrivacy as keyof typeof PrivacyType
+      ];
+
+    const wishlist = await this.wishlistService.findWishlistByPrivacyAndOwner(
+      privacyType,
+      ownerUser.nickname,
+    );
+
+    const isWishitemLimitExceeded =
+      await this.wishlistService.isLimitExceededForWishitemsInWishlist(
+        wishlist.id,
+      );
+
+    if (isWishitemLimitExceeded) {
+      throw new ConflictException('Wishitem limit exceeded');
+    }
+
     let imageLink = null;
     if (existingImage === 'true') {
       const existingWishitemId = newWishitemDto.existingWishitemId;
@@ -109,17 +130,6 @@ export class WishlistController {
         process.env.WISHITEM_IMAGE,
       );
     }
-
-    const ownerUser = await this.userService.getUserFromToken(authorization);
-    const privacyType =
-      PrivacyType[
-        newWishitemDto.holderWishlistPrivacy as keyof typeof PrivacyType
-      ];
-
-    const wishlist = await this.wishlistService.findWishlistByPrivacyAndOwner(
-      privacyType,
-      ownerUser.nickname,
-    );
 
     const newWishitem = WishitemMapper.toEntity(newWishitemDto);
     newWishitem.importance = parseInt(newWishitemDto.importance as any);
