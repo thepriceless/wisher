@@ -293,7 +293,14 @@ export class AppController {
     const usersByName = await this.userService.findAllByNameStart(userInput);
     const usersBySurname =
       await this.userService.findAllBySurnameStart(userInput);
-    const allUsers = usersByNickname.concat(usersByName, usersBySurname);
+
+    const allUsersMap = new Map(
+      [...usersByNickname, ...usersByName, ...usersBySurname].map((user) => [
+        user.nickname,
+        user,
+      ]),
+    );
+    const allUsers = Array.from(allUsersMap.values());
 
     const usersDto = allUsers.map((user) => new UserDto(user));
     const authorizedUserDto = new UserDto(authorizedUser);
