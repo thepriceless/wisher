@@ -41,7 +41,7 @@
                         {{#if wishitem.itemshopLinks}}
                             <h4 class="helper-text">Marketplace<br>links</h4>
                         {{/if}}
-                        <div class="links-container" id="links-container-under-stars">
+                        <div class="links-container">
                             {{#each wishitem.itemshopLinks}}
                                 {{#if this}}
                                     <a class="suggestion-zone__marketplace-single-link" href="{{this}}" target="_blank">Link №{{addOne @index}}</a>

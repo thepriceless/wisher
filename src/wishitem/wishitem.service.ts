@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prismas/prisma.service';
 import { ObjectStorageImageData } from 'src/s3/image.data';
 import { NewWishitemDto } from 'src/wishitem/dto/new.wishitem.dto';
 import { WishitemEntity } from 'src/wishitem/wishitem.entity';
+import { WishitemMapper } from './wishitem.mapper';
 
 @Injectable()
 export class WishitemService {
@@ -10,11 +11,6 @@ export class WishitemService {
 
   async getRandomWishitem(): Promise<WishitemEntity> {
     const allIds = await this.prisma.wishitem.findMany({
-      where: {
-        imageLink: {
-          not: null,
-        },
-      },
       select: {
         id: true,
       },
@@ -36,20 +32,10 @@ export class WishitemService {
       },
     });
 
-    const itemshopLinksNoId = randomWishitem.itemshopLinks.map(
-      (linkObject) => linkObject.link,
+    return WishitemMapper.toEntityWithSimpleLinks(
+      randomWishitem,
+      randomWishitem.itemshopLinks,
     );
-
-    const wishitemRes: WishitemEntity = new WishitemEntity();
-    wishitemRes.id = randomWishitem.id;
-    wishitemRes.title = randomWishitem.title;
-    wishitemRes.description = randomWishitem.description;
-    wishitemRes.importance = randomWishitem.importance;
-    wishitemRes.imageLink = randomWishitem.imageLink;
-    wishitemRes.imageLinkAsKey = randomWishitem.imageLinkAsKey;
-    wishitemRes.itemshopLinks = itemshopLinksNoId;
-
-    return wishitemRes;
   }
 
   async createWishitem(
@@ -95,23 +81,10 @@ export class WishitemService {
       },
     });
 
-    let itemshopLinksNoId = null;
-    if (wishitem.itemshopLinks) {
-      itemshopLinksNoId = wishitem.itemshopLinks.map(
-        (linkObject) => linkObject.link,
-      );
-    }
-
-    const wishitemRes: WishitemEntity = new WishitemEntity();
-    wishitemRes.id = wishitem.id;
-    wishitemRes.title = wishitem.title;
-    wishitemRes.description = wishitem.description;
-    wishitemRes.importance = wishitem.importance;
-    wishitemRes.imageLink = wishitem.imageLink;
-    wishitemRes.imageLinkAsKey = wishitem.imageLinkAsKey;
-    wishitemRes.itemshopLinks = itemshopLinksNoId;
-
-    return wishitemRes;
+    return WishitemMapper.toEntityWithSimpleLinks(
+      wishitem,
+      wishitem.itemshopLinks,
+    );
   }
 
   async connectExistingWishitemToWishlist(

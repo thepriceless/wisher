@@ -27,4 +27,23 @@ export class WishitemMapper {
       itemshopLinks: newWishitemDto.itemshopLinks,
     };
   }
+
+  static toEntityWithSimpleLinks(
+    wishitemEntityWithLinkObjects,
+    itemshopLinks,
+  ): WishitemEntity {
+    const itemshopLinksNoId = itemshopLinks.map(
+      (linkObject) => linkObject.link,
+    );
+
+    return {
+      id: wishitemEntityWithLinkObjects.id,
+      title: wishitemEntityWithLinkObjects.title,
+      description: wishitemEntityWithLinkObjects.description,
+      importance: wishitemEntityWithLinkObjects.importance,
+      imageLink: wishitemEntityWithLinkObjects.imageLink,
+      imageLinkAsKey: wishitemEntityWithLinkObjects.imageLinkAsKey,
+      itemshopLinks: itemshopLinksNoId,
+    };
+  }
 }

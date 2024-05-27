@@ -1,6 +1,4 @@
-import { Controller, Get, Headers, Param, Query, Render } from '@nestjs/common';
-import { S3Service } from 'src/s3/s3.service';
-import { WishitemEntity } from 'src/wishitem/wishitem.entity';
+import { Controller, Get, Param } from '@nestjs/common';
 import { WishitemService } from './wishitem.service';
 import {
   ApiBearerAuth,
@@ -14,7 +12,6 @@ import {
 import { WishitemDto } from './dto/wishitem.dto';
 import { WishitemMapper } from './wishitem.mapper';
 import { WishitemWithUser } from 'src/types/wishitem.with.user';
-import { UserDto } from 'src/user/user.dto';
 import { UserService } from 'src/user/user.service';
 import { Public } from 'src/auth/decorators/public.decorator';
 
