@@ -9,9 +9,9 @@
 }
 
 .suggestion-zone {
-    height: 100%;
+    height: 505px;
     width: 95%;
-    padding: 4%;
+    padding: 3% 4%;
     position: relative;
 
     border: 4px solid #b3aeae;
@@ -24,31 +24,7 @@
                          "description image"
                          "importance image"
                          "links image";
-    grid-template-columns: minmax(300px, 47%) 1fr;
-}
-
-@media (max-width: 800px) {
-    .suggestion-zone {
-        grid-template-areas: "header"
-                             "image"
-                             "buttons";
-        grid-template-columns: minmax(100%, 170px);
-        row-gap: 30px;
-    }
-
-    .suggestion-zone > .suggestion-zone__title {
-        margin-bottom: 0;
-    }
-
-    .suggestion-zone > .suggestion-zone__description {
-        display: none;
-        margin: 0;
-    }
-
-    .suggestion-zone > .suggestion-zone__photo {
-        width: 100%;
-        height: 100%;
-    }
+    grid-template-columns: minmax(300px, 53%) 1fr;
 }
 
 .suggestion-zone::after {
@@ -69,7 +45,7 @@
     line-height: 1.4em;
     margin: 0 0 30px;
     text-transform: uppercase;
-    font-size: 40px;
+    font-size: 32px;
     font-family: "Bold";
 
     overflow: hidden;
@@ -145,6 +121,10 @@
     outline: none;
 }
 
+.suggestion-zone__button:hover {
+    transform: scale(0.92);
+}
+
 .suggestion-zone__button_right {
     width: 15px;
     rotate: 180deg;
@@ -207,6 +187,11 @@
     height: 50px;
     border-radius: 50%;
     cursor: pointer;
+}
+
+.suggestion-zone__add-this-item-icon {
+    width: 100%;
+    height: 100%;
 }
 
 #wishitem-in-wisher__add-item-wrapper {
