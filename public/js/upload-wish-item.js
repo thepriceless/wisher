@@ -10,6 +10,7 @@ async function uploadItem(event) {
 
   if (!body.has('importance')) {
     alert("It's required to specify the importance");
+    console
     return;
   }
 
@@ -36,6 +37,12 @@ async function uploadItem(event) {
       alert('Max file size (2 MB) reached. Upload another photo');
     } else if (responseData.message === 'Incorrect file extension') {
       alert('Incorrect file extension. You can use only .jpg, .jpeg and .png');
+    }
+  } else if (response.status === 409) {
+    if (responseData.message === 'Wishitem limit exceeded') {
+      alert(
+        "You have reached the maximum number of items in your wishlist. You can't add more",
+      );
     }
   }
 }

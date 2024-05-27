@@ -10,6 +10,7 @@ export const profilePhotoSizeValidation = new ParseFilePipeBuilder()
   })
   .build({
     errorHttpStatusCode: HttpStatus.BAD_REQUEST,
+    fileIsRequired: false,
     exceptionFactory: (_) =>
       new HttpException('Max file size reached', HttpStatus.BAD_REQUEST),
   });
@@ -20,6 +21,7 @@ export const profilePhotoExtensionValidation = new ParseFilePipeBuilder()
   })
   .build({
     errorHttpStatusCode: HttpStatus.BAD_REQUEST,
+    fileIsRequired: false,
     exceptionFactory: (_) =>
       new HttpException('Incorrect file extension', HttpStatus.BAD_REQUEST),
   });

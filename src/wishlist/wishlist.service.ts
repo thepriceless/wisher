@@ -63,6 +63,44 @@ export class WishlistService {
     return wishitemWithWishlist;
   }
 
+  async isLimitExceededForWishitemsInWishlist(
+    wishlistId: string,
+  ): Promise<boolean> {
+    const privacy = await this.getWishlistPrivacy(wishlistId);
+
+    switch (privacy) {
+      case PrivacyType.PUBLIC:
+        return (await this.getNumberOfItemsInWishlistById(wishlistId)) >= 30;
+      case PrivacyType.FRIENDS:
+        return (await this.getNumberOfItemsInWishlistById(wishlistId)) >= 20;
+      case PrivacyType.PRIVATE:
+        return (await this.getNumberOfItemsInWishlistById(wishlistId)) >= 10;
+      default:
+        return (await this.getNumberOfItemsInWishlistById(wishlistId)) >= 10;
+    }
+  }
+
+  async getNumberOfItemsInWishlistById(wishlistId: string): Promise<number> {
+    const count = await this.prisma.wishlist
+      .findUnique({
+        where: { id: wishlistId },
+        include: { wishitems: true },
+      })
+      .then((wishlist) => wishlist?.wishitems.length || 0);
+
+    return count;
+  }
+
+  async getWishlistPrivacy(wishlistId: string): Promise<PrivacyType> {
+    const wishlist = await this.prisma.wishlist.findUnique({
+      where: {
+        id: wishlistId,
+      },
+    });
+
+    return wishlist.privacy;
+  }
+
   async findWishlistByPrivacyAndOwner(
     privacy: PrivacyType,
     ownerNickname: string,
