@@ -4,14 +4,10 @@ import { S3Service } from 'src/s3/s3.service';
 import { WishitemDto } from 'src/wishitem/dto/wishitem.dto';
 import {
   ApiBearerAuth,
-  ApiBody,
-  ApiConsumes,
-  ApiCreatedResponse,
   ApiHeader,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
-  ApiParam,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';

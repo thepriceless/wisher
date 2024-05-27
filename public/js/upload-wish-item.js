@@ -27,10 +27,16 @@ async function uploadItem(event) {
     });
   }
 
+  const responseData = await response.json();
   if (response.ok) {
-    const newWishitem = await response.json();
-    window.location.href = `/wishlists/${newWishitem.wishlistId}`;
     alert('Item successfully added!');
+    window.location.href = `/wishlists/${responseData.wishlistId}`;
+  } else if (response.status === 400) {
+    if (responseData.message === 'Max file size reached') {
+      alert('Max file size (2 MB) reached. Upload another photo');
+    } else if (responseData.message === 'Incorrect file extension') {
+      alert('Incorrect file extension. You can use only .jpg, .jpeg and .png');
+    }
   }
 }
 

@@ -15,6 +15,10 @@ async function signup(event) {
   } else if (response.status === 400) {
     if (responseData.message === 'Nickname already reserved') {
       alert('Account with this nickname already exists');
+    } else if (responseData.message === 'Max file size reached') {
+      alert('Max file size (10 MB) reached. Upload another photo');
+    } else if (responseData.message === 'Incorrect file extension') {
+      alert('Incorrect file extension. You can use only .jpg, .jpeg and .png');
     } else {
       alert(
         'Проверьте правильность введенных данных. Каждое поле может содержать не более 25 символов. Никнейм может содержать только заглавные и прописные буквы английского алфавита, а также цифры. Остальные поля могут еще содержать другие знаки препинания, например тире. Русские буквы использовать нельзя.',

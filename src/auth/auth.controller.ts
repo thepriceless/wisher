@@ -1,6 +1,9 @@
 import {
   Body,
   Controller,
+  HttpException,
+  HttpStatus,
+  ParseFilePipeBuilder,
   Post,
   Request,
   UploadedFile,
@@ -17,6 +20,10 @@ import { S3Service } from 'src/s3/s3.service';
 import { WishlistService } from 'src/wishlist/wishlist.service';
 import { UserEntity } from 'src/user/user.entity';
 import { PrivacyType } from '@prisma/client';
+import {
+  profilePhotoExtensionValidation,
+  profilePhotoSizeValidation,
+} from 'src/s3/image-validators/profile.photo.validatior';
 import {
   ApiBadRequestResponse,
   ApiBody,
@@ -98,7 +105,8 @@ export class AuthController {
   @UseInterceptors(FileInterceptor('photoLink'))
   async register(
     @Body() registerBody: RegisterRequestDto,
-    @UploadedFile() profilePhoto,
+    @UploadedFile(profilePhotoSizeValidation, profilePhotoExtensionValidation)
+    profilePhoto: Express.Multer.File,
   ): Promise<LoginResponseDto> {
     const userEntity = new UserEntity(registerBody);
 
