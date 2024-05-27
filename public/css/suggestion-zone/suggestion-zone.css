@@ -163,14 +163,10 @@
 .links-container {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
     margin-top: 3px;
     gap: 15px;
-}
-
-#links-container-under-stars {
     width: 310px;
-    justify-content: space-between;
-    gap: unset;
 }
 
 #suggestion-zone__importance {
