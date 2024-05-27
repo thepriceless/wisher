@@ -1,6 +1,11 @@
 window.addEventListener('load', () => {
-  const currentPage = document.location.pathname;
-  const menuItems = document.getElementsByClassName('nav-bar__box');
+  let currentPage = document.location.pathname;
+  if (currentPage.endsWith('/')) {
+    currentPage = currentPage.slice(0, -1);
+  }
+
+  const menuItems = document.getElementsByClassName('nav-bar__for-active');
+  console.log(currentPage);
 
   for (const currentElement of menuItems) {
     const id = currentElement.getAttribute('id');
