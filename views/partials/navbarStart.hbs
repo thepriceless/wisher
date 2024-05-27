@@ -1,30 +1,30 @@
 <header>
     <nav class="nav-bar">
-        <div class="nav-bar__box" id="page-id__wishlists">
-            <a class="nav-bar__padding-text" id="mywishlists" href="/wishlists">
+        <div class="nav-bar__box" >
+            <a class="nav-bar__hoverable nav-bar__hoverable-left nav-bar__for-active" id="page-id__wishlists" href="/wishlists">
                 <p class="nav-bar__text">
                     My wishitems
                 </p>
             </a>
-            <div class="nav-bar__vertical-divider"></div>
-            <a class="nav-bar__special-icon-container" href="/wishitems/new">
+            <a class="nav-bar__special-icon-container nav-bar__hoverable nav-bar__hoverable-right nav-bar__for-active" id="page-id__new" href="/wishitems/new">
                 <img class="nav-bar__special-icon" src="/objects/icons8-plus.svg" alt="next"/>
             </a>
         </div>
-        <a class="nav-bar__box nav-bar__padding-box" id="page-id__friends" href="/friends">
-        <p class="nav-bar__text">
-            Friends
-        </p>
+        <a class="nav-bar__box nav-bar__hoverable nav-bar__hoverable-full nav-bar__for-active" id="page-id__friends" href="/friends">
+            <p class="nav-bar__text">
+                Friends
+            </p>
         </a>
-        <a class="nav-bar__box nav-bar__padding-box" id="page-id__wisher" href="/wisher">
-        <p class="nav-bar__text">
-            Wisher
-        </p>
+        <a class="nav-bar__box nav-bar__hoverable nav-bar__hoverable-full nav-bar__for-active" id="page-id__wisher" href="/wisher">
+            <p class="nav-bar__text">
+                Wisher
+            </p>
         </a>
-        <div class="nav-bar__box" id="page-id__search-users">
-            <input type="search" id="search-users" name="search" placeholder="Find user... " onkeypress="handleKeyPress(event)" maxlength="40">
-            <div class="nav-bar__vertical-divider"></div>
-            <button class="nav-bar__special-icon-container" type="submit" id="search-button" onclick="findUsersByNickname()">
+        <div class="nav-bar__box nav-bar__for-active" id="page-id__search">
+            <div class="nav-bar__hoverable nav-bar__hoverable-left">
+                <input type="search" id="search-users" name="search" placeholder="Find user... " onkeypress="handleKeyPress(event)" maxlength="40">
+            </div>
+            <button class="nav-bar__special-icon-container nav-bar__hoverable nav-bar__hoverable-right" type="submit" id="search-button" onclick="findUsersByNickname()">
                 <img class="nav-bar__special-icon" src="/objects/icons8-search.svg" alt="next"/>
             </button>
         </div>
