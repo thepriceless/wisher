@@ -20,7 +20,6 @@ import { WishitemService } from 'src/wishitem/wishitem.service';
 import { PrivacyType } from '@prisma/client';
 import { WishlistDto } from './wishlist.dto';
 import { WishitemDto } from 'src/wishitem/dto/wishitem.dto';
-import { WishitemEntity } from 'src/wishitem/wishitem.entity';
 import { WishitemMapper } from 'src/wishitem/wishitem.mapper';
 import {
   ApiBearerAuth,
@@ -35,8 +34,10 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { GetUserProfileResponse } from 'src/types/get.user.profile.response';
-import { WishitemImageUploadDto } from 'src/wishitem/wishitem.image.upload.dto';
+import {
+  wishitemImageExtensionValidation,
+  wishitemImageSizeValidation,
+} from 'src/s3/image-validators/wishitem.image.validatior';
 
 @ApiTags('Wishlist API')
 @Controller('/api')
@@ -90,7 +91,8 @@ export class WishlistController {
   @UseInterceptors(FileInterceptor('imageLink'))
   async saveNewItem(
     @Body() newWishitemDto: NewWishitemDto,
-    @UploadedFile() itemImage,
+    @UploadedFile(wishitemImageSizeValidation, wishitemImageExtensionValidation)
+    itemImage: Express.Multer.File,
     @Headers('authorization') authorization: string,
     @Query('existingimage') existingImage: string,
   ): Promise<WishitemDto> {

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prismas/prisma.service';
 import { ObjectStorageImageData } from './image.data';
-const path = require('path');
 
 @Injectable()
 export class S3Service {
