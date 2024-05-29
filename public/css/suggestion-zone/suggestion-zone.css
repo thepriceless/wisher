@@ -29,6 +29,7 @@ main {
                          "importance image"
                          "links image";
     grid-template-columns: minmax(300px, 53%) 1fr;
+    column-gap: 5%;
 }
 
 .suggestion-zone::after {
@@ -54,6 +55,7 @@ main {
 
     overflow: hidden;
     text-overflow: ellipsis;
+    word-wrap: break-word;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
@@ -104,12 +106,13 @@ main {
 
     overflow: hidden;
     text-overflow: ellipsis;
+    word-wrap: break-word;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 8;
             line-clamp: 8;
 
-    font-family: 'Myriad Regular', sans-serif;
+    font-family: 'Regular', sans-serif;
 
     grid-area: description;
 }
@@ -194,8 +197,6 @@ main {
 }
 
 .suggestion-zone__add-this-wishitem-redirect {
-    width: 50px;
-    height: 50px;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -213,4 +214,65 @@ main {
 #wishitem-in-wishlist__add-item-wrapper {
     bottom: -41px;
     right: -41px;
+}
+
+@media (max-width: 1300px) {
+    .suggestion-zone {
+        grid-template-areas: "header image"
+                             "description image"
+                             "importance image"
+                             "links links";
+    }
+    .suggestion-zone__title {
+        font-size: 25px;
+    }
+    .suggestion-zone__description {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 950px) {
+    .suggestion-zone {
+        grid-template-columns: 42% 53%;
+    }
+    .suggestion-zone__photo {
+        width: 37vw;
+        height: 37vw;
+    }
+    .suggestion-zone__title {
+        font-size: 15px;
+    }
+    .suggestion-zone__description {
+        font-size: 12px;
+    }
+    .helper-text {
+        width: 90px;
+        margin-right: 10px;
+        font-size: 13px;
+    }
+    .suggestion-zone__marketplace-single-link {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 700px) {
+    .suggestion-zone__title {
+        font-size: 15px;
+    }
+    .suggestion-zone__description {
+        font-size: 9px;
+    }
+    .links-container {
+        gap: 10px;
+        width: 240px;
+    }
+    .suggestion-zone__add-item-wrapper {
+        width: 40px;
+        height: 40px;
+        padding: 6px;
+    }
+    #wishitem-in-wisher__add-item-wrapper {
+        bottom: -26px;
+        right: 3px;
+    }
 }
