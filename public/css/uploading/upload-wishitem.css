@@ -2,6 +2,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 option {
@@ -74,4 +75,10 @@ select:focus {
     top: 31%;
     transform: translateY(-50%);
     cursor: pointer;
+}
+
+.loader-zone {
+    width: 493px;
+    height: 1078px;
+    top: 82px;
 }

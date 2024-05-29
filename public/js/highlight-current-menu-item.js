@@ -5,7 +5,6 @@ window.addEventListener('load', () => {
   }
 
   const menuItems = document.getElementsByClassName('nav-bar__for-active');
-  console.log(currentPage);
 
   for (const currentElement of menuItems) {
     const id = currentElement.getAttribute('id');

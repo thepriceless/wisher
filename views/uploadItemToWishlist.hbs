@@ -18,6 +18,9 @@
     <div class="body__main" data-id="{{#if wishitem}}{{wishitem.id}}{{/if}}">
         {{> navbarLoggedSure}}
         <main>
+            <div class="loader-zone">
+                <span class="upload-loader"></span>
+            </div>
             <h2 class="page-overall-info">Here you can add new wishitem</h2>
             <div class="form-wrap">
                 <form id="upload-item-form" onsubmit="uploadItem(event)">

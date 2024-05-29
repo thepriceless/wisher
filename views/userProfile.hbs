@@ -17,6 +17,9 @@
     <div class="body__main">
     {{> navbarLoggedSure}}
     <main>
+        <div class="loader-zone">
+            <span class="upload-loader"></span>
+        </div>
         <div class="default-zone-wrapper" id="user-profile-custom-wrapper">
             <div class="user-profile">
                 <img class="user-profile__photo avatar" src="{{#if user.photoLinkAsKey}}/api/images/{{user.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="User Photo">

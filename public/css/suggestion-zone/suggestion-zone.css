@@ -1,3 +1,7 @@
+main {
+    position: relative;
+}
+
 .suggestion-zone-with-buttons {
     box-sizing: border-box;
     position: relative;
@@ -147,6 +151,13 @@
     margin-top: 3px;
     gap: 15px;
     width: 310px;
+}
+
+.loader-zone {
+    width: 1386px;
+    height: 650px;
+    top: -10px;
+    right: -17px;
 }
 
 #suggestion-zone__importance {

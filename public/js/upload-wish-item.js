@@ -4,15 +4,17 @@ async function uploadItem(event) {
   const wishitemId = document.querySelector('.body__main').dataset.id;
   const body = composeDataFromForm(form);
 
-  for (let pair of body.entries()) {
-    console.log(pair[0] + ', ' + pair[1]);
-  }
+  // for (let pair of body.entries()) {
+  //   console.log(pair[0] + ', ' + pair[1]);
+  // }
 
   if (!body.has('importance')) {
     alert("It's required to specify the importance");
-    console
     return;
   }
+
+  const loader = document.querySelector('.loader-zone');
+  loader.style.display = 'flex';
 
   let response;
   if (wishitemId) {
@@ -32,13 +34,16 @@ async function uploadItem(event) {
   if (response.ok) {
     alert('Item successfully added!');
     window.location.href = `/wishlists/${responseData.wishlistId}`;
+    loader.style.display = 'none';
   } else if (response.status === 400) {
+    loader.style.display = 'none';
     if (responseData.message === 'Max file size reached') {
       alert('Max file size (2 MB) reached. Upload another photo');
     } else if (responseData.message === 'Incorrect file extension') {
       alert('Incorrect file extension. You can use only .jpg, .jpeg and .png');
     }
   } else if (response.status === 409) {
+    loader.style.display = 'none';
     if (responseData.message === 'Wishitem limit exceeded') {
       alert(
         "You have reached the maximum number of items in your wishlist. You can't add more",

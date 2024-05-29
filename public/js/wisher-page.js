@@ -1,3 +1,5 @@
+let newItemLoaded = true;
+
 function wisherGetNextItem() {
   if (currentIndex === shownIds.length - 1) {
     updatePageWithRandomWishitem();
@@ -13,6 +15,8 @@ function wisherGetPrevItem() {
 }
 
 async function updatePageWithRandomWishitem() {
+  newItemLoaded = false;
+  setTimeout(showLoader, 500);
   const response = await fetch('/api/wisher/random-item');
 
   if (response.ok) {
@@ -20,15 +24,21 @@ async function updatePageWithRandomWishitem() {
     shownIds.push(responseData.wishitem.id);
     currentIndex++;
     changeViewWithNewData(responseData.wishitem);
+    newItemLoaded = true;
+    hideLoader();
   }
 }
 
 async function updatePageWithWishitemById(id) {
+  newItemLoaded = false;
+  setTimeout(showLoader, 500);
   const response = await fetch(`/api/wishitems/${id}`);
 
   if (response.ok) {
     const responseData = await response.json();
     changeViewWithNewData(responseData.wishitem);
+    newItemLoaded = true;
+    hideLoader();
   }
 }
 
@@ -100,4 +110,16 @@ function changeViewWithNewData(data) {
   if (shownIds.length > 500) {
     location.reload();
   }
+}
+
+function showLoader() {
+  if (!newItemLoaded) {
+    const loader = document.querySelector('.loader-zone');
+    loader.style.display = 'flex';
+  }
+}
+
+function hideLoader() {
+  const loader = document.querySelector('.loader-zone');
+  loader.style.display = 'none';
 }

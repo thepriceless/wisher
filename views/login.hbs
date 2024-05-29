@@ -7,6 +7,7 @@
     <meta name="description" content="Login page">
     {{> linkCommonCss}}
     <link href="/css/forms/login-form.css" rel="stylesheet">
+    <link href="/css/forms/login-page.css" rel="stylesheet">
     <script src="/js/login-page.js"></script>
     <script src="/js/jwt-expiration-calculation.js"></script>
     {{> linkCommonJs}}
@@ -15,6 +16,9 @@
 </head>
 <body>
     <main class="body__main">
+        <div class="loader-zone">
+            <span class="upload-loader"></span>
+        </div>
         <div class="form-wrap">
             <form onsubmit="login(event)" class="login-form">
                 <div class="form-items">

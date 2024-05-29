@@ -1,5 +1,7 @@
 async function signup(event) {
   event.preventDefault();
+  const loader = document.querySelector('.loader-zone');
+  loader.style.display = 'flex';
 
   const form = event.target;
   const formData = new FormData(form);
@@ -12,7 +14,9 @@ async function signup(event) {
     const expirationTime = calculateExpirationTimeForJwt();
     document.cookie = `AccessToken=${responseData.accessToken}; path=/; expires=${expirationTime}`;
     window.location.href = '/';
+    loader.style.display = 'none';
   } else if (response.status === 400) {
+    loader.style.display = 'none';
     if (responseData.message === 'Nickname already reserved') {
       alert('Account with this nickname already exists');
     } else if (responseData.message === 'Max file size reached') {
