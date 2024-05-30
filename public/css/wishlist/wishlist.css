@@ -5,7 +5,8 @@
     justify-content: center;
     border-radius: 20px;
     border: 6px solid white;
-    width: 315px;
+    width: 25vw;
+    max-width: 315px;
     padding: 0;
     
     cursor: pointer;
@@ -45,7 +46,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 80px;
+    height: 9vh;
     color: white;
     font-family: 'Regular';
     font-size: 35px;
@@ -61,7 +62,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 80px;
+    gap: 4vw;
 }
 
 .wishlist-item__privacy-icon {
@@ -79,7 +80,7 @@
 
 .wishlist-item .tooltip {
     position: absolute;
-    top: 189px;
+    top: 58%;
     right: 1px;
 }
 
@@ -87,9 +88,13 @@
     cursor: pointer;
 }
 
+.tooltip {
+    width: 100%;
+}
+
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 250px;
+    width: 80%;
     background-color: #555;
     color: #fff;
     text-align: center;
@@ -97,10 +102,9 @@
     border-radius: 6px;
     font-size: 0.9em;
     font-family: 'Regular';
-
     position: absolute;
     z-index: 1;
-    right: 26px;
+    right: 10%;
     top: 136px;
 
     opacity: 0;
@@ -110,4 +114,70 @@
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+@media (max-width: 1300px) {
+    .wishlist-item__title {
+        font-size: 27px;
+    }
+    .tooltip .tooltiptext {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 950px) {
+    .wishlist-item__title {
+        font-size: 19px;
+        height: 6vh;
+        letter-spacing: 3px;
+    }
+    .wishlist-item .tooltip {
+        top: 64px;
+        right: -2px;
+    }
+    .wishlist-item__privacy-icon {
+        height: 65%;
+        margin: 20px 0;
+    }
+    .tooltip .tooltiptext {
+        font-size: 7px;
+    }
+}
+
+@media (max-width: 700px) {
+    .wishlist-container {
+        flex-direction: column;
+    }
+    .wishlist-item {
+        width: 35vw;
+    }
+    .wishlist-item__title {
+        font-size: 16px;
+        height: 6vh;
+        letter-spacing: 2px;
+    }
+    .wishlist-item .tooltip {
+        top: 54px;
+        right: -3px;
+    }
+    .wishlist-item__info {
+        height: 17px;
+        width: 17px;
+    }
+    .wishlist-item__privacy-icon {
+        height: 90px;
+        margin: 15px 0;
+    }
+    .page-overall-info {
+        font-size: 22px;
+    }
+    .tooltip .tooltiptext {
+        width: 80%;
+        font-size: 8px;
+        right: -140px;
+        top: 75px;
+    }
+    .tooltip:hover .tooltiptext {
+        opacity: 0.8;
+    }
 }
