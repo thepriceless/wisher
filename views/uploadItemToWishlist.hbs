@@ -26,7 +26,7 @@
                 <form id="upload-item-form" onsubmit="uploadItem(event)">
                     <div class="form-items">
                         <textarea class="form-input" id="title" name="title" placeholder="Title (60 characters max)" maxlength="60" required rows="2">{{#if wishitem}}{{wishitem.title}}{{/if}}</textarea>
-                        <textarea class="form-input" id="description" name="description" placeholder="Description (400 characters max)" maxlength="400">{{#if wishitem}}{{wishitem.description}}{{/if}}</textarea>
+                        <textarea class="form-input" id="description" name="description" placeholder="Description (300 characters max)" maxlength="300">{{#if wishitem}}{{wishitem.description}}{{/if}}</textarea>
                         <p id="item-importance__helper" class="helper">How important is this item to you?</p>
                         <div class="importance">
                             <input type="radio" id="star5" name="importance" value="5" />

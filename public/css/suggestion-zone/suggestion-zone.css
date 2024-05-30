@@ -28,7 +28,7 @@ main {
                          "description image"
                          "importance image"
                          "links image";
-    grid-template-columns: minmax(300px, 53%) 1fr;
+    grid-template-columns: 50% 45%;
     column-gap: 5%;
 }
 
@@ -47,10 +47,11 @@ main {
 }
 
 .suggestion-zone__title {
-    line-height: 1.4em;
-    margin: 0 0 30px;
+    line-height: 1em;
+    height: 5em;
+    margin: 0 0 15px;
     text-transform: uppercase;
-    font-size: 32px;
+    font-size: 28px;
     font-family: "Bold";
 
     overflow: hidden;
@@ -58,16 +59,16 @@ main {
     word-wrap: break-word;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
 
     grid-area: header;
 }
 
 .suggestion-zone__photo {
     box-sizing: border-box;
-    width: 30vw;
-    height: 30vw;
+    width: 33vw;
+    height: 33vw;
     object-fit: cover;
 
     border: solid #fff 4px;
@@ -97,11 +98,12 @@ main {
     display: flex;
     gap: 15px;
     width: auto;
+    height: 100%;
 }
 
 .suggestion-zone__description {
     line-height: 1.2em;
-    height: 9.6em;
+    height: 7.2em;
     margin: 0 0 20px;
 
     overflow: hidden;
@@ -109,11 +111,11 @@ main {
     word-wrap: break-word;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 8;
-            line-clamp: 8;
+    -webkit-line-clamp: 6;
+            line-clamp: 6;
 
     font-family: 'Regular', sans-serif;
-
+    font-size: 15px;
     grid-area: description;
 }
 
@@ -227,12 +229,19 @@ main {
         font-size: 25px;
     }
     .suggestion-zone__description {
-        font-size: 15px;
+        font-size: 12px;
+    }
+    .suggestion-zone__importance {
+        height: 40px;
     }
 }
 
 @media (max-width: 950px) {
     .suggestion-zone {
+        grid-template-areas: "header image"
+                             "description image"
+                             "importance importance"
+                             "links links";
         grid-template-columns: 42% 53%;
     }
     .suggestion-zone__photo {
@@ -243,7 +252,13 @@ main {
         font-size: 15px;
     }
     .suggestion-zone__description {
-        font-size: 12px;
+        line-height: 1.2em;
+        height: 13.2em;
+        margin: 0 0 20px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 11;
+                line-clamp: 11;
     }
     .helper-text {
         width: 90px;
@@ -253,11 +268,14 @@ main {
     .suggestion-zone__marketplace-single-link {
         font-size: 13px;
     }
+    .suggestion-zone__importance {
+        height: 25px;
+    }
 }
 
 @media (max-width: 700px) {
     .suggestion-zone__title {
-        font-size: 15px;
+        font-size: 13px;
     }
     .suggestion-zone__description {
         font-size: 9px;

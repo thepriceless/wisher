@@ -22,8 +22,8 @@ export class NewWishitemDto {
   title: string;
 
   @IsString()
-  @MaxLength(400, {
-    message: 'Title is too long. Maximum length is 400 characters.',
+  @MaxLength(300, {
+    message: 'Title is too long. Maximum length is 300 characters.',
   })
   @ApiProperty({ description: 'The description of the wish item' })
   description: string;
