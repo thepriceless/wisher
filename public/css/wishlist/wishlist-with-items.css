@@ -1,16 +1,3 @@
-.wishitem__delete-button {
-    position: absolute;
-    top: 10px;
-    right: 3px;
-    background: transparent;
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: transform 0.2s;
-    transform-origin: center;
-    z-index: 10;
-}
-
 .wishitem-container {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 50%));
@@ -38,8 +25,8 @@
 
 .wishitem-card__image {
     box-sizing: border-box;
-    width: 300px;
-    height: 300px;
+    width: 20vw;
+    height: 20vw;
     object-fit: cover;
     border-radius: 7px;
     transition: transform 0.3s ease-in-out;
@@ -59,41 +46,88 @@
 }
 
 .wishitem-card__title {
-    max-width: 60ch;
+    max-width: 40ch;
     word-wrap: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 6;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     margin-left: 20px;
     color: white;
 }
 
-@keyframes wiggle {
-    0%, 7% {
-      transform: rotateZ(0);
-    }
-    15% {
-      transform: rotateZ(-10deg);
-    }
-    20% {
-      transform: rotateZ(8deg);
-    }
-    25% {
-      transform: rotateZ(-8deg);
-    }
-    30% {
-      transform: rotateZ(5deg);
-    }
-    35% {
-      transform: rotateZ(-2deg);
-    }
-    40%, 100% {
-      transform: rotateZ(0);
-    }
-  }
-  
-  button {
+.wishitem__delete-button {
+    position: absolute;
+    top: 0.9vw;
+    right: 0.7vw;
+    padding: 0;
+    width: 2.5vw;
+    height: 2.5vw;
+    background: transparent;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    transform-origin: center;
+    z-index: 10;
+}
+
+#wishitem__delete-button-icon {
+    width: 100%;
+    height: 100%;
+}
+
+button {
     transform-origin: 50% 5em;
-  }
+}
+
+@media (max-width: 1300px) {
+    .wishitem-card__title {
+        margin-left: 15px;
+        font-size: 17px;
+    }
+    /* .wishitem__delete-button {
+        top: 3.5%;
+        right: 2.5%;
+    } */
+    
+}
+
+@media (max-width: 950px) {
+    .wishitem-card__title {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+    .wishitem-container {
+        grid-gap: 12px;
+    }
+    .wishitem-card {
+        border: 2px solid white;
+        padding: 8px;
+        box-shadow: inset 0 0 0 2px white;
+    }
+    .wishitem-card:hover {
+        box-shadow: inset 0 0 0 4px white;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 700px) {
+    .wishitem-card__title {
+        margin-left: 10px;
+        font-size: 9px;
+    }
+    .wishitem-container {
+        grid-gap: 9px;
+    }
+    .wishitem-card {
+        border: 1px solid white;
+        padding: 8px;
+        box-shadow: inset 0 0 0 1px white;
+    }
+    .wishitem-card:hover {
+        box-shadow: inset 0 0 0 2px white;
+        padding: 8px;
+    }
+}
