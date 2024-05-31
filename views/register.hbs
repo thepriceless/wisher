@@ -21,16 +21,14 @@
             <span class="upload-loader"></span>
         </div>
         <div class="form-wrap">
-            <form onsubmit="signup(event)">
-                <div class="form-items">
-                    <input class="form-input lowercased-text-input" type="text" id="nickname" name="nickname" placeholder="Nickname" maxlength="25" required>
-                    <input class="form-input capitalized-text-input" type="text" id="name" name="name" placeholder="Name" maxlength="25" required>
-                    <input class="form-input capitalized-text-input" type="text" id="surname" name="surname" placeholder="Surname" maxlength="25" required>
-                    <input class="form-input" type="password" id="password" name="password" placeholder="Password" maxlength="25" required>
-                    <input type="file" class="image-input" id="photoLink" name="photoLink" accept=".jpg,.jpeg,.png" style="display: none;">
-                    <button type="button" class="upload-photo-button">Upload profile photo</button>
-                    <input class="sign-in-button" type="submit" value="Sign up">
-                </div>
+            <form class="form-items" onsubmit="signup(event)">
+                <input class="form-input lowercased-text-input" type="text" id="nickname" name="nickname" placeholder="Nickname" maxlength="25" required>
+                <input class="form-input capitalized-text-input" type="text" id="name" name="name" placeholder="Name" maxlength="25" required>
+                <input class="form-input capitalized-text-input" type="text" id="surname" name="surname" placeholder="Surname" maxlength="25" required>
+                <input class="form-input" type="password" id="password" name="password" placeholder="Password" maxlength="25" required>
+                <input type="file" class="image-input" id="photoLink" name="photoLink" accept=".jpg,.jpeg,.png" style="display: none;">
+                <button type="button" class="upload-photo-button">Upload profile photo</button>
+                <input class="sign-in-button" type="submit" value="Sign up">
                 <p id="dont-have-an-account">Already have an account?<br>
                     <a href="/auth/login">Login here</a>
                 </p>

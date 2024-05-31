@@ -34,6 +34,9 @@ export class NewWishitemDto {
   @ApiProperty({ description: 'The importance of the wish item' })
   importance: number;
 
+  @ArrayMaxSize(3, { each: true })
+  @IsString({ each: true })
+  @MaxLength(400, { each: true })
   @ApiPropertyOptional({ description: 'The item shop links of the wish item' })
   itemshopLinks: string[];
 

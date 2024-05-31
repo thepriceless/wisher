@@ -80,32 +80,34 @@ main {
     text-align: center;
 }
 
-.form-items {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .form-wrap {
     padding: 30px 40px;
     border-radius: 24px;
+    width: calc(28vw - 40px);
     display: flex;
     justify-content: center;
     align-items: center;
     background: linear-gradient(to bottom, var(--basic-orange), #ffdbb6 75%);
 }
 
+.form-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 .form-input {
     background-color: #ffffff;
     border: none;
+    width: 95%;
     font-size: 14px;
     margin-bottom: 25px;
     border-radius: 8px;
     font-family: "Regular", "Bold";
     padding-inline: 9px;
     padding-block: 10px;
-    width: 350px;
     letter-spacing: 0.01em;
 }
 
@@ -321,6 +323,13 @@ main {
     .footer__grid {
         column-gap: 2.5vw;
     }
+    .upload-photo-button {
+        font-size: 14px;
+        height: 30px;
+    }
+    .form-wrap {
+        width: calc(40vw - 40px);
+    }
 }
 
 @media (max-width: 950px) {
@@ -354,6 +363,10 @@ main {
     .page-overall-info {
         font-size: 25px;
     }
+    .form-wrap {
+        padding: 20px 30px;
+        width: calc(50vw - 30px);
+    }
 }
 
 @media (max-width: 700px) {
@@ -368,5 +381,12 @@ main {
     .avatar {
         width: 80px;
         height: 80px;
+    }
+    .form-wrap {
+        width: calc(70vw - 30px);
+    }
+    .upload-photo-button {
+        font-size: 12px;
+        height: 25px;
     }
 }

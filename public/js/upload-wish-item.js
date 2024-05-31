@@ -95,6 +95,7 @@ function addLinkField() {
     newLinkInput.type = 'url';
     newLinkInput.id = 'link' + linkCounter;
     newLinkInput.name = 'itemshopLinks';
+    newLinkInput.maxLength = 400;
     newLinkInput.classList.add('form-input', 'wishitem-shop-link');
 
     let newLinkLabel = document.createElement('label');
@@ -106,7 +107,7 @@ function addLinkField() {
     removeIcon.addEventListener('click', removeLinkField);
 
     let inputContainer = document.createElement('div');
-    inputContainer.classList.add('input-container');
+    inputContainer.classList.add('single-link-wrapper');
     inputContainer.appendChild(newLinkInput);
     inputContainer.appendChild(removeIcon);
 
