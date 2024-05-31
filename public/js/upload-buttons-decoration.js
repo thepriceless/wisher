@@ -8,6 +8,7 @@ window.addEventListener('load', () => {
   }
 
   photoInput.addEventListener('change', function () {
+    document.querySelector('.body__main').dataset.id = null;
     if (photoInput.files.length > 0) {
       uploadButton.textContent = getButtonSuccessTextByElementId(photoInput.id);
       uploadButton.style.backgroundColor = 'var(--basic-orange)';
