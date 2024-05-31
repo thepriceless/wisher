@@ -4,10 +4,6 @@ async function uploadItem(event) {
   const wishitemId = document.querySelector('.body__main').dataset.id;
   const body = composeDataFromForm(form);
 
-  // for (let pair of body.entries()) {
-  //   console.log(pair[0] + ', ' + pair[1]);
-  // }
-
   if (!body.has('importance')) {
     alert("It's required to specify the importance");
     return;
