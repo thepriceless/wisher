@@ -41,7 +41,7 @@
                             <label for="star1" title="text"></label>
                         </div>
                         <input type="file" class="image-input" id="imageLink" name="imageLink" data-id="{{#if wishitem}}{{wishitem.id}}{{/if}}" accept=".jpg,.jpeg,.png" style="display: none;">
-                        <button type="button" class="upload-photo-button {{#if wishitem}}image-attached{{/if}}" id="new-wishitem__image">Attach wishitem image</button>
+                        <button type="button" class="upload-photo-button {{#if wishitem.imageLinkAsKey}}image-attached{{/if}}" id="new-wishitem__image">Attach wishitem image</button>
                         <p id="item-shop-links__helper" class="helper">You may specify up to 3 links to marketplaces<br>to simplify the process<br>of finding this item for your friends</p>
 
                         <button class="upload-photo-button" type="button" id="addLink" onclick="addLinkField()">Add link</button>

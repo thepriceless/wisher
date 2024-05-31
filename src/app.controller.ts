@@ -243,7 +243,7 @@ export class AppController {
   @Render('uploadItemToWishlist')
   async uploadItem(
     @Headers('authorization') authorization: string,
-    @Query('id') wishitemId: string,
+    @Query('id') existingWishitemId: string,
   ): Promise<{ authorizedUser: UserDto; wishitem: WishitemDto }> {
     const authorizedUser =
       await this.userService.getUserFromToken(authorization);
@@ -251,8 +251,9 @@ export class AppController {
     const authorizedUserDto = new UserDto(authorizedUser);
 
     let wishitemDto = null;
-    if (wishitemId !== undefined) {
-      const wishitem = await this.wishitemService.getWishitemById(wishitemId);
+    if (existingWishitemId !== undefined) {
+      const wishitem =
+        await this.wishitemService.getWishitemById(existingWishitemId);
       wishitemDto = WishitemMapper.toDto(wishitem);
     }
 
