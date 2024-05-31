@@ -4,10 +4,6 @@ async function uploadItem(event) {
   const wishitemId = document.querySelector('.body__main').dataset.id;
   const body = composeDataFromForm(form);
 
-  // for (let pair of body.entries()) {
-  //   console.log(pair[0] + ', ' + pair[1]);
-  // }
-
   if (!body.has('importance')) {
     alert("It's required to specify the importance");
     return;
@@ -95,6 +91,7 @@ function addLinkField() {
     newLinkInput.type = 'url';
     newLinkInput.id = 'link' + linkCounter;
     newLinkInput.name = 'itemshopLinks';
+    newLinkInput.maxLength = 400;
     newLinkInput.classList.add('form-input', 'wishitem-shop-link');
 
     let newLinkLabel = document.createElement('label');
@@ -106,7 +103,7 @@ function addLinkField() {
     removeIcon.addEventListener('click', removeLinkField);
 
     let inputContainer = document.createElement('div');
-    inputContainer.classList.add('input-container');
+    inputContainer.classList.add('single-link-wrapper');
     inputContainer.appendChild(newLinkInput);
     inputContainer.appendChild(removeIcon);
 

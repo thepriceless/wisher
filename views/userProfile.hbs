@@ -15,35 +15,37 @@
 </head>
 <body>
     <div class="body__main">
-    {{> navbarLoggedSure}}
-    <main>
-        <div class="loader-zone">
-            <span class="upload-loader"></span>
-        </div>
-        <div class="default-zone-wrapper" id="user-profile-custom-wrapper">
-            <div class="user-profile">
-                <img class="user-profile__photo avatar" src="{{#if user.photoLinkAsKey}}/api/images/{{user.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="User Photo">
-                <div class="user-profile__name-wrapper">
-                    <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
+        {{> navbarLoggedSure}}
+        <main>
+            <div class="wrapper-for-loader-height">
+                <div class="loader-zone">
+                    <span class="upload-loader"></span>
                 </div>
-                <h2 class="user-profile__nickname">{{user.nickname}}</h2>
-                {{#if isGuest}}
-                    <button id="user-profile__friend-request-btn" onclick="processFriendRequest('{{user.nickname}}', '{{authorizedUser.nickname}}')">
-                        {{#if (eq friendshipState "NOTHING")}}
-                            Send Friend Request
-                        {{else if (eq friendshipState "SENT_BY_SENDER")}}
-                            Cancel Friend Request
-                        {{else if (eq friendshipState "SENT_BY_RECEIVER")}}
-                            Accept Friend Request
-                        {{else}}
-                            Unfriend
-                        {{/if}}
-                    </button>
+                <div class="default-zone-wrapper" id="user-profile-custom-wrapper">
+                    <div class="user-profile">
+                        <img class="user-profile__photo avatar" src="{{#if user.photoLinkAsKey}}/api/images/{{user.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="User Photo">
+                        <div class="user-profile__name-wrapper">
+                            <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
+                        </div>
+                        <h2 class="user-profile__nickname">{{user.nickname}}</h2>
+                        {{#if isGuest}}
+                            <button id="user-profile__friend-request-btn" onclick="processFriendRequest('{{user.nickname}}', '{{authorizedUser.nickname}}')">
+                                {{#if (eq friendshipState "NOTHING")}}
+                                    Send Friend Request
+                                {{else if (eq friendshipState "SENT_BY_SENDER")}}
+                                    Cancel Friend Request
+                                {{else if (eq friendshipState "SENT_BY_RECEIVER")}}
+                                    Accept Friend Request
+                                {{else}}
+                                    Unfriend
+                                {{/if}}
+                            </button>
 
-                    <div class="wishlist-selection">
-                        <button class="wishlist-selection__button" onclick="loadWishlist('PUBLIC', '{{user.nickname}}')">Public Wishlist</button>
+                            <div class="wishlist-selection">
+                                <button class="wishlist-selection__button" onclick="loadWishlist('PUBLIC', '{{user.nickname}}')">Public Wishlist</button>
+                            </div>
+                        {{/if}}
                     </div>
-                {{/if}}
                 </div>
             </div>
         </main>

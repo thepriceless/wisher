@@ -2,12 +2,14 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    gap: 60px;
+    gap: 2.5vw;
+    width: 80vw;
+    height: 47px;
 }
 
 .nav-bar__text {
-    margin: 6px 20px;
     padding: 0;
+    margin: 0 15px;
     font-family: 'Bold';
     font-size: 20px;
     text-transform: uppercase;
@@ -15,11 +17,8 @@
 }
 
 .nav-bar__profile-photo {
-    height: 42px;
-    width: 42px;
-    margin-left: auto;
-    border: solid white 3px;
-    border-radius: 50%;
+    height: 100%;
+    border-radius: inherit;
 }
 
 .nav-bar__box {
@@ -30,7 +29,7 @@
     align-items: center;
     text-align: center;
     justify-content: center;
-
+    height: 100%;
     background: rgba(150, 155, 159, 0.35);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -40,6 +39,10 @@
 .nav-bar__hoverable {
     position: relative;
     z-index: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-bar__hoverable-left {
@@ -98,12 +101,12 @@
 }
 
 .nav-bar__special-icon-container {
-    padding: 8.2px 6px;
     background: transparent;
     border-width: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
+    width: 3vw;
 }
 
 .nav-bar__box.active,
@@ -112,7 +115,7 @@
 }
 
 .nav-bar__special-icon {
-    height: 25px;
+    width: 75%;
 }
 
 #nav-bar__logout-button {
@@ -140,11 +143,16 @@
     text-decoration: none;
 }
 
+#search-button {
+    padding-inline: 0;
+    padding-block: 0;
+}
+
 #search-users {
     box-sizing: border-box;
-    width: 220px;
+    width: 13vw;
     height: auto;
-    padding-block: 6px;
+    padding-block: 8px;
     padding-inline-start: 7px;
     background-color: transparent;
     font-family: 'Regular';
@@ -164,4 +172,52 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media (max-width: 1300px) {
+    #search-users,
+    .nav-bar__text {
+        font-size: 15px;
+    }
+
+    .nav-bar__text {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .nav-bar {
+        height: 40px;
+    }
+}
+
+@media (max-width: 950px) {
+    #search-users,
+    .nav-bar__text {
+        font-size: 11px;
+    }
+
+    .nav-bar__text {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .nav-bar {
+        height: 35px;
+    }
+}
+
+@media (max-width: 700px) {
+    #search-users,
+    .nav-bar__text {
+        font-size: 6px;
+    }
+
+    .nav-bar__text {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+
+    .nav-bar {
+        height: 28px;
+    }
 }

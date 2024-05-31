@@ -72,8 +72,6 @@ main {
 }
 
 .loader-zone {
-    width: 1194px;
-    height: 466px;
     top: 30px;
 }
 
@@ -100,4 +98,91 @@ main {
     margin-top: 30px;
     padding-top: 40px;
     padding-bottom: 40px;
+}
+
+@media (max-width: 1300px) {
+    .user-profile {
+        grid-template-columns: 250px 2fr;
+        column-gap: 50px;
+    }
+    .user-profile__photo {
+        height: 240px;
+        width: 240px;
+    }
+    .user-profile__name {
+        font-size: 22px;
+    }
+    .user-profile__nickname {
+        font-size: 27px;
+    }
+    .wishlist-selection {
+        gap: 20px;
+    }
+    #user-profile__friend-request-btn,
+    .wishlist-selection__button {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 950px) {
+    .user-profile {
+        grid-template-columns: 180px 2fr;
+        column-gap: 35px;
+    }
+    .user-profile__photo {
+        height: 170px;
+        width: 170px;
+    }
+    .user-profile__name {
+        font-size: 15px;
+    }
+    .user-profile__nickname {
+        font-size: 20px;
+    }
+    .wishlist-selection {
+        gap: 12px;
+    }
+    #user-profile-custom-wrapper {
+        margin-top: 20px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+    .loader-zone {
+        top: 20px;
+    }
+}
+
+@media (max-width: 700px) {
+    .user-profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 15px;
+        width: 80vw;
+    }
+    .user-profile__name-wrapper {
+        width: 65vw;
+    }
+    
+    .user-profile__nickname {
+        width: 65vw;
+        font-size: 18px;
+    }
+    .user-profile__photo {
+        margin: 0 auto;
+        width: 65vw;
+        height: 65vw;
+    }
+    .user-profile__name {
+        font-size: 17px;
+    }
+    .wishlist-selection {
+        gap: 20px;
+    }
+    .wishlist-selection__button {
+        font-size: 13px;
+    }
+    #user-profile__friend-request-btn {
+        font-size: 16px;
+    }
 }
