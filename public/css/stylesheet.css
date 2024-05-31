@@ -72,6 +72,12 @@ main {
     min-height: 78vh;
 }
 
+.wrapper-for-loader-height {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+}
+
 .page-overall-info {
     font-size: 35px;
     text-shadow: -2px 0 var(--basic-orange), 0 2px var(--basic-orange), 2px 0 var(--basic-orange), 0 -2px var(--basic-orange);
@@ -81,10 +87,11 @@ main {
 }
 
 .form-wrap {
+    width: calc(28vw - 80px);
     padding: 30px 40px;
     border-radius: 24px;
-    width: calc(28vw - 40px);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: linear-gradient(to bottom, var(--basic-orange), #ffdbb6 75%);
@@ -125,6 +132,19 @@ main {
     transform: scale(0.98);
 }
 
+.submit-form-button {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    margin-top: 35px;
+    cursor: pointer;
+    font-family: 'Regular';
+    font-size: 20px;
+}
+
+.submit-form-button:hover {
+    transform: scale(0.95);
+}
 
 .capitalized-text-input {
     text-transform: capitalize;
@@ -229,7 +249,12 @@ main {
 
 .loader-zone {
     display: none;
+    flex-direction: column;
     position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
     background-color: rgba(243, 229, 229, 0.841);
     border-radius: 24px;
     justify-content: center;
@@ -328,7 +353,7 @@ main {
         height: 30px;
     }
     .form-wrap {
-        width: calc(40vw - 40px);
+        width: calc(40vw - 80px);
     }
 }
 
@@ -363,9 +388,12 @@ main {
     .page-overall-info {
         font-size: 25px;
     }
+    .submit-form-button {
+        font-size: 16px;
+    }
     .form-wrap {
         padding: 20px 30px;
-        width: calc(50vw - 30px);
+        width: calc(50vw - 60px);
     }
 }
 
@@ -383,7 +411,7 @@ main {
         height: 80px;
     }
     .form-wrap {
-        width: calc(70vw - 30px);
+        width: calc(70vw - 60px);
     }
     .upload-photo-button {
         font-size: 12px;

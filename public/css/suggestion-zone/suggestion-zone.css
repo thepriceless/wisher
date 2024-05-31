@@ -2,6 +2,11 @@ main {
     position: relative;
 }
 
+.adding-new-wishitem-zone {
+    display: flex;
+    flex-direction: column;
+}
+
 .suggestion-zone-with-buttons {
     box-sizing: border-box;
     position: relative;
@@ -159,10 +164,9 @@ main {
 }
 
 .loader-zone {
-    width: 1386px;
-    height: 650px;
-    top: -10px;
-    right: -17px;
+    width: 92vw;
+    left: -2vw;
+    bottom: -43px;
 }
 
 #suggestion-zone__importance {
@@ -177,7 +181,7 @@ main {
 .suggestion-zone__add-item-wrapper {
     position: absolute;
     border-radius: 50%;
-    border: solid #b3aeae;
+    border: 3px solid #b3aeae;
     width: 60px;
     height: 60px;
     padding: 10px;
@@ -292,5 +296,8 @@ main {
     #wishitem-in-wisher__add-item-wrapper {
         bottom: -26px;
         right: 3px;
+    }
+    .loader-zone {
+        bottom: -29px;
     }
 }

@@ -1,17 +1,3 @@
-.submit-form-button {
-    background-color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    margin-top: 35px;
-    cursor: pointer;
-    font-family: 'Regular';
-    font-size: 20px;
-}
-
-.submit-form-button:hover {
-    transform: scale(0.95);
-}
-
 #dont-have-an-account {
     margin-top: 45px;
     margin-block-end: 0;
@@ -24,10 +10,4 @@
 @font-face {
     font-family: "Bold";
     src: url("/fonts/SpaceMono-Bold.ttf");
-}
-
-@media (max-width: 950px) {
-    .submit-form-button {
-        font-size: 16px;
-    }
 }

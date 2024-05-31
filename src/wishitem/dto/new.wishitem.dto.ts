@@ -11,6 +11,8 @@ import {
   Min,
   IsEnum,
   IsIn,
+  IsOptional,
+  IsUUID,
 } from 'class-validator';
 
 export class NewWishitemDto {
@@ -34,7 +36,8 @@ export class NewWishitemDto {
   @ApiProperty({ description: 'The importance of the wish item' })
   importance: number;
 
-  @ArrayMaxSize(3, { each: true })
+  @IsOptional()
+  @ArrayMaxSize(3)
   @IsString({ each: true })
   @MaxLength(400, { each: true })
   @ApiPropertyOptional({ description: 'The item shop links of the wish item' })
@@ -44,6 +47,8 @@ export class NewWishitemDto {
   @ApiProperty({ description: 'The privacy type of the holder wishlist' })
   holderWishlistPrivacy: string;
 
+  @IsOptional()
+  @IsUUID()
   @ApiPropertyOptional()
   existingWishitemId: string;
 }

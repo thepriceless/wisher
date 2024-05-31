@@ -81,12 +81,6 @@ select:focus {
     cursor: pointer;
 }
 
-.loader-zone {
-    width: 493px;
-    height: 1078px;
-    top: 82px;
-}
-
 @media (max-width: 1300px) {        
     #title {
         font-size: 14px;

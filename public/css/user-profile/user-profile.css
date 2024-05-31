@@ -72,8 +72,6 @@ main {
 }
 
 .loader-zone {
-    width: 1194px;
-    height: 466px;
     top: 30px;
 }
 
@@ -148,6 +146,9 @@ main {
         margin-top: 20px;
         padding-top: 25px;
         padding-bottom: 25px;
+    }
+    .loader-zone {
+        top: 20px;
     }
 }
 
