@@ -13,7 +13,7 @@ async function uploadItem(event) {
   loader.style.display = 'flex';
 
   let response;
-  if (wishitemId) {
+  if (wishitemId && wishitemId !== 'null') {
     body.append('existingWishitemId', wishitemId);
     response = await fetch(`/api/wishitems/new?existingimage=true`, {
       method: 'POST',
