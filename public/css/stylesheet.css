@@ -12,7 +12,7 @@ select {
 }
 
 header{
-    margin: 0 9vw;
+    margin: 0 10vw;
     margin-bottom: 30px;
 }
 
@@ -37,19 +37,26 @@ footer {
     border-top-right-radius: 24px;
     margin: auto 9vw 0;
     height: 60px;
-    padding: 10px 8px 8px;
+    width: 82vw;
+    box-sizing: border-box;
+    padding: 10px 40px 8px;
     
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     
     color: white;
     background: rgba(150, 155, 159, 0.35);
             backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     font-family: "Regular";
-    font-size: 14px;
+    font-size: 13px;
 
+}
+
+footer p {
+    display: flex;
+    align-items: center;
 }
 
 main {
@@ -65,6 +72,12 @@ main {
     min-height: 78vh;
 }
 
+.wrapper-for-loader-height {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+}
+
 .page-overall-info {
     font-size: 35px;
     text-shadow: -2px 0 var(--basic-orange), 0 2px var(--basic-orange), 2px 0 var(--basic-orange), 0 -2px var(--basic-orange);
@@ -73,32 +86,35 @@ main {
     text-align: center;
 }
 
-.form-items {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .form-wrap {
+    width: calc(28vw - 80px);
     padding: 30px 40px;
     border-radius: 24px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: linear-gradient(to bottom, var(--basic-orange), #ffdbb6 75%);
 }
 
+.form-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 .form-input {
     background-color: #ffffff;
     border: none;
+    width: 95%;
     font-size: 14px;
     margin-bottom: 25px;
     border-radius: 8px;
     font-family: "Regular", "Bold";
     padding-inline: 9px;
     padding-block: 10px;
-    width: 350px;
     letter-spacing: 0.01em;
 }
 
@@ -116,6 +132,19 @@ main {
     transform: scale(0.98);
 }
 
+.submit-form-button {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    margin-top: 35px;
+    cursor: pointer;
+    font-family: 'Regular';
+    font-size: 20px;
+}
+
+.submit-form-button:hover {
+    transform: scale(0.95);
+}
 
 .capitalized-text-input {
     text-transform: capitalize;
@@ -133,6 +162,12 @@ main {
     padding: 20px 30px;
 }
 
+.footer__grid {
+    display: grid;
+    grid-template-areas: "app-info location fullstack design";
+    column-gap: 3.5vw;
+}
+
 .footer__credentials-icon-link {
     width: 25px;
     height: 25px;
@@ -141,8 +176,8 @@ main {
 }
 
 .footer__credentials-icon {
-    width: 25px;
-    height: 25px;
+    width: inherit;
+    height: inherit;
 }
 
 .footer__credentials-flexbox {
@@ -214,7 +249,12 @@ main {
 
 .loader-zone {
     display: none;
+    flex-direction: column;
     position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
     background-color: rgba(243, 229, 229, 0.841);
     border-radius: 24px;
     justify-content: center;
@@ -299,4 +339,82 @@ main {
 @font-face {
     font-family: "Myriad Regular";
     src: url("/fonts/MYRIADPRO-REGULAR.OTF");
+}
+
+@media (max-width: 1300px) {
+    footer {
+        font-size: 9px;
+    }
+    .footer__grid {
+        column-gap: 2.5vw;
+    }
+    .upload-photo-button {
+        font-size: 14px;
+        height: 30px;
+    }
+    .form-wrap {
+        width: calc(40vw - 80px);
+    }
+}
+
+@media (max-width: 950px) {
+    .footer__grid {
+        display: grid;
+        grid-template-areas: "app-info location"
+                             "design fullstack";
+        column-gap: 10vw;
+        row-gap: 0;
+    }
+
+    .footer__credentials-icon-link {
+        width: 15px;
+        height: 15px;
+        margin-top: 1px;
+    }
+
+    #footer__copyright-icon {
+        width: 12px;
+    }
+    .toggle-friends-button {
+        font-size: 14px;
+    }
+    .default-zone-wrapper {
+        padding: 15px 20px;
+    }
+    .avatar {
+        width: 100px;
+        height: 100px;
+    }
+    .page-overall-info {
+        font-size: 25px;
+    }
+    .submit-form-button {
+        font-size: 16px;
+    }
+    .form-wrap {
+        padding: 20px 30px;
+        width: calc(50vw - 60px);
+    }
+}
+
+@media (max-width: 700px) {
+    footer {
+        margin: auto 4vw 0;
+        width: 92vw;
+        font-size: 8px;
+    }
+    .page-overall-info {
+        font-size: 20px;
+    }
+    .avatar {
+        width: 80px;
+        height: 80px;
+    }
+    .form-wrap {
+        width: calc(70vw - 60px);
+    }
+    .upload-photo-button {
+        font-size: 12px;
+        height: 25px;
+    }
 }

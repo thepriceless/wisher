@@ -14,20 +14,20 @@
 </head>
 <body>
     <main class="body__main">
-        <div class="loader-zone">
-            <span class="upload-loader"></span>
-        </div>
-        <div class="form-wrap">
-            <form onsubmit="login(event)" class="login-form">
-                <div class="form-items">
+        <div class="wrapper-for-loader-height">
+            <div class="loader-zone">
+                <span class="upload-loader"></span>
+            </div>
+            <div class="form-wrap">
+                <form onsubmit="login(event)" class="form-items">
                     <input class="form-input" type="text" id="nickname" name="nickname" placeholder=" Nickname" maxlength="25" required>
                     <input class="form-input" type="password" id="password" name="password" placeholder=" Password" maxlength="25" required>
-                    <input class="sign-in-button" type="submit" value="Sign in">
-                </div>
-                <p id="dont-have-an-account">Don't have an account?<br>
-                    <a href="/auth/register">Register here</a>
-                </p>
-            </form>
+                    <input class="submit-form-button" type="submit" value="Sign in">
+                    <p id="dont-have-an-account">Don't have an account?<br>
+                        <a href="/auth/register">Register here</a>
+                    </p>
+                </form>
+            </div>
         </div>
     </main>
     {{> footerAd}}

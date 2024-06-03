@@ -39,3 +39,30 @@
     text-shadow: -2px 0 var(--basic-orange), 0 2px var(--basic-orange), 2px 0 var(--basic-orange), 0 -2px var(--basic-orange);
     cursor: pointer;
 }
+
+@media (max-width: 950px) {
+    .user-names-wrapper {
+        gap: 10px;
+    }
+    .user-nickname {
+        font-size: 16px;
+    }
+    .avatar {
+        width: 100px;
+        height: 100px;
+    }
+    .user-item {
+        margin-top: 12px;
+        padding-bottom: 12px;
+    }
+}
+
+@media (max-width: 700px) {
+    .user-nickname {
+        font-size: 14px;
+    }
+    .avatar {
+        width: 80px;
+        height: 80px;
+    }
+}

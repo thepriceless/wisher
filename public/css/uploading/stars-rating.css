@@ -1,10 +1,9 @@
 .importance {
   display: flex;
   flex-direction: row-reverse;
-  gap: 10px;
-  height: 46px;
+  gap: 1vw;
+  height: 3vw;
   padding: 0 10px;
-  margin-bottom: 25px;
 }
 
 .importance > input {

@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { ArrayMaxSize, IsAscii, IsInt, IsNumber, IsString, IsUUID, IsUrl, Max, MaxLength, Min } from 'class-validator';
+import { ArrayMaxSize, IsAscii, IsInt, IsNumber, IsOptional, IsString, IsUUID, IsUrl, Max, MaxLength, Min } from 'class-validator';
 
 export class WishitemDto {
   @IsUUID()
@@ -14,8 +14,8 @@ export class WishitemDto {
   title: string;
 
   @IsString()
-  @MaxLength(400, {
-    message: 'Title is too long. Maximum length is 400 characters.',
+  @MaxLength(300, {
+    message: 'Title is too long. Maximum length is 300 characters.',
   })
   @ApiProperty({ description: 'The description of the wish item' })
   description: string;
@@ -39,7 +39,10 @@ export class WishitemDto {
   @ApiProperty({ description: 'The image link file name of the wish item' })
   imageLinkAsKey: string;
 
-  //@ArrayMaxSize(3)
+  @IsOptional()
+  @ArrayMaxSize(3)
+  @IsString({ each: true })
+  @MaxLength(400, { each: true })
   @ApiPropertyOptional({ description: 'The item shop links of the wish item' })
   itemshopLinks?: string[];
 }
