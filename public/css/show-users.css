@@ -47,10 +47,6 @@
     .user-nickname {
         font-size: 16px;
     }
-    .avatar {
-        width: 100px;
-        height: 100px;
-    }
     .user-item {
         margin-top: 12px;
         padding-bottom: 12px;
@@ -61,8 +57,14 @@
     .user-nickname {
         font-size: 14px;
     }
-    .avatar {
-        width: 80px;
-        height: 80px;
+}
+
+@media (max-width: 500px) {
+    .user-names-wrapper {
+        margin: auto 0 auto 10px;
+        gap: 7px;
+    }
+    .user-nickname {
+        font-size: 9px;
     }
 }

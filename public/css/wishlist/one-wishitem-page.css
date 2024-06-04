@@ -2,6 +2,11 @@
     width: 83vw;
 }
 
+.suggestion-zone-with-buttons > :nth-child(1),
+.suggestion-zone-with-buttons > :nth-child(2) {
+    margin-right: 0;
+}
+
 @media (max-width: 700px) {
     #wishitem-in-wishlist__add-item-wrapper {
         bottom: -26px;

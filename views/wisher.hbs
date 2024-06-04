@@ -35,21 +35,21 @@
                             <div class="links-container">
                                 {{#each wishitem.itemshopLinks}}
                                     {{#if this}}
-                                        <a class="suggestion-zone__marketplace-single-link" href="{{this}}" target="_blank">Link №{{addOne @index}}</a>
+                                        <a class="suggestion-zone__marketplace-single-link" href="{{this}}" target="_blank">Link {{addOne @index}}</a>
                                     {{/if}}
                                 {{/each}}
                             </div>
                         </div>
                         <img class="suggestion-zone__photo wisher-item-image" src='{{#if wishitem.imageLinkAsKey}}/api/images/{{wishitem.imageLinkAsKey}}?imagekind=WISHITEM_IMAGE{{/if}}' alt="image">
+                        <div class="suggestion-zone__add-item-wrapper" id="wishitem-in-wisher__add-item-wrapper">
+                            <a class="suggestion-zone__add-this-wishitem-redirect" href="/wishitems/new?id={{wishitem.id}}">
+                                <img class="suggestion-zone__add-this-item-icon" src="/objects/icons8-plus.svg" alt="next"/>
+                            </a>
+                        </div>  
                     </div>
                     <button class="suggestion-zone__button" type="button" onclick="wisherGetNextItem()">
                         <img class="suggestion-zone__button_right" src="objects/arrow-button.svg" alt="next"/>
                     </button>
-                    <div class="suggestion-zone__add-item-wrapper" id="wishitem-in-wisher__add-item-wrapper">
-                        <a class="suggestion-zone__add-this-wishitem-redirect" href="/wishitems/new?id={{wishitem.id}}">
-                            <img class="suggestion-zone__add-this-item-icon" src="/objects/icons8-plus.svg" alt="next"/>
-                        </a>
-                    </div>  
                 </div>
             </div>
         </main>

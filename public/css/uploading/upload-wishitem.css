@@ -124,3 +124,20 @@ select:focus {
         margin-bottom: 50px;
     }
 }
+
+@media (max-width: 500px) {        
+    #title {
+        height: 50px;
+        font-size: 11px;
+    }
+    #description {
+        font-size: 9px;
+        height: 150px;
+    }
+    .helper {
+        font-size: 9px;
+    }
+    .wishitem-shop-link {
+        font-size: 7px;
+    }
+}

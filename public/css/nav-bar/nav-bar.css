@@ -209,7 +209,7 @@
 @media (max-width: 700px) {
     #search-users,
     .nav-bar__text {
-        font-size: 6px;
+        font-size: 8px;
     }
 
     .nav-bar__text {
@@ -218,6 +218,28 @@
     }
 
     .nav-bar {
-        height: 28px;
+        height: 20px;
+        gap: 8px;
+        width: 90vw;
+    }
+    .nav-bar__box {
+        border: 2px solid white;
+        border-radius: 18px;
+    }
+    #search-users,
+    #page-id__wishlists {
+        border-right: 2px solid #fff;
+    }
+
+    #search-users{
+        padding-block: 4px;
+        padding-inline: 5px;
+    }
+}
+
+@media (max-width: 500px) {
+    #search-users,
+    .nav-bar__text {
+        font-size: 6px;
     }
 }

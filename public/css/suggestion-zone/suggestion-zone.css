@@ -13,8 +13,12 @@ main {
     width: 88vw;
     margin: 0 auto;
     display: flex;
-    gap: 15px;
     align-items: center;
+}
+
+.suggestion-zone-with-buttons > :nth-child(1),
+.suggestion-zone-with-buttons > :nth-child(2) {
+    margin-right: 15px;
 }
 
 .suggestion-zone {
@@ -149,8 +153,11 @@ main {
 }
 
 .helper-text {
+    display: inline-block;
     font-size: 18px;
     margin: 0 20px 0 0;
+    margin-block: 0;
+    margin-inline: 0;
     width: 130px;
 }
 
@@ -210,16 +217,17 @@ main {
 .suggestion-zone__add-this-item-icon {
     width: 100%;
     height: 100%;
+    padding-left: 0.5px;
 }
 
 #wishitem-in-wisher__add-item-wrapper {
-    bottom: -41px;
-    right: -11px;
+    bottom: -45px;
+    right: -45px;
 }
 
 #wishitem-in-wishlist__add-item-wrapper {
-    bottom: -41px;
-    right: -41px;
+    bottom: -45px;
+    right: -45px;
 }
 
 @media (max-width: 1300px) {
@@ -275,6 +283,9 @@ main {
     .suggestion-zone__importance {
         height: 25px;
     }
+    .suggestion-zone__importance-stars {
+        gap: 10px;
+    }
 }
 
 @media (max-width: 700px) {
@@ -294,10 +305,61 @@ main {
         padding: 6px;
     }
     #wishitem-in-wisher__add-item-wrapper {
-        bottom: -26px;
-        right: 3px;
+        bottom: -30px;
+        right: -30px;
     }
     .loader-zone {
         bottom: -29px;
+    }
+}
+
+@media (max-width: 500px) {
+    .suggestion-zone-with-buttons {
+        width: 95vw;
+    }
+    .suggestion-zone-with-buttons > :nth-child(1),
+    .suggestion-zone-with-buttons > :nth-child(2) {
+        margin-right: 3%;
+    }
+    .suggestion-zone__photo {
+        width: 25vw;
+        height: 25vw;
+    }
+    .suggestion-zone{
+        width: 100%;
+        box-sizing: border-box;
+        grid-template-areas: "header image"
+                             "description description"
+                             "importance importance"
+                             "links links";
+    }
+    .suggestion-zone__marketplace-single-link {
+        font-size: 9px;
+    }
+    .helper-text {
+        font-size: 8px;
+        width: fit-content;
+        margin-right: 12px;
+    }
+    .suggestion-zone__importance {
+        height: 18px;
+    }
+    .suggestion-zone__importance-stars {
+        gap: 6px;
+    }
+    .links-container {
+        gap: 6px;
+    }
+}
+
+@media (max-width: 350px) {
+    .links-container {
+        gap: 4px;
+    }
+    .suggestion-zone__marketplace-single-link {
+        font-size: 7px;
+    }
+    .suggestion-zone__description {
+        font-size: 7px;
     }
 }

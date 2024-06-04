@@ -98,7 +98,7 @@ function changeViewWithNewData(data) {
       linksContainer.appendChild(aTag);
     }
     aTag.href = link;
-    aTag.textContent = `Link №${index + 1}`;
+    aTag.textContent = `Link ${index + 1}`;
   });
 
   for (let i = data.itemshopLinks.length; i < existingLinks.length; i++) {

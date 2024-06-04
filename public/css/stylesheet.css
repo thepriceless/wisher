@@ -12,8 +12,7 @@ select {
 }
 
 header{
-    margin: 0 10vw;
-    margin-bottom: 30px;
+    margin: 0 10vw 30px;
 }
 
 body {
@@ -155,7 +154,8 @@ main {
 }
 
 .default-zone-wrapper {
-    width: auto;
+    width: fit-content;
+    margin: 0 auto;
     border: 6px solid white;
     border-radius: 24px;
     background-color: rgba(242, 168, 90, 0.51);
@@ -218,8 +218,8 @@ main {
 
 .user-accept-friend-request {
     position: absolute;
-    top: 10px;
-    right: 3px;
+    top: -3px;
+    right: 0;
     background: transparent;
     border: 2px solid #fff;
     color: #fff;
@@ -403,8 +403,11 @@ main {
         width: 92vw;
         font-size: 8px;
     }
+    header{
+        margin: 0 5vw 30px;
+    }
     .page-overall-info {
-        font-size: 20px;
+        font-size: 18px;
     }
     .avatar {
         width: 80px;
@@ -416,5 +419,52 @@ main {
     .upload-photo-button {
         font-size: 12px;
         height: 25px;
+    }
+    .toggle-page-state-buttons {
+        gap: 15px;
+    }
+    .toggle-friends-button {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 500px) {
+    footer {
+        margin: auto 2vw 0;
+        width: 96vw;
+        font-size: 6px;
+        padding: 10px 10px 8px;
+    }
+    .footer__grid {
+        column-gap: 5vw;
+    }
+    .page-overall-info {
+        font-size: 15px;
+    }
+    .avatar {
+        width: 14vw;
+        height: 14vw;
+        border: 2px solid #fff;
+    }
+    .default-zone-wrapper {
+        border: 4px solid white;
+        padding: 10px 10px;
+    }
+    .user-accept-friend-request {
+        font-size: 8px;
+    }
+    .form-input {
+        padding-inline: 5px;
+        padding-block: 3px;
+    }
+    .upload-photo-button {
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 350px) {
+    .page-overall-info {
+        font-size: 13px;
     }
 }

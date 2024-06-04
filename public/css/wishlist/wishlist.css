@@ -157,24 +157,26 @@
         letter-spacing: 2px;
     }
     .wishlist-item .tooltip {
-        top: 54px;
+        top: 67px;
         right: -3px;
     }
     .wishlist-item__info {
         height: 17px;
         width: 17px;
     }
-    .wishlist-item__privacy-icon {
-        height: 90px;
-        margin: 15px 0;
+}
+
+@media (max-width: 500px) {
+    .wishlist-item {
+        width: 45vw;
     }
-    .tooltip .tooltiptext {
-        width: 80%;
-        font-size: 8px;
-        right: -140px;
-        top: 75px;
+    .wishlist-item__title {
+        font-size: 16px;
     }
-    .tooltip:hover .tooltiptext {
-        opacity: 0.8;
+}
+
+@media (max-width: 350px) {
+    .wishlist-item__title {
+        font-size: 13px;
     }
 }

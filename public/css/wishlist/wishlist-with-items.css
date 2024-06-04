@@ -131,3 +131,18 @@ button {
         padding: 8px;
     }
 }
+
+@media (max-width: 500px) {
+    .wishitem-card__title {
+        font-size: 7px;
+    }
+    .wishitem-container {
+        grid-gap: 7px;
+    }
+}
+
+@media (max-width: 350px) {
+    .wishitem-card__title {
+        font-size: 6px;
+    }
+}

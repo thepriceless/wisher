@@ -23,33 +23,30 @@
             <h2 class="page-overall-info" id="info-about-requests" style="display: none;">You have {{ friendRequestsCount }} incoming friend requests</h2>
             {{#if friendsCount}}
                 <div class="default-zone-wrapper">
-                    <div class="friends-zone">
-                        <div id="friendsZone" class="friends-zone">
-                            {{#each friends}}
-                                <div class="user-item" onclick="redirectToProfile('{{this.nickname}}')">
-                                    <img class="avatar" src="{{#if this.photoLinkAsKey}}/api/images/{{this.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="avatar">
-                                    <div class="user-names-wrapper">
-                                        <h2 class="user-nickname capitalized-text-input">{{this.name}}</h2>
-                                        <h2 class="user-nickname lowercased-text-input user-nickname">{{this.nickname}}</h2>
-                                        <h2 class="user-nickname capitalized-text-input">{{this.surname}}</h2>
-                                    </div>
+                    <div id="friendsZone" class="friends-zone">
+                        {{#each friends}}
+                            <div class="user-item" onclick="redirectToProfile('{{this.nickname}}')">
+                                <img class="avatar" src="{{#if this.photoLinkAsKey}}/api/images/{{this.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="avatar">
+                                <div class="user-names-wrapper">
+                                    <h2 class="user-nickname capitalized-text-input">{{this.name}}</h2>
+                                    <h2 class="user-nickname lowercased-text-input user-nickname">{{this.nickname}}</h2>
+                                    <h2 class="user-nickname capitalized-text-input">{{this.surname}}</h2>
                                 </div>
-                            {{/each}}
-                        </div>
-                        <div id="requestsZone" class="requests-zone" style="display: none;">
-                            {{#each friendRequests}}
-                                <div class="user-item" onclick="redirectToProfile('{{this.nickname}}')">
-                                    <img class="avatar" src="{{#if this.photoLinkAsKey}}/api/images/{{this.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="avatar">
-                                    <div class="user-names-wrapper">
-                                        <h2 class="user-nickname capitalized-text-input">{{this.name}}</h2>
-                                        <h2 class="user-nickname lowercased-text-input user-nickname">{{this.nickname}}</h2>
-                                        <h2 class="user-nickname capitalized-text-input">{{this.surname}}</h2>
-                                    </div>
-                                    <button class="user-accept-friend-request" onclick="event.stopPropagation(); processFriendRequest('{{this.nickname}}', '{{authorizedUser.nickname}}'); location.reload();">Accept</button>
+                            </div>
+                        {{/each}}
+                    </div>
+                    <div id="requestsZone" class="requests-zone" style="display: none;">
+                        {{#each friendRequests}}
+                            <div class="user-item" onclick="redirectToProfile('{{this.nickname}}')">
+                                <img class="avatar" src="{{#if this.photoLinkAsKey}}/api/images/{{this.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="avatar">
+                                <div class="user-names-wrapper">
+                                    <h2 class="user-nickname capitalized-text-input">{{this.name}}</h2>
+                                    <h2 class="user-nickname lowercased-text-input user-nickname">{{this.nickname}}</h2>
+                                    <h2 class="user-nickname capitalized-text-input">{{this.surname}}</h2>
                                 </div>
-                            {{/each}}
-                        </div>
-
+                                <button class="user-accept-friend-request" onclick="event.stopPropagation(); processFriendRequest('{{this.nickname}}', '{{authorizedUser.nickname}}'); location.reload();">Accept</button>
+                            </div>
+                        {{/each}}
                     </div>
                 </div>
             {{/if}}
