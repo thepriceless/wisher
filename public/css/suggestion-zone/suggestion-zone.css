@@ -93,6 +93,7 @@ main {
     align-items: center;
     height: 50px;
     width: auto;
+    gap: 20px;
 }
 
 .suggestion-zone__marketplace-single-link {
@@ -333,6 +334,9 @@ main {
                              "importance importance"
                              "links links";
     }
+    #suggestion-zone-wisher-page {
+        width: calc(100% - 50px);
+    }
     .suggestion-zone__marketplace-single-link {
         font-size: 9px;
     }
@@ -343,6 +347,7 @@ main {
     }
     .suggestion-zone__importance {
         height: 18px;
+        gap: 15px;
     }
     .suggestion-zone__importance-stars {
         gap: 6px;
