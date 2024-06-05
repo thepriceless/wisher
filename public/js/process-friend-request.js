@@ -1,6 +1,7 @@
 async function processFriendRequest(receiverNickname, senderNickname) {
+  let loader;
   try {
-    const loader = document.querySelector('.loader-zone');
+    loader = document.querySelector('.loader-zone');
     loader.style.display = 'flex';
   } catch (error) {}
   const body = new URLSearchParams();
