@@ -19,7 +19,6 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { AppService } from './app.service';
-import { TimeInterceptor } from './interceptors/time.interceptor';
 import { WishitemEntity } from './wishitem/wishitem.entity';
 import { Public } from './auth/decorators/public.decorator';
 import { UserEntity } from './user/user.entity';
@@ -44,7 +43,6 @@ import { GetUserProfileResponse } from './types/get.user.profile.response';
     'Requestor is unable to send this request. Requestor should register / login in the app',
 })
 @Controller()
-@UseInterceptors(TimeInterceptor)
 export class AppController {
   constructor(
     private readonly appService: AppService,

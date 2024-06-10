@@ -6,7 +6,7 @@ import {
 
 export const wishitemImageSizeValidation = new ParseFilePipeBuilder()
   .addMaxSizeValidator({
-    maxSize: 2_000_000,
+    maxSize: 4_000_000,
   })
   .build({
     errorHttpStatusCode: HttpStatus.BAD_REQUEST,

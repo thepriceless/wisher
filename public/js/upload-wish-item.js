@@ -34,7 +34,7 @@ async function uploadItem(event) {
   } else if (response.status === 400) {
     loader.style.display = 'none';
     if (responseData.message === 'Max file size reached') {
-      alert('Max file size (2 MB) reached. Upload another photo');
+      alert('Max file size (4 MB) reached. Upload another photo');
     } else if (responseData.message === 'Incorrect file extension') {
       alert('Incorrect file extension. You can use only .jpg, .jpeg and .png');
     }
