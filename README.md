@@ -1,20 +1,22 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# [Wisher](https://wisher.fun)
+Wisher is a web-app for storing, sharing and updating your wishlists.
 
-# Wisher
+## Why [Wisher](https://wisher.fun) is useful?
+Very often we have to make presents or receive them, however sometimes it can become a little weird or embarrassing process. You may make a bad choice for your friend, so the present will not satisfy him/her a lot. Or your guys just don't know what you want.
 
-Web application for storing, sharing and updating your wishlist of items or presents
+So, **Wisher** solves this problem providing some useful features for users:
 
-### Generated ERD
+- **storing wishitems** in several wishlists separated by privacy
+- **creating new wishitems** from scratch
+- scrolling the global wishitem line to **unleash the fantasy**
+- find friends and see their wishlists
 
-![ERD](https://github.com/is-web-y25/urlapov-m33001/blob/master/prisma/erd/erd-generated.jpg?raw=true)
----
+## Technology stack
+- Backend: NodeJS, NestJS, TS, PostgreSQL, Prisma ORM, Yandex Cloud Object Storage (S3)
+- Frontend: Vanilla CSS + JS, Handlebars view templator
+- Deployment: Docker, Ubuntu, Nginx
+- CI/CD: triggered by Github Actions
 
-### ERD made beforehand
-
-![beforehand ERD](https://github.com/is-web-y25/urlapov-m33001/blob/master/prisma/erd/erd-beforehand.jpg?raw=true)
 
 ## Credits
-
-Urlapov Fyodor, ITMO University
+Urlapov Fyodor, ITMO University M33001
