@@ -9,7 +9,7 @@ So, **Wisher** solves this problem providing some useful features for users:
 - **storing wishitems** in several wishlists separated by privacy
 - **creating new wishitems** from scratch
 - scrolling the global wishitem line to **unleash the fantasy**
-- **finding friends** and see their wishlists
+- **finding friends** and inspecting their wishlists
 
 ---
 ![Wisher main page](https://github.com/thepriceless/wisher/blob/master/images/readme-photo.jpg?raw=true)
@@ -17,8 +17,8 @@ So, **Wisher** solves this problem providing some useful features for users:
 ## <div align="center">Getting started</div>
 1. Sign in the app [here](https://wisher.fun/auth/register) with your credentials and an optional profile photo
 2. List items on the [wisher page](https://wisher.fun/wisher) and add something you like using the plus button in the right bottom corner
-3. Create a new wishitem from scratch using the plus button on the panel on top
-4. Find your friends in the app, send them friend requests and inspect their wishlists
+3. [Create a new wishitem](https://wisher.fun/wishitems/new) from scratch using the plus button on the panel on top
+4. Find your [friends](https://wisher.fun/friends) in the app, send them friend requests and inspect their wishlists
 
 ## <div align="center">Contributing</div>
 Whoever you are: developer or not, you have a nice opportunity to help the project:
@@ -35,4 +35,3 @@ Whoever you are: developer or not, you have a nice opportunity to help the proje
 
 ## <div align="center">Credits</div>
 <div align="center">Urlapov Fyodor, ITMO University, 2024</div>
-
