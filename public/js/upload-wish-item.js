@@ -118,3 +118,13 @@ function removeLinkField(event) {
   inputContainer.parentNode.removeChild(inputContainer);
   linkCounter--;
 }
+
+// adjust description height to fit the height of input text
+window.addEventListener('DOMContentLoaded', (event) => {
+  const description = document.getElementById('description');
+  description.style.height = `${description.scrollHeight}px`;
+  description.addEventListener('input', (event) => {
+    event.target.style.height = 'auto';
+    event.target.style.height = `${event.target.scrollHeight}px`;
+  });
+});

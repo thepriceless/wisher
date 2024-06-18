@@ -26,7 +26,7 @@
                         <div class="user-profile__name-wrapper">
                             <h3 class="user-profile__name">{{user.name}} {{user.surname}}</h3>
                         </div>
-                        <h2 class="user-profile__nickname">{{user.nickname}}</h2>
+                        <h2 class="user-profile__nickname">'{{user.nickname}}'</h2>
                         {{#if isGuest}}
                             <button id="user-profile__friend-request-btn" onclick="processFriendRequest('{{user.nickname}}', '{{authorizedUser.nickname}}')">
                                 {{#if (eq friendshipState "NOTHING")}}

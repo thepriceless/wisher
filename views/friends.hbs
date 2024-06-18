@@ -30,7 +30,7 @@
                                 <img class="avatar" src="{{#if this.photoLinkAsKey}}/api/images/{{this.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="avatar">
                                 <div class="user-names-wrapper">
                                     <h2 class="user-nickname capitalized-text-input">{{this.name}}</h2>
-                                    <h2 class="user-nickname lowercased-text-input user-nickname">{{this.nickname}}</h2>
+                                    <h2 class="user-nickname lowercased-text-input user-nickname">'{{this.nickname}}'</h2>
                                     <h2 class="user-nickname capitalized-text-input">{{this.surname}}</h2>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                                 <img class="avatar" src="{{#if this.photoLinkAsKey}}/api/images/{{this.photoLinkAsKey}}?imagekind=PROFILE_PHOTO{{/if}}" alt="avatar">
                                 <div class="user-names-wrapper">
                                     <h2 class="user-nickname capitalized-text-input">{{this.name}}</h2>
-                                    <h2 class="user-nickname lowercased-text-input user-nickname">{{this.nickname}}</h2>
+                                    <h2 class="user-nickname lowercased-text-input user-nickname">'{{this.nickname}}'</h2>
                                     <h2 class="user-nickname capitalized-text-input">{{this.surname}}</h2>
                                 </div>
                                 <button class="user-accept-friend-request" onclick="event.stopPropagation(); processFriendRequest('{{this.nickname}}', '{{authorizedUser.nickname}}'); location.reload();">Accept</button>
